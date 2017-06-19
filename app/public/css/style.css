@@ -1,0 +1,223 @@
+/* YOUR CUSTOM STYLES */
+
+
+/* TEMPLATE STYLES */
+
+html,
+body,
+.view {
+    height: 100%;
+}
+
+
+/* Navigation*/
+
+.navbar {
+    background-color: transparent;
+}
+
+.scrolling-navbar {
+    -webkit-transition: background .5s ease-in-out, padding .5s ease-in-out;
+    -moz-transition: background .5s ease-in-out, padding .5s ease-in-out;
+    transition: background .5s ease-in-out, padding .5s ease-in-out;
+}
+
+.top-nav-collapse {
+    background-color: #3c4f74;
+}
+
+footer.page-footer {
+    background-color: #3c4f74;
+    margin-top: 2rem;
+}
+
+@media only screen and (max-width: 768px) {
+    .navbar {
+        background-color: #1C2331;
+    }
+}
+
+
+/*Call to action*/
+
+.flex-center {
+    color: #fff;
+}
+
+#indexCover, .view {
+    background: url("https://images.unsplash.com/photo-1487446929682-f62f73984006?dpr=2&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=&bg=")no-repeat center center fixed;
+}
+
+#aboutCover {
+    background: url("https://images.unsplash.com/photo-1443557661966-8b4795a6f62c?ixlib=rb-0.3.5&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=1080&amp;fit=max&amp;s=6e4b02239488939003b8601f95e9f41f")no-repeat center center fixed;
+}
+
+#dashboardCover {
+    background: url("https://images.unsplash.com/photo-1474010446775-db2bc33f1845?ixlib=rb-0.3.5&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=1080&amp;fit=max&amp;s=7b4cde73cc5f9e8b9eda609242fb54f0")no-repeat center center fixed;
+}
+
+#indexCover, #aboutCover, #dashboardCover, .view {
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+
+/*Contact section*/
+
+#contact .fa {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: #1C2331;
+}
+
+.avatar {
+    margin-bottom: 20px;
+}
+
+
+/* Login styles */
+
+.options {
+    color: #757575;
+}
+
+.md-form > i {
+    color: #757575;
+}
+
+.card {
+    width: 600px;
+    margin-top: 80px;
+}
+
+/*about section*/
+img {
+    max-width: 100%;
+    max-height: 250px;
+}
+
+.socialLinks {
+    color: white;
+    text-decoration: none;
+}
+/* Edit Profile styles */
+
+#editform {
+    background-color: white;
+    opacity: 0.8;
+    padding: 1em;
+    margin: 0 auto;
+}
+
+.pskills {
+    color: gray;
+}
+
+.form-group {
+    color: gray;
+}
+
+.editprof {
+    color: white;
+    text-align: center;
+    font-family: 'Audiowide', cursive;
+}
+
+#infoUpdated{
+    text-align: center;
+    background: green;
+    padding:10px;
+    color:#fff;
+    border:1px solid darkgreen;
+    margin:0 auto;
+    margin-top:60px;
+    width:70%;
+
+}
+
+#profModal{
+  color:white;
+}
+
+
+/* The switch - the box around the slider */
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 22px;
+}
+
+
+/* Hide default HTML checkbox */
+
+.switch input {
+    display: none;
+}
+
+
+/* The slider */
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 14px;
+    width: 14px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+input:checked + .slider {
+    background-color: #2196F3;
+}
+
+input:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+}
+
+
+/* Rounded sliders */
+
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+.form-error {
+    color: #b94a48;
+}
+
+/* Feature Section */
+#cardfeature, #cardcontact{
+  width: 100%;
+}
+
+
+/* Map styles */

@@ -1,0 +1,94 @@
+/*@import url(http://fonts.googleapis.com/css?family=Source+Code+Pro:400,600);*/
+/*body {font-family: "Source Code Pro", Consolas, monaco, monospace; line-height: 160%; font-size: 16px;  margin: 0; }*/
+path.link {
+fill: none;
+stroke-width: 2px;
+}
+
+.node:not(:hover) .nodetext {
+display: none;
+
+}
+h1 { font-size: 36px; margin: 10px 0; text-transform: uppercase; font-weight: normal;}
+h2, h3 { font-size: 18px; margin: 5px 0 ; font-weight: normal;}
+header {padding: 20px; position: absolute; top: 0; left: 0;}
+a:link { color: #EE3124; text-decoration: none;}
+a:visited { color: #EE3124; }
+a:hover { color: #A4CD39; text-decoration: underline;}
+a:active { color: #EE3124; }
+
+path {
+fill: #ccc;
+stroke: #fff;
+stroke-width: .5px;
+}
+
+.d3container {
+    position: relative;
+    display: block;
+    width: 960px;
+    margin: 0 auto;
+    margin-top: 90px;
+}
+
+#atlantaVis {
+    z-index: 100;
+    top: -120px;
+    left: -120px;
+    position: absolute;
+}
+
+.node {
+    top: 200px;
+    left: 200px;
+    z-index: 8888;
+    position: absolute;
+}
+
+/*modal*/
+
+#modal {
+    position:fixed;
+    width: 30%;
+    height: 500px;
+    padding: 30px;
+    left:50%;
+    top:50%;
+    z-index:9996;
+    background: white;
+    border: 1px black solid;
+    box-shadow: 10px 10px 5px #888888;
+    display: none;
+    transform: translate(-50%, -50%);
+    font-family: monospace;
+}
+
+#content {
+    /*max-height: 500px;*/
+    overflow: auto;
+    text-align: center;
+}
+
+#modalClose {
+    position: absolute;
+    top: -0px;
+    right: -0px;
+    z-index: 9999;
+}
+
+#profile {
+  margin: auto;
+}
+
+.modalName, .modalId, .modalEmail, .modalPhone, .modalGit {
+    z-index: 9997;
+    padding-left: 10px;
+    color: black;
+}
+
+.modalName {
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 20px;
+  color: steelblue;
+}
