@@ -3,10 +3,11 @@ var express = require('express'),
     session = require('express-session'),
     bodyParser = require('body-parser'),
     env = require('dotenv').load(),
-    exphbs = require("express-handlebars");
+    exphbs = require("express-handlebars"),
+    secret = require("./app/config/secrets");
 
 var app = express(),
-    PORT = process.env.PORT || 3000;
+    PORT = process.env.PORT || 8080;
 
 // Static directory
 app.use(express.static("./app/public"));
@@ -28,32 +29,20 @@ app.engine('hbs', exphbs({
 app.set('view engine', '.hbs');
 
 
-// For Passport
-app.use(session({ secret: 'keyboard cat', resave: true, saveUninitialized: true })); // session secret
-app.use(passport.initialize());
-app.use(passport.session()); // persistent login sessions
-
-
-
-
-
 //Models
 var db = require("./app/models");
 
-var routes = require("./app/controllers/authcontroller.js");
+var routes = require("./app/controllers/auth-routes");
 app.use("/", routes);
 
 
-//load passport strategies
 
-require('./app/config/passport/passport.js')(passport, db);
-
+var authenticate = require("./app/controllers/auth");
 
 var server;
-
 //Sync Database
 
-db.sequelize.sync({ }).then(function() {
+db.sequelize.sync({ force: true }).then(function() {
 
     console.log('Nice! Database looks fine');
 
