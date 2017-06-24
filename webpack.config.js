@@ -22,6 +22,12 @@ module.exports = {
                     // These are the specific transformations we'll be using.
                     presets: ["react", "es2015"]
                 }
+            },
+
+            {
+                test: /\.scss$/,
+               // loaders:'style-loader!css-loader!sass-loader'
+                loader:['style-loader', 'css-loader', 'sass-loader']
             }
         ]
     },

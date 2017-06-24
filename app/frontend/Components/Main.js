@@ -2,6 +2,7 @@
  * Created by esterlingaccime on 6/24/17.
  */
 var React = require("react");
+var Header = require("./Header");
 
 
 class Main extends React.Component{
@@ -11,9 +12,13 @@ class Main extends React.Component{
 
     render(){
         return(
-            <h1>Welcome to my App</h1>
+           <div className="container">
+               <Header />
+           </div>
         );
     }
-};
+}
+
+
 
 module.exports = Main;
