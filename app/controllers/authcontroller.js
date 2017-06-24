@@ -29,18 +29,18 @@ var router = express.Router();
 
 var user;
 
-// Verified that the user needs to sign in
-var isLoggedIn = function(req, res, next) {
-    if (req.isAuthenticated()) {
-        return next();
-    }
-    console.log(req.isAuthenticated());
-    res.redirect("/signin");
-};
+// // Verified that the user needs to sign in
+// var isLoggedIn = function(req, res, next) {
+//     if (req.isAuthenticated()) {
+//         return next();
+//     }
+//     console.log(req.isAuthenticated());
+//     res.redirect("/signin");
+// };
 
 
 // Home page
-router.get("/index", function(req, res) {
+router.get("/", function(req, res) {
     res.render("index");
 });
 
@@ -93,7 +93,7 @@ router.get("/signup/:name?", function(req, res) {
 
 // Dashboard included the map that recruiters see
 // If user not logged in, they're not able to see it
-router.get("/dashboard", isLoggedIn, function(req, res) {
+router.get("/dashboard", function(req, res) {
         // Reset Georgia Tech Coding BootCamp
         gtBootcamp[0].children = [];
         gtBootcamp[1].children = [];
@@ -216,7 +216,7 @@ router.get("/dashboard", isLoggedIn, function(req, res) {
 
 // Profile page for Students
 // If user not logged in, they're not able to see it
-router.get("/profile", isLoggedIn, function(req, res) {
+router.get("/profile", function(req, res) {
     var currentUser = req.user;
     user = currentUser;
     console.log(user);
@@ -240,7 +240,7 @@ router.get("/profile", isLoggedIn, function(req, res) {
 
 // Log the user out
 // If user not logged in, they're not able to see it
-router.get("/logout", isLoggedIn, function(req, res) {
+router.get("/logout", function(req, res) {
     req.session.destroy(function(err) {
         res.redirect("/index");
     });
@@ -274,19 +274,15 @@ router.post('/signin/recruiter', passport.authenticate("recruiter-signin", {
 
 
 // Sign Up for Students
-router.post('/signup/student', passport.authenticate("student-signup", {
-    successRedirect: '/profile',
-    failureRedirect: '/signup/student'
-
-}));
+router.post('/signup/student', function (req, res) {
+    res.json({status:200});
+});
 
 
 // Signin for Students
-router.post('/signin/student', passport.authenticate("student-signin", {
-    successRedirect: '/profile',
-    failureRedirect: '/signin/student'
-
-}));
+router.post('/signin/student', function (req, res) {
+    res.json({status: 2000 });
+});
 
 
 router.post("/update/profile", function(req, res) {

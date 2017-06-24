@@ -1,5 +1,4 @@
 var express = require('express'),
-    passport = require('passport'),
     session = require('express-session'),
     bodyParser = require('body-parser'),
     env = require('dotenv').load(),
@@ -37,7 +36,7 @@ app.use("/", routes);
 
 
 
-var authenticate = require("./app/controllers/auth");
+// var authenticate = require("./app/controllers/auth");
 
 var server;
 //Sync Database
