@@ -1,2 +1,60 @@
-$mainColor : blue;
 
+*{
+  padding:0;
+  margin:0;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+
+$green : #21BA45;
+
+.navbar{
+  border:1px solid $green;
+  height:50px;
+  -webkit-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.4);
+  -moz-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.4);
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.4);
+  padding:10px;
+  -webkit-border-radius:0px 0px 4px 4px;
+  -moz-border-radius:0px 0px 4px 4px;
+  border-radius:0px 0px 4px 4px;
+  
+  &__link{
+    float:left;
+    font-size:20px;
+  }
+
+  &__menu{
+    ul li{
+      float:left;
+      margin-left:20px;
+      list-style:none;
+      text-decoration:none;
+
+      a{
+        color:$green;
+      }
+    }
+  }
+
+}
+
+.content{
+  display: table;
+  margin:0 auto;
+  border:1px solid red;
+  text-align: center;
+
+  .login{
+    position: absolute;
+    margin: auto;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 200px;
+    height: 200px;
+  }
+}
