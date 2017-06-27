@@ -9,11 +9,11 @@ var db = require("../models"),
     secret = require("../config/secrets"),
     path = require("path");
 
-router.get("/signup", function (req, res) {
-    res.render("signup", {status: "Create a username and password"});
-});
+// router.get("/signup", function (req, res) {
+//     res.render("signup", {status: "Create a username and password"});
+// });
 
-router.get("/", function (req, res) {
+router.get("*", function (req, res) {
     res.sendFile(path.join(__dirname + "/../views/index.html"));
 });
 

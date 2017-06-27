@@ -44,17 +44,17 @@ $green : #21BA45;
 .content{
   display: table;
   margin:0 auto;
-  border:1px solid red;
   text-align: center;
 
-  .login{
+  .center{
     position: absolute;
     margin: auto;
     top: 0;
     right: 0;
     bottom: 0;
     left: 0;
-    width: 200px;
+    padding:10px;
+    width: 300px;
     height: 200px;
   }
 }
