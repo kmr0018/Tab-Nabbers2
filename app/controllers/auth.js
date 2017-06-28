@@ -31,10 +31,6 @@ router.use(function (req, res, next) {
     }
 });
 
-router.get("/", function (req, res) {
-    res.json({message: 'Welcome to the coolest API on earth!'});
-});
-
 
 
 router.get("/users", function (req, res) {

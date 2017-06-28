@@ -31,12 +31,14 @@ app.set('view engine', '.hbs');
 //Models
 var db = require("./app/models");
 
+var authenticate = require("./app/controllers/auth");
+app.use("/api", authenticate);
+
 var routes = require("./app/controllers/auth-routes");
 app.use("/", routes);
 
 
 
-// var authenticate = require("./app/controllers/auth");
 
 var server;
 //Sync Database
