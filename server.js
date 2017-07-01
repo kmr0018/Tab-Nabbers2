@@ -3,7 +3,8 @@ var express = require('express'),
     bodyParser = require('body-parser'),
     env = require('dotenv').load(),
     exphbs = require("express-handlebars"),
-    secret = require("./app/config/secrets");
+    secret = require("./app/config/secrets"),
+    cookieParser = require("cookie-parser");
 
 var app = express(),
     PORT = process.env.PORT || 8080;
@@ -28,15 +29,19 @@ app.engine('hbs', exphbs({
 app.set('view engine', '.hbs');
 
 
+app.use(cookieParser(secret));
+
 //Models
 var db = require("./app/models");
+
+var authenticate = require("./app/controllers/auth");
+app.use("/api", authenticate);
 
 var routes = require("./app/controllers/auth-routes");
 app.use("/", routes);
 
 
 
-// var authenticate = require("./app/controllers/auth");
 
 var server;
 //Sync Database

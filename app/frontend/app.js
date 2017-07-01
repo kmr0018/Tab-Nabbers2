@@ -1,11 +1,11 @@
 /**
  * Created by esterlingaccime on 6/24/17.
  */
-var React = require("react");
+import React from "react";
 
-var ReactDOM = require("react-dom");
+import ReactDOM from "react-dom";
+
+import Routes from "./config/routes";
 
 
-var Parent = require("./Components/Main");
-
-ReactDOM.render(<Parent />, document.getElementById("app"));
+ReactDOM.render(Routes, document.getElementById("app"));

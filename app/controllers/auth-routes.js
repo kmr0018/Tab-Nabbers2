@@ -9,11 +9,9 @@ var db = require("../models"),
     secret = require("../config/secrets"),
     path = require("path");
 
-router.get("/signup", function (req, res) {
-    res.render("signup", {status: "Create a username and password"});
-});
 
-router.get("/", function (req, res) {
+
+router.get("*", function (req, res) {
     res.sendFile(path.join(__dirname + "/../views/index.html"));
 });
 
@@ -31,10 +29,12 @@ router.post("/sign-up", function (req, res) {
                     password:hash
                 })
                     .then(function (data) {
-                        res.json(data);
+                        //console.log(data);
+                        res.status(200).json({status:'ok'});
                     })
                     .catch(function (err) {
-                        res.json(err);
+                        console.log(err);
+                        res.status(400).json(err);
                     });
             });
         }
@@ -62,11 +62,19 @@ router.post("/sign-in", function (req, res) {
                             }
                         }, secret);
 
+                        res.cookie('jwtauthtoken', token, {
+                            secure:process.env.NODE_ENV === 'production',
+                            signed:true
+                        });
+
                         res.json({
-                            success:true,
-                            message:'Enjoy your token!',
+                            "status":"Ok",
                             token:token
                         });
+
+                        // res.redirect("/profile");
+
+
                     }
 
                 });
@@ -76,6 +84,7 @@ router.post("/sign-in", function (req, res) {
             res.json(err);
         });
 });
+
 
 
 
