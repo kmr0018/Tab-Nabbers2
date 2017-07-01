@@ -14,7 +14,7 @@ class Signin extends React.Component{
         this.signinUser = this.signinUser.bind(this);
     }
 
-    signinUser(event){
+    signinUser = (event) => {
         event.preventDefault();
         var user = {};
 
@@ -48,8 +48,11 @@ class Signin extends React.Component{
                             <input type="password" placeholder="Password..." ref='password' id="password" required/>
                         </div>
                         <br/>
+                        <div className="content__btn">
+                            <button className="ui primary button" onClick={this.signinUser}>Sign Up</button>
+                            <button className="ui primary button">Sign In</button>
 
-                        <button className="ui primary button" onClick={this.signinUser}>Sign Up</button>
+                        </div>
                     </form>
                 </div>
             </div>

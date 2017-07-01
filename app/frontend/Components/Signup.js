@@ -29,7 +29,7 @@ class Signup extends React.Component{
                 console.log(data);
 
                 if(data.status === 200){
-                    location.href = 'profile';
+                    //location.href = 'profile';
                 }
                 console.log(data);
             })

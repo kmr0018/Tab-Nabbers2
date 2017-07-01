@@ -10,7 +10,7 @@ import Profile from "../Components/Profile";
 const Routes = (
     <Router history={browserHistory}>
         <Route path="/" component={Main}>
-            <Route path="about" component={Home} />
+            <Route path="about" component={Main} />
             <Route path="signup" component={Signup} />
             <Route path="signin" component={Signin} />
             <IndexRoute component={Home} />

@@ -62,11 +62,19 @@ router.post("/sign-in", function (req, res) {
                             }
                         }, secret);
 
+                        res.cookie('jwtauthtoken', token, {
+                            secure:process.env.NODE_ENV === 'production',
+                            signed:true
+                        });
+
                         res.json({
-                            success:true,
-                            message:'Enjoy your token!',
+                            "status":"Ok",
                             token:token
                         });
+
+                        // res.redirect("/profile");
+
+
                     }
 
                 });
