@@ -6,11 +6,13 @@ import Home from "../Components/Home";
 import Signup from "../Components/Signup";
 import Signin from "../Components/Signin";
 import Profile from "../Components/Profile";
+import About from "../Components/About";
+
 
 const Routes = (
     <Router history={browserHistory}>
         <Route path="/" component={Main}>
-            <Route path="about" component={Home} />
+            <Route path="about" component={About} />
             <Route path="signup" component={Signup} />
             <Route path="signin" component={Signin} />
             <IndexRoute component={Home} />
