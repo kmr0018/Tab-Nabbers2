@@ -3,6 +3,9 @@
  */
 import React from "react";
 
+
+import {Button, Checkbox, Form} from "semantic-ui-react";
+
 import fetch from "../utils/api";
 
 class Signin extends React.Component{
@@ -10,8 +13,6 @@ class Signin extends React.Component{
     constructor(){
         super();
 
-
-        this.signinUser = this.signinUser.bind(this);
     }
 
     signinUser = (event) => {
@@ -32,32 +33,31 @@ class Signin extends React.Component{
                 console.log(err);
             });
 
-    }
+    };
 
 
     render(){
         return(
             <div className="content">
                 <div className="center">
-                    <form action="#">
-                        <div className="ui input">
-                            <input type="text" placeholder="Email..." ref="email" id="username" required/>
-                        </div>
-
-                        <div className="ui input">
-                            <input type="password" placeholder="Password..." ref='password' id="password" required/>
-                        </div>
-                        <br/>
-                        <div className="content__btn">
-                            <button className="ui primary button" onClick={this.signinUser}>Sign Up</button>
-                            <button className="ui primary button">Sign In</button>
-
-                        </div>
-                    </form>
+                    <Form >
+                        <Form.Field>
+                            {/*<label>First Name</label>*/}
+                            <input placeholder='Email'  ref="email" id="username" required/>
+                        </Form.Field>
+                        <Form.Field>
+                            {/*<label>Last Name</label>*/}
+                            <input placeholder='Password' ref='password' id="password" required/>
+                        </Form.Field>
+                        <Button type='submit' onClick={this.signinUser}>Sign In</Button>
+                    </Form>
                 </div>
             </div>
         );
     }
 }
+
+
+
 
 export default Signin;
