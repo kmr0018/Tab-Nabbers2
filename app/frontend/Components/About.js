@@ -1,4 +1,5 @@
 import React from "react";
+import Footer from "./common/Footer";
 import css from "../../public/css/about.scss";
 
 class About extends React.Component {
@@ -139,9 +140,33 @@ class About extends React.Component {
                                 </form>
                             </div>
                         </div>
+
+                        <div role="list" className="ui list">
+                        <div role="listitem" className="item">
+                          <i aria-hidden="true" className="users icon"></i>
+                          <div className="content">BootCruit</div>
+                        </div>
+                        <div role="listitem" className="item">
+                          <i aria-hidden="true" className="marker icon"></i>
+                          <div className="content">Atlanta, GA</div>
+                        </div>
+                        <div role="listitem" className="item">
+                          <i aria-hidden="true" className="mail icon"></i>
+                          <div className="content">
+                            <a href="mailto:jack@semantic-ui.com">contact@bootcruit.com</a>
+                          </div>
+                        </div>
+                        <div role="listitem" className="item">
+                          <i aria-hidden="true" className="linkify icon"></i>
+                          <div className="content">
+                            <a href="http://www.bootcruit.com">BootCruit.com</a>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                 </div>
-
+                <div className="ui hidden divider"></div>
+                <Footer />
             </div>
         )
     }
