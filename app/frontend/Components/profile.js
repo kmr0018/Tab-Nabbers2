@@ -56,9 +56,15 @@ import css from "../../public/css/profile.scss";
 
 
 class Profile extends React.Component{
+    state = { activeItem: 'About' };
 
+    handleItemClick = (e, { name }) => this.setState({ activeItem: name });
 
     render(){
+
+        const { activeItem } = this.state;
+
+
         return(
             <section className="profile">
                 <div className="profile__about">
@@ -116,65 +122,83 @@ class Profile extends React.Component{
                     </div>
 
                     <div className="profile__content--contact">
-                        <p>Send a message</p>
-                        <p>Contacts</p>
+                        <p> <i className="mail outline icon"> </i>Send a message</p>
+                        <p> <i className="checkmark icon"> </i> Contacts</p>
                         <p>Report a User</p>
                     </div>
 
 
                     <div className="profile__content--timeline">
-                        <p>Timeline</p>
-                        <p>About</p>
+                        {/*<p><i className="unhide icon"> </i> Timeline</p>*/}
+                        {/*<p> <i className="user icon"> </i>About</p>*/}
 
-                        <div className="info">
-                            <h3>Contact Information</h3>
-                            <div>
-                                <h4 className="">Phone: </h4>
-                                <p className="">404 825 3444</p>
-                            </div>
+                        <Menu pointing secondary>
+                            <Menu.Item name='Timeline' active={activeItem === 'Timeline'} onClick={this.handleItemClick}/>
+                            <Menu.Item name='About' active={activeItem === 'About'} onClick={this.handleItemClick} />
 
-                            <div>
-                                <h4 className="">Address:</h4>
-                                <p className="">8890 Terrace Club Drive, Roswell, GA, 30076</p>
+                        </Menu>
 
-                            </div>
-
-                            <div>
-                                <h4 className="">Email:</h4>
-                                <p className="">accimeesterlin@yahoo.com</p>
-                            </div>
-
-                            <div>
-                                <h4 className="left">Site: </h4>
-                                <p className="right"><a href="http:www.google.com/" target="_blank">http:www.google.com/</a></p>
-                            </div>
-
+                        <div>
+                            {(this.state.activeItem === 'About') ? <About /> :  <p>Hello World!!</p>}
                         </div>
 
+                        {/*<About />*/}
 
-                        <div className="basic">
-                            <h3>Basic Information</h3>
-
-                            <div>
-                                <h4 className="left">Birthday: </h4>
-                                <p className="right">June 5, 1992</p>
-                            </div>
-
-                            <div>
-                                <h4 className="left">Gender:</h4>
-                                <p className="right">Male</p>
-                            </div>
-                        </div>
                     </div>
 
                 </div>
-
-
-
 
 
             </section>
         )
     }
 }
+
+var About = () => {
+    return (
+        <div className="about">
+            <div className="info">
+                <h3>Contact Information</h3>
+                <div>
+                    <h4 className="">Phone: </h4>
+                    <p className="">404 825 3444</p>
+                </div>
+
+                <div>
+                    <h4 className="">Address:</h4>
+                    <p className="">8890 Terrace Club Drive, Roswell, GA, 30076</p>
+
+                </div>
+
+                <div>
+                    <h4 className="">Email:</h4>
+                    <p className="">accimeesterlin@yahoo.com</p>
+                </div>
+
+                <div>
+                    <h4 className="left">Site: </h4>
+                    <p className="right"><a href="http:www.google.com/" target="_blank">http:www.google.com/</a></p>
+                </div>
+
+            </div>
+
+
+            <div className="basic">
+                <h3>Basic Information</h3>
+
+                <div>
+                    <h4 className="left">Birthday: </h4>
+                    <p className="right">June 5, 1992</p>
+                </div>
+
+                <div>
+                    <h4 className="left">Gender:</h4>
+                    <p className="right">Male</p>
+                </div>
+            </div>
+        </div>
+    )
+};
+
 export default Profile;
+
