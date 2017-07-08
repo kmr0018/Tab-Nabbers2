@@ -7,6 +7,7 @@ import Signup from "../Components/Signup";
 import Signin from "../Components/Signin";
 import Profile from "../Components/Profile";
 import About from "../Components/About";
+import D3Map from "../Components/D3Map";
 
 
 const Routes = (
@@ -22,6 +23,8 @@ const Routes = (
         <Route path="profile" component={Profile}>
             <Route path="/" component={Profile} />
         </Route>
+
+        <Route path="map" component={D3Map}></Route>
     </Router>
 );
 
