@@ -3,17 +3,17 @@
  */
 import React from "react";
 
-
 import {Button, Checkbox, Form} from "semantic-ui-react";
+
+import css from "../../public/css/login.scss";
 
 import fetch from "../utils/api";
 
 class Signin extends React.Component{
 
-    constructor(){
-        super();
-
-    }
+   state = {
+       active:"active"
+   }
 
     signinUser = (event) => {
         event.preventDefault();
@@ -28,6 +28,8 @@ class Signin extends React.Component{
         fetch.signin(user)
             .then(function (data) {
                 console.log(data);
+
+                localStorage.setItem("token", data.data.token);
             })
             .catch(function (err) {
                 console.log(err);
@@ -38,26 +40,47 @@ class Signin extends React.Component{
 
     render(){
         return(
-            <div className="content">
-                <div className="center">
-                    <Form >
-                        <Form.Field>
-                            {/*<label>First Name</label>*/}
-                            <input placeholder='Email'  ref="email" id="username" required/>
-                        </Form.Field>
-                        <Form.Field>
-                            {/*<label>Last Name</label>*/}
-                            <input placeholder='Password' ref='password' id="password" required/>
-                        </Form.Field>
-                        <Button type='submit' onClick={this.signinUser}>Sign In</Button>
-                    </Form>
+            <div className="ui one column center aligned grid">
+                <div className="column six wide form-holder">
+
+                    <div className="button-container">
+                        <div className="field ">
+                            <input type="submit" value="sign in" className="ui button" />
+                        </div>
+
+                        <div className="field right">
+                            <input type="submit" value="sign up" className="ui button"/>
+                        </div>
+                    </div>
+
+                    <h2 className="center aligned header form-head">Sign in</h2>
+
+                    <div className="ui form">
+
+                        <div className="field">
+                            <input type="text" placeholder="Email..." ref="email" id="username" required/>
+                        </div>
+
+                        <div className="field">
+                            <input type="password" placeholder="Password..." ref='password' id="password" required/>
+                        </div>
+
+                        <div className="field">
+                            <input type="submit" value="sign in" className="ui button large fluid green" onClick={this.signupIn}/>
+                        </div>
+
+                        <div className="inline field">
+                            <div className="ui checkbox">
+                            <input type="checkbox"/>
+                            <label>Remember me</label>
+                            </div>
+
+                        </div>
+                    </div>
                 </div>
             </div>
         );
     }
 }
-
-
-
 
 export default Signin;

@@ -1,89 +1,13 @@
 import React, { Component } from 'react';
-import { Grid, Menu, Segment } from 'semantic-ui-react';
+import { Grid, Menu, Segment, Dropdown } from 'semantic-ui-react';
 import InlineEdit from 'react-edit-inline';
-
-//  class MenuExampleTabularOnLeft extends Component {
-//     state = { activeItem: 'bio' };
-//
-//     handleItemClick = (e, { name }) => this.setState({ activeItem: name });
-//
-//
-//     render() {
-//         const { activeItem } = this.state;
-//
-//         let message;
-//
-//         if(this.state.activeItem === 'bio'){
-//             message = (
-//                 <p>I am bio</p>
-//             );
-//         } else if(this.state.activeItem === 'pics'){
-//             message = (
-//                 <p>I am Pictures</p>
-//             );
-//         } else if(this.state.activeItem === 'companies'){
-//             message = (
-//                 <p>I am Companies</p>
-//             );
-//         } else if(this.state.activeItem === 'links'){
-//             message = (
-//                 <p>I am links</p>
-//             );
-//         }
-//
-//         return (
-//             <Grid>
-//                 <Grid.Column width={4}>
-//                     <Menu fluid vertical tabular>
-//                         <Menu.Item name='bio' active={activeItem === 'bio'} onClick={this.handleItemClick} />
-//                         <Menu.Item name='pics' active={activeItem === 'pics'} onClick={this.handleItemClick} />
-//                         <Menu.Item name='companies' active={activeItem === 'companies'} onClick={this.handleItemClick} />
-//                         <Menu.Item name='links' active={activeItem === 'links'} onClick={this.handleItemClick} />
-//                     </Menu>
-//                 </Grid.Column>
-//
-//                 <Grid.Column stretched width={12}>
-//                     <Segment>
-//                         {message}
-//                     </Segment>
-//                 </Grid.Column>
-//             </Grid>
-//         )
-//     }
-// }
+import Footer from "./common/Footer";
 
 
 import css from "../../public/css/profile.scss";
 
 
-// class MyParentComponent extends React.Component {
-//
-//     constructor(props){
-//         super(props);
-//         this.dataChanged = this.dataChanged.bind(this);
-//         this.state = {
-//             message: 'ReactInline demo'
-//         }
-//     }
-//
-//     dataChanged(data) {
-//         // data = { description: "New validated text comes here" }
-//         // Update your model from here
-//         //console.log(data)
-//         this.setState({message: data.message})
-//     }
-//
-//     render() {
-//         return (<div>
-//             <InlineEdit
-//                 activeClassName="editing"
-//                 text={this.state.message}
-//                 paramName="message"
-//                 change={this.dataChanged}
-//             />
-//         </div>)
-//     }
-// }
+
 
 
 class Profile extends React.Component{
@@ -110,6 +34,21 @@ class Profile extends React.Component{
     render(){
 
         const { activeItem } = this.state;
+
+        const options = [
+          { key: 'angular', text: 'Angular', value: 'angular' },
+          { key: 'css', text: 'CSS', value: 'css' },
+          { key: 'html', text: 'HTML', value: 'html' },
+          { key: 'javascript', text: 'Javascript', value: 'javascript' },
+          { key: 'meteor', text: 'Meteor', value: 'meteor' },
+          { key: 'node', text: 'NodeJS', value: 'node' },
+          { key: 'python', text: 'Python', value: 'python' },
+          { key: 'rails', text: 'Rails', value: 'rails' },
+          { key: 'react', text: 'React', value: 'react' },
+          { key: 'ruby', text: 'Ruby', value: 'ruby' },
+          { key: 'ui', text: 'UI Design', value: 'ui' },
+          { key: 'ux', text: 'User Experience', value: 'ux' },
+        ];
 
 
         return(
@@ -150,12 +89,9 @@ class Profile extends React.Component{
                     <hr/>
 
                     <div className="profile__about--skills">
-                        <p>HTML</p>
-                        <p>Javascript</p>
-                        <p>Boostrap</p>
-                        <p>MySQL</p>
-                        <p>Node.js</p>
+                      <Dropdown placeholder='Skills' fluid multiple selection options={options} />
                     </div>
+
                 </div>
 
 
@@ -219,12 +155,17 @@ class Profile extends React.Component{
 
                         {/*<About />*/}
 
+
                     </div>
 
                 </div>
-
+                <div className="profile__footer">
+                <Footer />
+              </div>
 
             </section>
+
+
         )
     }
 }
