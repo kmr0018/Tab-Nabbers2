@@ -38,7 +38,19 @@ class Signup extends React.Component{
             .catch(function (err) {
                 console.log(err);
             });
+    }
 
+    componentDidMount(){
+        console.log("Hello World!!");
+
+        //console.log(localStorage.getItem("token"));
+        fetch.getData()
+            .then(function (data) {
+                console.log(data);
+            })
+            .catch(function (err) {
+                console.log(err);
+            })
     }
 
 

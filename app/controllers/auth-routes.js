@@ -31,10 +31,12 @@ router.post("/sign-up", function (req, res) {
                     .then(function (data) {
                         //console.log(data);
                         res.status(200).json({status:'ok'});
+
+
                     })
                     .catch(function (err) {
                         console.log(err);
-                        res.status(400).json(err);
+                        res.json(409, {message: "Something went wrong, either the user already created with that username"});
                     });
             });
         }

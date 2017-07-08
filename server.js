@@ -34,7 +34,7 @@ app.use(cookieParser(secret));
 //Models
 var db = require("./app/models");
 
-var authenticate = require("./app/controllers/auth");
+var authenticate = require("./app/controllers/secureroutes");
 app.use("/api", authenticate);
 
 var routes = require("./app/controllers/auth-routes");

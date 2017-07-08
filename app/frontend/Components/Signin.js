@@ -27,6 +27,8 @@ class Signin extends React.Component{
         fetch.signin(user)
             .then(function (data) {
                 console.log(data);
+
+                localStorage.setItem("token", data.data.token);
             })
             .catch(function (err) {
                 console.log(err);
@@ -50,7 +52,7 @@ class Signin extends React.Component{
                         </div>
                         <br/>
 
-                        <button className="ui primary button" onClick={this.signupIn}>Sign In</button>
+                        <button className="ui primary button" onClick={this.signinUser}>Sign In</button>
                     </form>
                 </div>
             </div>

@@ -12,7 +12,11 @@ const fetch = {
         return axios.post("/sign-in", user);
     },
     getData:function () {
-        return axios.get("/users");
+        return axios.get("/api/users", {
+            params: {
+                token: localStorage.getItem("token")
+            }
+        });
     }
 };
 
