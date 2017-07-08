@@ -8,7 +8,7 @@
 
 .profile{
 
-  margin-top:200px;
+  margin-top:50px;
 
   &__about{
     float:left;
@@ -52,6 +52,7 @@
 
     &--skills{
       margin-top:20px;
+
     }
   }
 
@@ -164,6 +165,11 @@
       }
     }
   }
+
+&__footer{
+  position:absolute;
+  bottom:0;
+  left:0;
+  width:100%;
 }
-
-
+}
