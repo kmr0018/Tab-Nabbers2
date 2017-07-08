@@ -3,7 +3,6 @@
  */
 import React from "react";
 
-
 import {Button, Checkbox, Form} from "semantic-ui-react";
 
 import fetch from "../utils/api";
@@ -38,19 +37,21 @@ class Signin extends React.Component{
 
     render(){
         return(
-            <div className="content">
+            <div className="content ui centered grid">
                 <div className="center">
-                    <Form >
-                        <Form.Field>
-                            {/*<label>First Name</label>*/}
-                            <input placeholder='Email'  ref="email" id="username" required/>
-                        </Form.Field>
-                        <Form.Field>
-                            {/*<label>Last Name</label>*/}
-                            <input placeholder='Password' ref='password' id="password" required/>
-                        </Form.Field>
-                        <Button type='submit' onClick={this.signinUser}>Sign In</Button>
-                    </Form>
+                    <h1>Student Sign-In</h1>
+                    <form action="#">
+                        <div className="ui input">
+                            <input type="text" placeholder="Email..." ref="email" id="username" required/>
+                        </div>
+
+                        <div className="ui input">
+                            <input type="password" placeholder="Password..." ref='password' id="password" required/>
+                        </div>
+                        <br/>
+
+                        <button className="ui primary button" onClick={this.signupIn}>Sign In</button>
+                    </form>
                 </div>
             </div>
         );
