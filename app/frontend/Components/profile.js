@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import { Grid, Menu, Segment } from 'semantic-ui-react';
+import { Grid, Menu, Segment, Dropdown } from 'semantic-ui-react';
 import InlineEdit from 'react-edit-inline';
+import Footer from "./common/Footer";
+
 
 //  class MenuExampleTabularOnLeft extends Component {
 //     state = { activeItem: 'bio' };
@@ -111,6 +113,21 @@ class Profile extends React.Component{
 
         const { activeItem } = this.state;
 
+        const options = [
+          { key: 'angular', text: 'Angular', value: 'angular' },
+          { key: 'css', text: 'CSS', value: 'css' },
+          { key: 'html', text: 'HTML', value: 'html' },
+          { key: 'javascript', text: 'Javascript', value: 'javascript' },
+          { key: 'meteor', text: 'Meteor', value: 'meteor' },
+          { key: 'node', text: 'NodeJS', value: 'node' },
+          { key: 'python', text: 'Python', value: 'python' },
+          { key: 'rails', text: 'Rails', value: 'rails' },
+          { key: 'react', text: 'React', value: 'react' },
+          { key: 'ruby', text: 'Ruby', value: 'ruby' },
+          { key: 'ui', text: 'UI Design', value: 'ui' },
+          { key: 'ux', text: 'User Experience', value: 'ux' },
+        ];
+
 
         return(
             <section className="profile">
@@ -150,12 +167,9 @@ class Profile extends React.Component{
                     <hr/>
 
                     <div className="profile__about--skills">
-                        <p>HTML</p>
-                        <p>Javascript</p>
-                        <p>Boostrap</p>
-                        <p>MySQL</p>
-                        <p>Node.js</p>
+                      <Dropdown placeholder='Skills' fluid multiple selection options={options} />
                     </div>
+
                 </div>
 
 
@@ -219,12 +233,17 @@ class Profile extends React.Component{
 
                         {/*<About />*/}
 
+
                     </div>
 
                 </div>
-
+                <div className="profile__footer">
+                <Footer />
+              </div>
 
             </section>
+
+
         )
     }
 }
