@@ -1,5 +1,6 @@
-import React, { Component } from 'react'
-import { Grid, Menu, Segment } from 'semantic-ui-react'
+import React, { Component } from 'react';
+import { Grid, Menu, Segment } from 'semantic-ui-react';
+import InlineEdit from 'react-edit-inline';
 
 //  class MenuExampleTabularOnLeft extends Component {
 //     state = { activeItem: 'bio' };
@@ -55,10 +56,56 @@ import { Grid, Menu, Segment } from 'semantic-ui-react'
 import css from "../../public/css/profile.scss";
 
 
+// class MyParentComponent extends React.Component {
+//
+//     constructor(props){
+//         super(props);
+//         this.dataChanged = this.dataChanged.bind(this);
+//         this.state = {
+//             message: 'ReactInline demo'
+//         }
+//     }
+//
+//     dataChanged(data) {
+//         // data = { description: "New validated text comes here" }
+//         // Update your model from here
+//         //console.log(data)
+//         this.setState({message: data.message})
+//     }
+//
+//     render() {
+//         return (<div>
+//             <InlineEdit
+//                 activeClassName="editing"
+//                 text={this.state.message}
+//                 paramName="message"
+//                 change={this.dataChanged}
+//             />
+//         </div>)
+//     }
+// }
+
+
 class Profile extends React.Component{
-    state = { activeItem: 'About' };
+    state = {
+        activeItem: 'About',
+        message: 'Work' ,
+        street:"8890 Terrace Club Drive",
+        address:"Roswell, GA, 30076",
+        title: "Spotify New York",
+        job: "Full Stack Developer",
+        name:"Esterling Accime",
+        addr:'Atlanta, GA'
+    };
 
     handleItemClick = (e, { name }) => this.setState({ activeItem: name });
+
+    dataChanged = (data) => {
+        console.log(data);
+
+        this.setState({...data});
+        console.log(this.state);
+    }
 
     render(){
 
@@ -67,7 +114,9 @@ class Profile extends React.Component{
 
         return(
             <section className="profile">
+
                 <div className="profile__about">
+
                     <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/454423/profile/profile-512.jpg" alt="Image that needs to be added"/>
                     <div className="profile__about--status">
                         <h3>Work</h3>
@@ -76,10 +125,24 @@ class Profile extends React.Component{
 
 
                     <div className="profile__about--address">
-                        <h4>Spotify New York</h4>
-                        <button className="ui button" id="address">Primary</button>
-                        <p>8890 Terrace Club Drive</p>
-                        <p>Roswell, GA, 30076</p>
+                        <h4> <InlineEdit
+                            activeClassName="title"
+                            text={this.state.title}
+                            paramName="title"
+                            change={this.dataChanged}/></h4>
+                        {/*<button className="ui button" id="address">Edit</button>*/}
+
+                        <p> <InlineEdit
+                            activeClassName="street"
+                            text={this.state.street}
+                            paramName="street"
+                            change={this.dataChanged}/></p>
+
+                        <p> <InlineEdit
+                            activeClassName="address"
+                            text={this.state.address}
+                            paramName="address"
+                            change={this.dataChanged}/></p>
                     </div>
 
 
@@ -102,11 +165,23 @@ class Profile extends React.Component{
 
                     <div className="profile__content--about">
                        <div>
-                           <h4>Esterling Accime</h4>
-                           <p> <i className="marker icon"> </i>Atlanta, GA</p>
-                       </div>
+                           <h4> <InlineEdit
+                               activeClassName="address"
+                               text={this.state.name}
+                               paramName="name"
+                               change={this.dataChanged}/></h4>
+                           <p> <i className="marker icon"> </i> <InlineEdit
+                               activeClassName="address"
+                               text={this.state.addr}
+                               paramName="addr"
+                               change={this.dataChanged}/></p>
+                       </div>cle
                         <p className="right bookmark"><i className="bookmark icon"> </i>Bookmark</p>
-                        <p className="clear">Full Stack Developer</p>
+                        <p className="clear"> <InlineEdit
+                            activeClassName="job"
+                            text={this.state.job}
+                            paramName="job"
+                            change={this.dataChanged}/></p>
                     </div>
 
                     <div className="profile__content--ranking">
@@ -154,51 +229,100 @@ class Profile extends React.Component{
     }
 }
 
-var About = () => {
-    return (
-        <div className="about">
-            <div className="info">
-                <h3>Contact Information</h3>
-                <div>
-                    <h4 className="">Phone: </h4>
-                    <p className="">404 825 3444</p>
+class About extends React.Component {
+    state = {
+        phone: "404 825 3444",
+        homeaddress:"8890 Terrace Club Drive, Roswell, GA 30076",
+        email:"accimeesterlin@yahoo.com",
+        site:"http://www.accimeesterlin.com",
+        birthday: "September 05th, 1994",
+        gender: "Male"
+    };
+
+
+    dataChanged = (data) => {
+        console.log(data);
+
+        this.setState({...data});
+        console.log(this.state);
+    }
+
+    render(){
+        return (
+            <div className="about">
+                <div className="info">
+                    <h3>Contact Information</h3>
+                    <div>
+                        <h4 className="">Phone: </h4>
+                        <p className=""><InlineEdit
+                            activeClassName="phone"
+                            text={this.state.phone}
+                            paramName="phone"
+                            change={this.dataChanged}/></p>
+                    </div>
+
+                    <div>
+                        <h4 className="">Address:</h4>
+                        <p className=""> <InlineEdit
+                            activeClassName="homeaddress"
+                            text={this.state.homeaddress}
+                            paramName="homeaddress"
+                            change={this.dataChanged}/></p>
+
+                    </div>
+
+                    <div>
+                        <h4 className="">Email:</h4>
+                        <p className=""> <InlineEdit
+                            activeClassName="email"
+                            text={this.state.email}
+                            paramName="email"
+                            change={this.dataChanged}/></p>
+                    </div>
+
+                    <div>
+                        <h4 className="left">Site: </h4>
+                        <p className="right"> <InlineEdit
+                            activeClassName="site"
+                            text={this.state.site}
+                            paramName="site"
+                            change={this.dataChanged}/><a href="http:www.google.com/" target="_blank"></a></p>
+                    </div>
+
                 </div>
 
-                <div>
-                    <h4 className="">Address:</h4>
-                    <p className="">8890 Terrace Club Drive, Roswell, GA, 30076</p>
 
+                <div className="basic">
+                    <h3>Basic Information</h3>
+
+                    <div>
+                        <h4 className="left">Birthday: </h4>
+                        <p className="right"> <InlineEdit
+                            activeClassName="birthday"
+                            text={this.state.birthday}
+                            paramName="birthday"
+                            change={this.dataChanged}/></p>
+                    </div>
+
+                    <div>
+                        <h4 className="left">Gender:</h4>
+                        <p className="right"> <InlineEdit
+                            activeClassName="gender"
+                            text={this.state.gender}
+                            paramName="gender"
+                            change={this.dataChanged}/></p>
+                    </div>
                 </div>
-
-                <div>
-                    <h4 className="">Email:</h4>
-                    <p className="">accimeesterlin@yahoo.com</p>
-                </div>
-
-                <div>
-                    <h4 className="left">Site: </h4>
-                    <p className="right"><a href="http:www.google.com/" target="_blank">http:www.google.com/</a></p>
-                </div>
-
             </div>
+        )
+    }
 
-
-            <div className="basic">
-                <h3>Basic Information</h3>
-
-                <div>
-                    <h4 className="left">Birthday: </h4>
-                    <p className="right">June 5, 1992</p>
-                </div>
-
-                <div>
-                    <h4 className="left">Gender:</h4>
-                    <p className="right">Male</p>
-                </div>
-            </div>
-        </div>
-    )
 };
 
-export default Profile;
 
+
+
+
+
+
+export default Profile;

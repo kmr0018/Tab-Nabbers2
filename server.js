@@ -62,4 +62,5 @@ db.sequelize.sync({ force: true }).then(function() {
     console.log(err, "Something went wrong with the Database Update!");
 });
 
+
 module.exports = server;
