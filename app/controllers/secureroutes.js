@@ -33,13 +33,13 @@ router.use(function (req, res, next) {
 
 
 
-router.get("/users", function (req, res) {
+router.get("/users", function (req, res, next) {
     db.user.find({})
         .then(function (users) {
             res.json(users);
         })
         .catch(function (err) {
-            res.json(err);
+            console.log(err);
         });
 });
 

@@ -1,3 +1,20 @@
 .input {
     margin-bottom: 2em;
 }
+
+.form-holder {
+    background: rgba(255,255,255,0.2);
+    margin-top: 10%;
+    border-radius: 3px;
+  }
+
+  .form-head {
+    font-size: 30px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin: 15px auto 30px auto;
+  }
+
+  .remember-me {
+    text-align: left;
+  }
