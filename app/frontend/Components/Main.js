@@ -1,8 +1,5 @@
-
 import React from "react";
 import Nav from "./common/Navbar";
-
-
 
 var Main = props => {
     return (

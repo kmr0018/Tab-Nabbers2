@@ -15,14 +15,17 @@ const Routes = (
             <Route path="about" component={About} />
             <Route path="signup" component={Signup} />
             <Route path="signin" component={Signin} />
+            <Route path="profile" component={Profile} />
             <IndexRoute component={Home} />
 
         </Route>
 
-        <Route path="profile" component={Profile}>
-            <Route path="/" component={Profile} />
-        </Route>
+
     </Router>
 );
 
 export default Routes;
+
+/*<Route path="profile" component={Profile}>
+    <Route path="/" component={Profile} />
+</Route>*/
