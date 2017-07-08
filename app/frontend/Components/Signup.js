@@ -5,6 +5,8 @@ import React from "react";
 
 import fetch from "../utils/api";
 
+import css from "../../public/css/signup.scss";
+
 class Signup extends React.Component{
 
     constructor(){
@@ -42,8 +44,9 @@ class Signup extends React.Component{
 
     render(){
         return(
-            <div className="content">
+            <div className="content ui centered grid">
                 <div className="center">
+                    <h1>Student Sign Up</h1>
                     <form action="#">
                         <div className="ui input">
                             <input type="text" placeholder="Email..." ref="email" id="username" required/>
