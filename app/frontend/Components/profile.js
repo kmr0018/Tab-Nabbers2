@@ -90,12 +90,12 @@ class Profile extends React.Component{
     state = {
         activeItem: 'About',
         message: 'Work' ,
-        street:"8890 Terrace Club Drive",
-        address:"Roswell, GA, 30076",
+        street:"Enter your street",
+        address:"Enter your address",
         title: "Spotify New York",
-        job: "Full Stack Developer",
-        name:"Esterling Accime",
-        addr:'Atlanta, GA'
+        job: "Enter your Job Status",
+        name:"Enter your name",
+        addr:'Enter your city and state'
     };
 
     handleItemClick = (e, { name }) => this.setState({ activeItem: name });
@@ -171,11 +171,11 @@ class Profile extends React.Component{
                                paramName="name"
                                change={this.dataChanged}/></h4>
                            <p> <i className="marker icon"> </i> <InlineEdit
-                               activeClassName="address"
+                               activeClassName="addr"
                                text={this.state.addr}
                                paramName="addr"
                                change={this.dataChanged}/></p>
-                       </div>cle
+                       </div>
                         <p className="right bookmark"><i className="bookmark icon"> </i>Bookmark</p>
                         <p className="clear"> <InlineEdit
                             activeClassName="job"
@@ -231,12 +231,12 @@ class Profile extends React.Component{
 
 class About extends React.Component {
     state = {
-        phone: "404 825 3444",
-        homeaddress:"8890 Terrace Club Drive, Roswell, GA 30076",
-        email:"accimeesterlin@yahoo.com",
-        site:"http://www.accimeesterlin.com",
-        birthday: "September 05th, 1994",
-        gender: "Male"
+        phone: "Enter your phone number",
+        homeaddress:"Enter your home address",
+        email:"Enter your email",
+        site:"Enter your portfolio site",
+        birthday: "Enter your date of birth",
+        gender: "Enter your gender"
     };
 
 
