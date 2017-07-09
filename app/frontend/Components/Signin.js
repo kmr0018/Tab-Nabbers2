@@ -12,8 +12,9 @@ import fetch from "../utils/api";
 class Signin extends React.Component{
 
    state = {
-       active:"active"
-   }
+       active:true
+
+   };
 
     signinUser = (event) => {
         event.preventDefault();
@@ -37,6 +38,14 @@ class Signin extends React.Component{
 
     };
 
+   signinView = () => {
+       this.setState({active: true});
+   };
+
+   signupView = () => {
+        this.setState({ active: false });
+
+   };
 
     render(){
         return(
@@ -44,43 +53,78 @@ class Signin extends React.Component{
                 <div className="column six wide form-holder">
 
                     <div className="button-container">
-                        <div className="field ">
+                        <div className={this.state.active ? "field active": "field" } onClick={this.signinView}>
                             <input type="submit" value="sign in" className="ui button" />
                         </div>
 
-                        <div className="field right">
+                        <div className={this.state.active ? "field right": "field active right" } onClick={this.signupView}>
                             <input type="submit" value="sign up" className="ui button"/>
                         </div>
                     </div>
 
-                    <h2 className="center aligned header form-head">Sign in</h2>
+                    <h2 className="center aligned header form-head">{this.state.active ? "Sign in" : "Sign up"}</h2>
 
-                    <div className="ui form">
-
-                        <div className="field">
-                            <input type="text" placeholder="Email..." ref="email" id="username" required/>
-                        </div>
-
-                        <div className="field">
-                            <input type="password" placeholder="Password..." ref='password' id="password" required/>
-                        </div>
-
-                        <div className="field">
-                            <input type="submit" value="sign in" className="ui button large fluid green" onClick={this.signupIn}/>
-                        </div>
-
-                        <div className="inline field">
-                            <div className="ui checkbox">
-                            <input type="checkbox"/>
-                            <label>Remember me</label>
-                            </div>
-
-                        </div>
-                    </div>
+                    {this.state.active ? <SignInView /> : <SignUpView />}
                 </div>
             </div>
         );
     }
 }
+
+
+var SignInView = () => {
+
+    return(
+        <div className="ui form">
+            <div className="field">
+                <input type="text" placeholder="Email..." id="username" required/>
+            </div>
+
+            <div className="field">
+                <input type="password" placeholder="Password..." id="password" required/>
+            </div>
+
+            <div className="field">
+                <input type="submit" value="sign in" className="ui button large fluid green"/>
+            </div>
+
+            <div className="inline field">
+                <div className="ui checkbox">
+                    <input type="checkbox"/>
+                    <label>Remember me</label>
+                </div>
+
+            </div>
+        </div>
+    );
+};
+
+
+
+var SignUpView = () => {
+    return(
+        <div className="ui form">
+            <div className="field">
+                <input type="text" placeholder="Firstname..." id="username" required/>
+            </div>
+
+            <div className="field">
+                <input type="text" placeholder="Lastname..." id="username" required/>
+            </div>
+
+            <div className="field">
+                <input type="text" placeholder="Email..." id="username" required/>
+            </div>
+
+            <div className="field">
+                <input type="password" placeholder="Password..." id="password" required/>
+            </div>
+            <br/>
+
+            <button className="ui primary button">Sign Up</button>
+        </div>
+    );
+};
+
 
 export default Signin;
