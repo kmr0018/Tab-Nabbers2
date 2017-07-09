@@ -17,8 +17,8 @@ class Home extends React.Component{
                         <p>Single Click Staffing Solutions</p>
                         <div className="login__btn-container">
                             <button className="ui primary basic button">Recruiter</button>
-                            <Link to="/signup"><button className="ui positive basic button">Student</button> </Link>
-                        </div> 
+                            <Link to="/signin"><button className="ui positive basic button">Student</button> </Link>
+                        </div>
                     </div>
                 </div>
             </div>

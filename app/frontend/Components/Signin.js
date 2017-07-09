@@ -40,8 +40,8 @@ class Signin extends React.Component{
 
     render(){
         return(
-            <div className="ui one column center aligned grid">
-                <div className="column six wide form-holder">
+            <div className="sicontainer ui one column center aligned grid">
+                <div className="signin column six wide form-holder">
 
                     <div className="button-container">
                         <div className="field ">

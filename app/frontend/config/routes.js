@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, IndexRoute, Router, browserHistory } from "react-router";
 
-import Main from "../Components/Main";
+import SidebarLeftSlideOut from "../Components/Main";
 import Home from "../Components/Home";
 import Signup from "../Components/Signup";
 import Signin from "../Components/Signin";
@@ -12,7 +12,7 @@ import D3Map from "../Components/D3Map";
 
 const Routes = (
     <Router history={browserHistory}>
-        <Route path="/" component={Main}>
+        <Route path="/" component={SidebarLeftSlideOut}>
             <Route path="about" component={About} />
             <Route path="signup" component={Signup} />
             <Route path="signin" component={Signin} />
