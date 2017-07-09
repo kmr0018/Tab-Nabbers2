@@ -1,7 +1,5 @@
 import React from "react";
-import Footer from "./common/Footer";
 import D3Modal from "./common/D3Modal";
-import Navbar from "./common/Navbar";
 
 class D3Map extends React.Component {
 
@@ -16,9 +14,8 @@ class D3Map extends React.Component {
                 		<div id="atlantaVis"></div>
                 		<D3Modal />
             		</div>
-        		</div> 
-        		</div> 
-        		<Footer />
+        		</div>
+        		</div>
             </div>
         )
     }

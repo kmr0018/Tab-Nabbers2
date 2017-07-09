@@ -162,7 +162,6 @@ class Profile extends React.Component{
                 <div className="profile__footer">
                 <Footer />
               </div>
-
             </section>
 
 
