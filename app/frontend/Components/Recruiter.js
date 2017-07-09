@@ -11,10 +11,10 @@ import fetch from "../utils/api";
 
 class Signin extends React.Component{
 
-   state = {
-       active:true
+    state = {
+        active:true
 
-   };
+    };
 
     signinUser = (event) => {
         event.preventDefault();
@@ -38,14 +38,14 @@ class Signin extends React.Component{
 
     };
 
-   signinView = () => {
-       this.setState({active: true});
-   };
+    signinView = () => {
+        this.setState({active: true});
+    };
 
-   signupView = () => {
+    signupView = () => {
         this.setState({ active: false });
 
-   };
+    };
 
     render(){
         return(
@@ -54,15 +54,15 @@ class Signin extends React.Component{
 
                     <div className="button-container">
                         <div className={this.state.active ? "field active": "field" } onClick={this.signinView}>
-                            <input type="submit" value="sign in" className="ui button" />
+                            <input type="submit" value="Sign in" className="ui button" />
                         </div>
 
                         <div className={this.state.active ? "field right": "field active right" } onClick={this.signupView}>
-                            <input type="submit" value="sign up" className="ui button"/>
+                            <input type="submit" value="Sign up" className="ui button"/>
                         </div>
                     </div>
 
-                    <h2 className="center aligned header form-head">{this.state.active ? "Sign in" : "Sign up"}</h2>
+                    <h2 className="center aligned header form-head">{this.state.active ? "Recruiter - Sign in" : "Recruiter - Sign up"}</h2>
 
                     {this.state.active ? <SignInView /> : <SignUpView />}
                 </div>
