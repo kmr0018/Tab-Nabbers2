@@ -2,6 +2,8 @@ import React from "react";
 
 import { Link } from "react-router";
 
+import css from "../../public/css/signup.scss";
+
 
 
 
@@ -16,8 +18,9 @@ class Home extends React.Component{
                         <h1>Bootcruit</h1>
                         <p>Single Click Staffing Solutions</p>
                         <div className="login__btn-container">
-                            <button className="ui primary basic button">Recruiter</button>
-                            <Link to="/signin"><button className="ui positive basic button">Student</button> </Link>
+
+                            <Link to="/recruiter"><button className="ui primary basic button">Recruiter</button> </Link>
+                            <Link to="/student"><button className="ui positive basic button">Student</button> </Link>
                         </div>
                     </div>
                 </div>
