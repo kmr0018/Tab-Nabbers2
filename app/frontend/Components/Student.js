@@ -53,7 +53,7 @@ class Signin extends React.Component{
                 <div className="column six wide form-holder">
 
                     <div className="button-container">
-                        <div className={this.state.active ? "field active": "field" } onClick={this.signinView}>
+                        <div className={ this.state.active ? "field active": "field" } onClick={this.signinView}>
                             <input type="submit" value="Sign in" className="ui button" />
                         </div>
 
@@ -64,7 +64,7 @@ class Signin extends React.Component{
 
                     <h2 className="center aligned header form-head">{this.state.active ? "Student - Sign in" : "Student - Sign up"}</h2>
 
-                    {this.state.active ? <SignInView /> : <SignUpView />}
+                    {this.state.active ? <SignInView /> : <SignUpView /> }
                 </div>
             </div>
         );
