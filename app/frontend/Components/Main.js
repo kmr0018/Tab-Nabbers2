@@ -35,9 +35,9 @@ class SidebarLeftSlideOut extends Component {
     const { visible } = this.state
     return (
       <div>
-        <Segment clearing>
+        <Segment inverted clearing>
           <Button onClick={this.toggleVisibility} size='medium' icon color='blue' floated='left'><Icon large name='content' /></Button>
-          <Header as='h2' floated='right'>
+          <Header as='h2' floated='right' inverted color='blue'>
             BootCruit
           </Header>
 
