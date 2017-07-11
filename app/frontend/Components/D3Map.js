@@ -1,7 +1,12 @@
 import React from "react";
 import D3Modal from "./common/D3Modal";
 
+
 class D3Map extends React.Component {
+
+handleClick = () => {
+  nodeOut();d3.select('#modal').style('display','none');
+};
 
     render() {
         return (
@@ -12,7 +17,9 @@ class D3Map extends React.Component {
             		<div className="d3container">
                 		<div id="map"></div>
                 		<div id="atlantaVis"></div>
-                		<D3Modal />
+                    <div id="modal">
+                        <div id="content"></div><button id="modalClose" onClick={this.handleClick}>X</button>
+                    </div>
             		</div>
         		</div>
         		</div>

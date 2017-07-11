@@ -78,6 +78,8 @@ stroke-width: .5px;
 
 #profile {
   margin: auto;
+  max-width: 300px;
+  max-height: 300px;
 }
 
 .modalName, .modalId, .modalEmail, .modalPhone, .modalGit {

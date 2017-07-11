@@ -14,5 +14,4 @@ const D3Modal = (props) => (
     </Modal.Content>
   </Modal>
 )
-
 export default D3Modal;
