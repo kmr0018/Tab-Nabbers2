@@ -6,7 +6,7 @@ import Footer from "./common/Footer";
 import css from "../../public/css/main.scss";
 
 
-class SidebarLeftSlideOut extends Component {
+class Main extends Component {
   state = { visible: false }
 
   toggleVisibility = () => this.setState({ visible: !this.state.visible })
@@ -74,4 +74,4 @@ class SidebarLeftSlideOut extends Component {
   }
 }
 
-export default SidebarLeftSlideOut;
+export default Main;
