@@ -1,5 +1,4 @@
 import React from "react";
-import Footer from "./common/Footer";
 import css from "../../public/css/about.scss";
 
 class About extends React.Component {
@@ -165,8 +164,6 @@ class About extends React.Component {
                       </div>
                     </div>
                 </div>
-                <div className="ui hidden divider"></div>
-                <Footer />
             </div>
         )
     }

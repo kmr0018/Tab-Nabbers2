@@ -159,9 +159,6 @@ class Profile extends React.Component{
                     </div>
 
                 </div>
-                <div className="profile__footer">
-                <Footer />
-              </div>
 
             </section>
 
@@ -191,6 +188,7 @@ class About extends React.Component {
     render(){
         return (
             <div className="about">
+
                 <div className="info">
                     <h3>Contact Information</h3>
                     <div>
