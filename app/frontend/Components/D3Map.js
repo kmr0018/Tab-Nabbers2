@@ -8,7 +8,6 @@ class D3Map extends React.Component {
     render() {
         return (
             <div className="container">
-            <Navbar /> 
             <div className="view hm-black-strong" id = "dashboardCover">
             <div className="full-bg-img flex-center">
             		<div className="d3container">
