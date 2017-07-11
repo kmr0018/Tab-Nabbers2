@@ -20,21 +20,24 @@ class Signin extends React.Component{
         event.preventDefault();
         var user = {};
 
-        for(var field in this.refs){
-            //console.log(this.refs[field].id);
-            user[this.refs[field].id] = this.refs[field].value;
+        console.log(event.target);
 
-        }
 
-        fetch.signin(user)
-            .then(function (data) {
-                console.log(data);
+        // for(var field in this.refs){
+        //     //console.log(this.refs[field].id);
+        //     user[this.refs[field].id] = this.refs[field].value;
+        //
+        // }
 
-                localStorage.setItem("token", data.data.token);
-            })
-            .catch(function (err) {
-                console.log(err);
-            });
+        // fetch.signin(user)
+        //     .then(function (data) {
+        //         console.log(data);
+        //
+        //         localStorage.setItem("token", data.data.token);
+        //     })
+        //     .catch(function (err) {
+        //         console.log(err);
+        //     });
 
     };
 
@@ -46,6 +49,8 @@ class Signin extends React.Component{
         this.setState({ active: false });
 
    };
+
+
 
     render(){
         return(
@@ -64,7 +69,7 @@ class Signin extends React.Component{
 
                     <h2 className="center aligned header form-head">{this.state.active ? "Student - Sign in" : "Student - Sign up"}</h2>
 
-                    {this.state.active ? <SignInView /> : <SignUpView /> }
+                    {this.state.active ? <SignInView /> : <SignUpView getVal = {this.signinUser}/> }
                 </div>
             </div>
         );
@@ -101,7 +106,7 @@ var SignInView = () => {
 
 
 
-var SignUpView = () => {
+var SignUpView = (props) => {
     return(
         <div className="ui form">
             <div className="field">
@@ -121,7 +126,7 @@ var SignUpView = () => {
             </div>
             <br/>
 
-            <button className="ui primary button">Sign Up</button>
+            <button className="ui primary button" onClick={props.getVal}>Sign Up</button>
         </div>
     );
 };
