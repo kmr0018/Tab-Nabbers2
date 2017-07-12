@@ -36,7 +36,7 @@ class Main extends Component {
     return (
       <div>
         <Segment inverted clearing>
-          <Button onClick={this.toggleVisibility} size='medium' icon color='blue' floated='left'><Icon large name='content' /></Button>
+          <Button onClick={this.toggleVisibility} size='medium' icon color='blue' floated='left'><Icon name='content' /></Button>
           <Header as='h2' floated='right' inverted color='blue'>
             BootCruit
           </Header>
