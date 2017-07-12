@@ -85,7 +85,7 @@ var SignInView = () => {
             </div>
 
             <div className="field">
-                <input type="submit" value="sign in" className="ui button large fluid green"/>
+                <input type="submit" value="sign in" className="ui button large fluid"/>
             </div>
 
             <div className="inline field">
@@ -121,7 +121,9 @@ var SignUpView = () => {
             </div>
             <br/>
 
-            <button className="ui primary button">Sign Up</button>
+            <div className="field">
+                <input type="submit" value="Sign Up" className="ui button large fluid"/>
+            </div>
         </div>
     );
 };

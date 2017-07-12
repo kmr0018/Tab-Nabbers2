@@ -66,7 +66,7 @@ class Signin extends React.Component{
                         </div>
 
                         <div className="field">
-                            <input type="submit" value="sign in" className="ui button large fluid green" onClick={this.signupIn}/>
+                            <input type="submit" id="signIn" value="sign in" className="ui button large fluid" onClick={this.signupIn}/>
                         </div>
 
                         <div className="inline field">
