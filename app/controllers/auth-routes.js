@@ -17,6 +17,7 @@ router.get("*", function(req, res) {
 
 
 router.post("/sign-up", function(req, res) {
+    console.log(req.body);
     bcrypt.genSalt(10, function(err, salt) {
         if (err) {
             console.log(err);
@@ -29,13 +30,13 @@ router.post("/sign-up", function(req, res) {
                         password: hash
                     })
                     .then(function(data) {
-                        //console.log(data);
+                        console.log(data);
                         res.status(200).json({ status: 'ok' });
 
                     })
                     .catch(function(err) {
                         console.log(err);
-                        res.json(409, { message: "Something went wrong, either the user already created with that username" });
+                        res.json({ message: "Something went wrong, either the user already created with that username" });
                     });
             });
         }
@@ -44,6 +45,8 @@ router.post("/sign-up", function(req, res) {
 
 
 router.post("/sign-in", function(req, res) {
+
+
     db.user.findOne({
             username: req.body.username
         })
@@ -86,10 +89,33 @@ router.post("/sign-in", function(req, res) {
         });
 });
 
+router.post("/profile", function(req, res){
+  console.log(req.body);
+  res.json("ok");
+});
 
+// Profile page for Students
+// If user not logged in, they're not able to see it
+router.get("/api/profile", function(req, res) {
+    var currentUser = req.user;
+    user = currentUser;
+    console.log(user);
 
+    db.bootcamp.findOne({
+        where: {
+            id: currentUser.id
+        }
+    }).then(function(data) {
+        console.log(data);
+        // console.log(data.get());
+        // currentUser.institution = data.get().institution;
+        //console.log(currentUser);
+        console.log(currentUser);
+        // console.log(req.user);
+        res.render("profile", currentUser);
+    });
 
-
+});
 
 
 module.exports = router;

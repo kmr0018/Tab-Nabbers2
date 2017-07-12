@@ -17,6 +17,10 @@ a:visited { color: #EE3124; }
 a:hover { color: #A4CD39; text-decoration: underline;}
 a:active { color: #EE3124; }
 
+#map {
+    margin: 50px auto;
+}
+
 path {
 fill: #ccc;
 stroke: #fff;

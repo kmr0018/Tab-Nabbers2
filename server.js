@@ -46,7 +46,7 @@ app.use("/", routes);
 var server;
 //Sync Database
 
-db.sequelize.sync({}).then(function() {
+db.sequelize.sync().then(function() {
 
     console.log('Nice! Database looks fine');
 

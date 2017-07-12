@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Grid, Menu, Segment, Dropdown } from 'semantic-ui-react';
 import InlineEdit from 'react-edit-inline';
 import Footer from "./common/Footer";
-
+import fetch from "../utils/api";
 
 import css from "../../public/css/profile.scss";
 
@@ -18,8 +18,16 @@ class Profile extends React.Component{
         address:"Enter your address",
         title: "Spotify New York",
         job: "Enter your Job Status",
-        name:"Enter your name",
-        addr:'Enter your city and state'
+        firstname:"Enter your first name",
+        lastname:"Enter your last name",
+        addr:'Enter your city and state',
+        phone: "Enter your phone number",
+
+        homeaddress:"Enter your home address",
+        email:"Enter your email",
+        site:"Enter your portfolio site",
+        birthday: "Enter your date of birth",
+        gender: "Enter your gender"
     };
 
     handleItemClick = (e, { name }) => this.setState({ activeItem: name });
@@ -30,6 +38,32 @@ class Profile extends React.Component{
         this.setState({...data});
         console.log(this.state);
     }
+
+    componentWillUpdate(nextProps, nextState){
+      console.log(nextState);
+      fetch.userUpdate(nextState)
+        .then(function(data) {
+          console.log(data);
+        })
+        .catch(function(err){
+          console.log(err);
+        });
+      console.log("it works!");
+    }
+
+    componentDidMount() {
+  		this.getSaved();
+  	}
+
+  	getSaved() {
+  		fetch.getCurrentUserData()
+      .then(function(res) {
+  			this.setState({ profile: res.data });
+  		})
+      .catch(function(err){
+        console.log(err);
+      });
+  	}
 
     render(){
 
@@ -56,7 +90,7 @@ class Profile extends React.Component{
 
                 <div className="profile__about">
 
-                    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/454423/profile/profile-512.jpg" alt="Image that needs to be added"/>
+                    <img className="ui fluid image" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/454423/profile/profile-512.jpg" alt="Image that needs to be added"/>
                     <div className="profile__about--status">
                         <h3>Work</h3>
                         <hr/>
@@ -102,9 +136,14 @@ class Profile extends React.Component{
                     <div className="profile__content--about">
                        <div>
                            <h4> <InlineEdit
-                               activeClassName="address"
-                               text={this.state.name}
-                               paramName="name"
+                               activeClassName="firstname"
+                               text={this.state.firstname}
+                               paramName="firstname"
+                               change={this.dataChanged}/></h4>
+                           <h4> <InlineEdit
+                                activeClassName="lastname"
+                               text={this.state.lastname}
+                               paramName="lastname"
                                change={this.dataChanged}/></h4>
                            <p> <i className="marker icon"> </i> <InlineEdit
                                activeClassName="addr"
@@ -150,7 +189,16 @@ class Profile extends React.Component{
                         </Menu>
 
                         <div>
-                            {(this.state.activeItem === 'About') ? <About /> :  <p>Hello World!!</p>}
+                            {(this.state.activeItem === 'About') ? <About
+                              phone = {this.state.phone }
+                              homeaddress = {this.state.homeaddress}
+                              email = {this.state.email}
+                              site = {this.state.site}
+                              birthday = {this.state.birthday}
+                              gender = {this.state.gender}
+                              dataChanged = {this.dataChanged}
+
+                            /> :  <p>Hello World!!</p>}
                         </div>
 
                         {/*<About />*/}
@@ -168,22 +216,8 @@ class Profile extends React.Component{
 }
 
 class About extends React.Component {
-    state = {
-        phone: "Enter your phone number",
-        homeaddress:"Enter your home address",
-        email:"Enter your email",
-        site:"Enter your portfolio site",
-        birthday: "Enter your date of birth",
-        gender: "Enter your gender"
-    };
 
 
-    dataChanged = (data) => {
-        console.log(data);
-
-        this.setState({...data});
-        console.log(this.state);
-    }
 
     render(){
         return (
@@ -195,18 +229,18 @@ class About extends React.Component {
                         <h4 className="">Phone: </h4>
                         <p className=""><InlineEdit
                             activeClassName="phone"
-                            text={this.state.phone}
+                            text={this.props.phone}
                             paramName="phone"
-                            change={this.dataChanged}/></p>
+                            change={this.props.dataChanged}/></p>
                     </div>
 
                     <div>
                         <h4 className="">Address:</h4>
                         <p className=""> <InlineEdit
                             activeClassName="homeaddress"
-                            text={this.state.homeaddress}
+                            text={this.props.homeaddress}
                             paramName="homeaddress"
-                            change={this.dataChanged}/></p>
+                            change={this.props.dataChanged}/></p>
 
                     </div>
 
@@ -214,18 +248,18 @@ class About extends React.Component {
                         <h4 className="">Email:</h4>
                         <p className=""> <InlineEdit
                             activeClassName="email"
-                            text={this.state.email}
+                            text={this.props.email}
                             paramName="email"
-                            change={this.dataChanged}/></p>
+                            change={this.props.dataChanged}/></p>
                     </div>
 
                     <div>
                         <h4 className="left">Site: </h4>
                         <p className="right"> <InlineEdit
                             activeClassName="site"
-                            text={this.state.site}
+                            text={this.props.site}
                             paramName="site"
-                            change={this.dataChanged}/><a href="http:www.google.com/" target="_blank"></a></p>
+                            change={this.props.dataChanged}/><a href="http:www.google.com/" target="_blank"></a></p>
                     </div>
 
                 </div>
@@ -238,18 +272,18 @@ class About extends React.Component {
                         <h4 className="left">Birthday: </h4>
                         <p className="right"> <InlineEdit
                             activeClassName="birthday"
-                            text={this.state.birthday}
+                            text={this.props.birthday}
                             paramName="birthday"
-                            change={this.dataChanged}/></p>
+                            change={this.props.dataChanged}/></p>
                     </div>
 
                     <div>
                         <h4 className="left">Gender:</h4>
                         <p className="right"> <InlineEdit
                             activeClassName="gender"
-                            text={this.state.gender}
+                            text={this.props.gender}
                             paramName="gender"
-                            change={this.dataChanged}/></p>
+                            change={this.props.dataChanged}/></p>
                     </div>
                 </div>
             </div>
