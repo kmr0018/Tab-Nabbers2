@@ -86,10 +86,33 @@ router.post("/sign-in", function(req, res) {
         });
 });
 
+router.post("/profile", function(req, res){
+  console.log(req.body);
+  res.json("ok");
+});
 
+// Profile page for Students
+// If user not logged in, they're not able to see it
+router.get("/api/profile", function(req, res) {
+    var currentUser = req.user;
+    user = currentUser;
+    console.log(user);
 
+    db.bootcamp.findOne({
+        where: {
+            id: currentUser.id
+        }
+    }).then(function(data) {
+        console.log(data);
+        // console.log(data.get());
+        // currentUser.institution = data.get().institution;
+        //console.log(currentUser);
+        console.log(currentUser);
+        // console.log(req.user);
+        res.render("profile", currentUser);
+    });
 
-
+});
 
 
 module.exports = router;

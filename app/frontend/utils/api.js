@@ -17,7 +17,15 @@ const fetch = {
                 token: localStorage.getItem("token")
             }
         });
+    },
+    userUpdate:function(text){
+        return axios.post("/profile", text);
+    },
+
+    getCurrentUserData:function(data){
+        return axios.get("/api/profile");
     }
-};
+  };
+
 
 export default fetch;
