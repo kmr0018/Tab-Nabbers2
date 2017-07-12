@@ -61,6 +61,7 @@ class SignInView extends React.Component{
 
     }
 
+
     getval = () =>{
         event.preventDefault();
 
@@ -103,8 +104,9 @@ class SignInView extends React.Component{
                 </div>
 
                 <div className="field">
-                    <input type="submit" value="sign in" className="ui button large fluid green" onClick={this.getval}/>
+                    <input type="submit" value="Sign In" className="ui button large fluid" onClick={this.getval}/>
                 </div>
+
 
                 <div className="inline field">
                     <div className="ui checkbox">
@@ -117,6 +119,7 @@ class SignInView extends React.Component{
         );
     }
 }
+
 
 
 
@@ -179,11 +182,18 @@ class SignUpView extends React.Component{
                 </div>
                 <br/>
 
-                <button className="ui primary button" onClick={this.getVal}>Sign Up</button>
+                <div className="field">
+                    <input type="submit" value="Sign Up" className="ui button large fluid" onClick={this.getVal}/>
+                </div>
+
+                {/*<button className="ui primary button" >Sign Up</button>*/}
             </div>
         );
     }
-}
+
+
+};
+
 
 
 export default Signin;
