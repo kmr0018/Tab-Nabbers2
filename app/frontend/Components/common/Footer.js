@@ -29,11 +29,11 @@ class Footer extends React.Component {
                         </div>
                     </div>
                 </div>
-                <div className="ui center aligned container">© 2017 Copyright: <a href="/"> BootCruit.com </a>
+                <div className="ui center aligned inverted container">© 2017 Copyright: <a href="/"> BootCruit.com </a>
                 </div>
             </div>
-          )
-      }
-  }
+        )
+    }
+}
 
-  export default Footer;
+export default Footer;

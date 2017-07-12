@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {browserHistory} from 'react-router';
+import { browserHistory } from 'react-router';
 import { Sidebar, Segment, Button, Menu, Image, Icon, Header } from 'semantic-ui-react'
 import Footer from "./common/Footer";
 
@@ -7,36 +7,36 @@ import css from "../../public/css/main.scss";
 
 
 class Main extends Component {
-  state = { visible: false }
+    state = { visible: false }
 
-  toggleVisibility = () => this.setState({ visible: !this.state.visible })
+    toggleVisibility = () => this.setState({ visible: !this.state.visible })
 
-  handleClickHome = () => {
-    browserHistory.push('/');
-    this.setState({ visible: false });
-};
+    handleClickHome = () => {
+        browserHistory.push('/');
+        this.setState({ visible: false });
+    };
 
-  handleClickAbout = () => {
-    browserHistory.push('/About');
-    this.setState({ visible: false });
-};
+    handleClickAbout = () => {
+        browserHistory.push('/About');
+        this.setState({ visible: false });
+    };
 
-  handleClickFeatures = () => {
-    browserHistory.push('/About');
-    this.setState({ visible: false });
-};
+    handleClickFeatures = () => {
+        browserHistory.push('/About');
+        this.setState({ visible: false });
+    };
 
-  handleClickContact = () => {
-  browserHistory.push('/About');
-  this.setState({ visible: false });
-};
+    handleClickContact = () => {
+        browserHistory.push('/About');
+        this.setState({ visible: false });
+    };
 
-  render() {
-    const { visible } = this.state
-    return (
-      <div>
+    render() {
+        const { visible } = this.state
+        return (
+            <div>
         <Segment inverted clearing>
-          <Button onClick={this.toggleVisibility} size='medium' icon color='blue' floated='left'><Icon large name='content' /></Button>
+          <Button onClick={this.toggleVisibility} size='medium' icon color='blue' floated='left'><Icon name='content' /></Button>
           <Header as='h2' floated='right' inverted color='blue'>
             BootCruit
           </Header>
@@ -70,8 +70,8 @@ class Main extends Component {
         </Sidebar.Pushable>
       <Footer />
       </div>
-    )
-  }
+        )
+    }
 }
 
 export default Main;

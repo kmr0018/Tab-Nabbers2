@@ -3,43 +3,43 @@
  */
 import React from "react";
 
-import {Button, Checkbox, Form} from "semantic-ui-react";
+import { Button, Checkbox, Form } from "semantic-ui-react";
 
 import css from "../../public/css/login.scss";
 
 import fetch from "../utils/api";
 
-class Signin extends React.Component{
+class Signin extends React.Component {
 
-   state = {
-       active:"active"
-   }
+    state = {
+        active: "active"
+    }
 
     signinUser = (event) => {
         event.preventDefault();
         var user = {};
+        console.log("User %s", user);
 
-        for(var field in this.refs){
+        for (var field in this.refs) {
             //console.log(this.refs[field].id);
             user[this.refs[field].id] = this.refs[field].value;
 
         }
 
         fetch.signin(user)
-            .then(function (data) {
+            .then(function(data) {
                 console.log(data);
-
                 localStorage.setItem("token", data.data.token);
             })
-            .catch(function (err) {
+            .catch(function(err) {
                 console.log(err);
             });
 
     };
 
 
-    render(){
-        return(
+    render() {
+        return (
             <div className="sicontainer ui one column center aligned grid">
                 <div className="signin column six wide form-holder">
 
@@ -66,7 +66,7 @@ class Signin extends React.Component{
                         </div>
 
                         <div className="field">
-                            <input type="submit" value="sign in" className="ui button large fluid green" onClick={this.signupIn}/>
+                            <input type="submit" value="sign in" className="ui button large fluid green" onClick={this.signinUser}/>
                         </div>
 
                         <div className="inline field">
