@@ -85,7 +85,7 @@ var SignInView = () => {
             </div>
 
             <div className="field">
-                <input type="submit" value="sign in" className="ui button large fluid"/>
+                <input type="submit" value="Sign In" className="ui button large fluid"/>
             </div>
 
             <div className="inline field">
