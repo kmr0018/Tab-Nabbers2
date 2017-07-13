@@ -12,22 +12,10 @@ var app = express(),
 // Static directory
 app.use(express.static("./app/public"));
 
-
-
 //For BodyParser
 app.use(bodyParser({ defer: true }));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-
-
-//For Handlebars
-app.set('views', './app/views');
-app.engine('hbs', exphbs({
-    extname: '.hbs'
-}));
-
-app.set('view engine', '.hbs');
-
 
 app.use(cookieParser(secret));
 
@@ -39,9 +27,6 @@ app.use("/api", authenticate);
 
 var routes = require("./app/controllers/auth-routes");
 app.use("/", routes);
-
-
-
 
 var server;
 //Sync Database
