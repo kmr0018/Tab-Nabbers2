@@ -91,6 +91,15 @@ class Profile extends React.Component{
                 <div className="profile__about">
 
                     <img className="ui fluid image" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/454423/profile/profile-512.jpg" alt="Image that needs to be added"/>
+                    <form method='post' action='upload' encType="multipart/form-data">
+                        <div className="file-field">
+                            <div className="btn btn-elegant btn-md">
+                                <span>Upload your profile photo</span>
+                                <input type='file' name='fileUploaded'/>
+                                <input id="imageSubmit" type='submit'/>
+                            </div>
+                        </div>
+                    </form>
                     <div className="profile__about--status">
                         <h3>Work</h3>
                         <hr/>
