@@ -34,11 +34,23 @@ app.use(cookieParser(secret));
 //Models
 var db = require("./app/models");
 
-var authenticate = require("./app/controllers/secureroutes");
-app.use("/api", authenticate);
 
-var routes = require("./app/controllers/auth-routes");
-app.use("/", routes);
+// Routes for students and secure routes for students
+var authenticateStudent = require("./app/controllers/securestudent");
+app.use("/api", authenticateStudent);
+
+var student = require("./app/controllers/studentcredentials");
+app.use("/", student);
+
+
+
+
+// Routes for Recruiters and secure routes
+var authenticateRecruiter = require("./app/controllers/securerecruiter");
+app.use("/rsecure", authenticateRecruiter);
+
+var recruiter = require("./app/controllers/recruitercredentials");
+app.use("/recruiter", recruiter);
 
 
 
@@ -46,7 +58,7 @@ app.use("/", routes);
 var server;
 //Sync Database
 
-db.sequelize.sync().then(function() {
+db.sequelize.sync({force: true}).then(function() {
 
     console.log('Nice! Database looks fine');
 

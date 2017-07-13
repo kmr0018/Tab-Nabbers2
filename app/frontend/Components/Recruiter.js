@@ -72,61 +72,148 @@ class Signin extends React.Component{
 }
 
 
-var SignInView = () => {
+// Signing user to the database
+// Component is being used in Profile
+class SignInView extends React.Component{
 
-    return(
-        <div className="ui form">
-            <div className="field">
-                <input type="text" placeholder="Email..." id="username" required/>
-            </div>
+    constructor(){
+        super();
 
-            <div className="field">
-                <input type="password" placeholder="Password..." id="password" required/>
-            </div>
+    }
 
-            <div className="field">
-                <input type="submit" value="Sign In" className="ui button large fluid"/>
-            </div>
 
-            <div className="inline field">
-                <div className="ui checkbox">
-                    <input type="checkbox"/>
-                    <label>Remember me</label>
+    getval = () =>{
+        event.preventDefault();
+
+        var user = {
+
+        };
+
+
+        for(var field in this.refs){
+
+            user[this.refs[field].id] = this.refs[field].value;
+        }
+
+        console.log(user);
+
+        fetch.recruitersignin(user)
+            .then(function (data) {
+
+                localStorage.setItem("token", data.data.token);
+                if(data.data.status === "Ok"){
+                    location.href = '/map'
+                }
+                console.log(data);
+            })
+            .catch(function (err) {
+                console.log(err);
+            });
+    }
+
+
+    render(){
+        return(
+            <div className="ui form">
+                <div className="field">
+                    <input type="text" placeholder="Email..." ref='username' id="username" required/>
                 </div>
 
+                <div className="field">
+                    <input type="password" placeholder="Password..." ref='password' id="password" required/>
+                </div>
+
+                <div className="field">
+                    <input type="submit" value="Sign In" className="ui button large fluid" onClick={this.getval}/>
+                </div>
+
+
+                <div className="inline field">
+                    <div className="ui checkbox">
+                        <input type="checkbox"/>
+                        <label>Remember me</label>
+                    </div>
+
+                </div>
             </div>
-        </div>
-    );
+        );
+    }
+}
+
+
+
+
+
+
+// Sign up the user
+// Component being used in profile
+class SignUpView extends React.Component{
+
+    constructor(){
+        super();
+    }
+
+    getVal = (event) => {
+        event.preventDefault();
+
+        var user = {
+
+        };
+
+
+        for(var field in this.refs){
+            //console.log(this.refs[field]);
+
+            user[this.refs[field].id] = this.refs[field].value;
+        }
+
+        console.log(user);
+
+        fetch.recruitersignup(user)
+            .then(function (data) {
+                console.log(data);
+                location.href = '/map'
+
+            })
+            .catch(function (err) {
+                console.log(err);
+            });
+
+
+    }
+
+    render(){
+        return(
+            <div className="ui form">
+                <div className="field">
+                    <input type="text" placeholder="Firstname..." ref="firstname" id="firstname" required/>
+                </div>
+
+                <div className="field">
+                    <input type="text" placeholder="Lastname..." ref='lastname' id="username" required/>
+                </div>
+
+                <div className="field">
+                    <input type="text" placeholder="Email..." ref='username' id="email" required/>
+                </div>
+
+                <div className="field">
+                    <input type="password" placeholder="Password..." ref='password' id="password" required/>
+                </div>
+                <br/>
+
+                <div className="field">
+                    <input type="submit" value="Sign Up" className="ui button large fluid" onClick={this.getVal}/>
+                </div>
+
+                {/*<button className="ui primary button" >Sign Up</button>*/}
+            </div>
+        );
+    }
+
+
 };
 
-
-
-var SignUpView = () => {
-    return(
-        <div className="ui form">
-            <div className="field">
-                <input type="text" placeholder="Firstname..." id="username" required/>
-            </div>
-
-            <div className="field">
-                <input type="text" placeholder="Lastname..." id="username" required/>
-            </div>
-
-            <div className="field">
-                <input type="text" placeholder="Email..." id="username" required/>
-            </div>
-
-            <div className="field">
-                <input type="password" placeholder="Password..." id="password" required/>
-            </div>
-            <br/>
-
-            <div className="field">
-                <input type="submit" value="Sign Up" className="ui button large fluid"/>
-            </div>
-        </div>
-    );
-};
 
 
 export default Signin;
