@@ -3,47 +3,57 @@ module.exports = function(sequelize, Sequelize) {
     var User = sequelize.define('user', {
 
 
-            // firstname: {
-            //     type: Sequelize.STRING,
-            //     allowNull: false
-            // },
-            //
-            // lastname: {
-            //     type: Sequelize.STRING,
-            //     allowNull: false
-            // },
-            //
-            // username: {
-            //     type: Sequelize.STRING,
-            //     allowNull: false,
-            //     unique:true,
-            //     validate: {
-            //         len:[6, 20]
-            //     }
-            // },
-            //
-            // password: {
-            //     type: Sequelize.STRING,
-            //     allowNull: false
-            // },
-
-            email: {
+            firstname: {
                 type: Sequelize.STRING,
-                allowNull: false
-                // validate: {
-                //     isEmail: true
-                // }
+                allowNull: false,
+                validate: {
+                    notEmpty: true
+                }
             },
 
-            phoneNumber: {
+            lastname: {
                 type: Sequelize.STRING,
-                allowNull: true
+                allowNull: false,
+                validate: {
+                    notEmpty: true
+                }
+            },
+            username: {
+                type: Sequelize.STRING,
+                allowNull: false,
+                unique: true
                     // validate: {
-                    //     notEmpty: true,
-                    //     len: [10]
+                    //     len: [6, 20]
                     // }
             },
 
+            password: {
+                type: Sequelize.STRING,
+                allowNull: false
+            },
+
+            // email: {
+            //     type: Sequelize.STRING,
+            //     allowNull: false,
+            //     unique: true,
+            //     validate: {
+            //         len: [6, 20]
+            //     },
+            //     allowNull: false
+            //         // validate: {
+            //         //     isEmail: true
+            //         // }
+            // },
+            //
+            // phoneNumber: {
+            //     type: Sequelize.STRING,
+            //     allowNull: true
+            //         // validate: {
+            //         //     notEmpty: true,
+            //         //     len: [10]
+            //         // }
+            // },
+            //
             photo: {
                 type: Sequelize.STRING
             },
@@ -60,10 +70,12 @@ module.exports = function(sequelize, Sequelize) {
             //     type: Sequelize.DATE
             // },
 
-            status: {
-                type: Sequelize.ENUM('active', 'inactive'),
-                defaultValue: 'active'
-            }
+            // status: {
+        //     type: Sequelize.ENUM('active', 'inactive'),
+        //     defaultValue: 'active'
+        // }
+
+        },
         //
         //     //Skills
         //     HTML: {
@@ -138,25 +150,25 @@ module.exports = function(sequelize, Sequelize) {
         //
         // },
         //
-        // //Associations
-        // {
-        //     classMethods: {
-        //         associate: function(models) {
-        //             User.belongsTo(models.cohort, {
-        //                 foreignKey: {
-        //                     allowNull: false
-        //                 },
-        //                 onDelete: "CASCADE"
-        //             });
-        //
-        //             User.belongsTo(models.bootcamp, {
-        //                 foreignKey: {
-        //                     allowNull: false
-        //                 },
-        //                 onDelete: "CASCADE"
-        //             });
-        //         }
-        //     }
+        //Associations
+        {
+            classMethods: {
+                associate: function(models) {
+                    User.belongsTo(models.cohort, {
+                        foreignKey: {
+                            allowNull: false
+                        },
+                        onDelete: "CASCADE"
+                    });
+
+                    User.belongsTo(models.bootcamp, {
+                        foreignKey: {
+                            allowNull: false
+                        },
+                        onDelete: "CASCADE"
+                    });
+                }
+            }
         });
 
     return User;
