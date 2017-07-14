@@ -23,13 +23,13 @@ app.use(cookieParser(secret));
 var db = require("./app/models");
 
 
+
 // Routes for students and secure routes for students
 var authenticateStudent = require("./app/controllers/securestudent");
 app.use("/api", authenticateStudent);
 
 var student = require("./app/controllers/studentcredentials");
 app.use("/", student);
-
 
 
 

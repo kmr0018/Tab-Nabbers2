@@ -43,6 +43,10 @@ const fetch = {
             });
         }).catch(function(err) {
             console.log(err)
+
+    event:function () {
+        return axios.get("/event/data", {
+            withCredentials:true
         });
     }
 };

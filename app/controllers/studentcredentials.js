@@ -9,13 +9,37 @@ var db = require("../models"),
     secret = require("../config/secrets"),
     path = require("path"),
     formidable = require('formidable'),
-    fs = require('fs-extra');
+    fs = require('fs-extra'),
+    cloudinary = require('cloudinary');
+    axios = require("axios");
 
 
+router.get("/event/data", function (req, res, next) {
+    var group = []
 
-// router.get("*", function(req, res) {
-//     res.sendFile(path.join(__dirname + "/../public/index.html"));
-// });
+
+    axios.get("https://api.meetup.com/find/groups?page=20&text=JavaScript&key=6b6f260644b44657a442955d383013&sig_id=197617558&sig=8742e95d91419cc26b093bd4070f2beba7415bf3")
+        .then(function (data) {
+            console.log(data);
+            group = data;
+
+            var jsn = JSON.stringify(data);
+
+        })
+        .catch(function (er) {
+            console.log(er);
+
+        });
+
+    res.json(group)
+});
+
+
+cloudinary.config({ 
+  cloud_name: 'profile-images', 
+  api_key: '958681958972474', 
+  api_secret: 'dDX2LC1yjF9dp-6E9fYgVTSITbw' 
+});
 
 
 router.get("/bootcamps", function(req, res) {
@@ -35,6 +59,7 @@ router.post("/cohorts", function(req, res) {
         res.json(cohorts);
     })
 })
+
 
 router.post("/sign-up", function(req, res) {
     console.log(req.body);
@@ -112,9 +137,30 @@ router.post("/sign-in", function(req, res) {
         });
 });
 
+
 router.post("/profile", function(req, res) {
-    console.log(req.body);
-    res.json("ok");
+   // console.log(req.body);
+    var info = {
+        email:req.body.email,
+        phoneNumber: req.body.phoneNumber,
+        github: req.body.github,
+        about: req.body.about,
+        last_login: req.body.last_login
+        // status:req.body.status
+    };
+
+    console.log(info);
+
+    db.user.create(info)
+        .then(function(data) {
+            console.log(data);
+            res.status(200).json({ status: 'ok' });
+
+        })
+        .catch(function(err) {
+            console.log(err);
+            res.json({ message: "Something went wrong, either the user already created with that username" });
+        });
 });
 
 // Profile page for Students
@@ -141,47 +187,83 @@ router.get("/api/profile", function(req, res) {
 });
 
 router.post('/upload', function(req, res, next) {
-
     var form = new formidable.IncomingForm();
-    //Formidable uploads to operating systems tmp dir by default
-    form.uploadDir = "app/public/img/profile_images"; //set upload directory
-    form.keepExtensions = true; //keep file extension
-
-    console.log(form.uploadDir);
+    form.keepExtensions = true;
     form.parse(req, function(err, fields, files) {
-        // res.writeHead(200, {'content-type': 'text/plain'});
-        // res.write('received upload:\n\n');
-        console.log("form.bytesReceived");
-        //TESTING
-        console.log("file size: " + JSON.stringify(files.fileUploaded.size));
-        console.log("file path: " + JSON.stringify(files.fileUploaded.path));
-        console.log("file name: " + JSON.stringify(files.fileUploaded.name));
-        console.log("file type: " + JSON.stringify(files.fileUploaded.type));
-        console.log("astModifiedDate: " + JSON.stringify(files.fileUploaded.lastModifiedDate));
-        //Formidable changes the name of the uploaded file
-        //Rename the file to its original name
-        fs.rename(files.fileUploaded.path, 'app/public/img/profile_images/' + files.fileUploaded.name, function(err) {
-            if (err)
-                throw err;
-            console.log('renamed complete');
+        cloudinary.uploader.upload(files.fileUploaded.path, files.fileUploaded.name, function(result) { 
+            console.log(result) 
         });
-        //   res.end();
         // var profileUpdate = {
         //     photo: files.fileUploaded.name
         // };
+
         // db.user.update(profileUpdate, {
-        //     where: {
-        //         id: req.user.id
-        //     }
-        // }).then(function(data) {
-        //     console.log("Data has successfully beeen updated!!", data);
-        //     res.redirect("/profile");
-        // }).catch(function(err) {
-        //     console.log(err);
-        //     // res.json("err");
+        //             where: {
+        //             id: req.user.id
+        //         }
+        //     }).then(function(data) {
+        //         console.log("Data has successfully beeen updated!!", data);
+        //         res.redirect("/profile");
+        //     }).catch(function(err) {
+        //         console.log(err);
+        //         res.json("err");
         // });
+        
     });
 });
 
+
+
+// router.post('/upload', function(req, res, next) {
+
+//     var form = new formidable.IncomingForm();
+//     //Formidable uploads to operating systems tmp dir by default
+//     form.uploadDir = "app/public/img/profile_images"; //set upload directory
+//     form.keepExtensions = true; //keep file extension
+
+//     console.log(form.uploadDir);
+//     form.parse(req, function(err, fields, files) {
+//         // res.writeHead(200, {'content-type': 'text/plain'});
+//         // res.write('received upload:\n\n');
+//         console.log("form.bytesReceived");
+//         //TESTING
+//         console.log("file size: " + JSON.stringify(files.fileUploaded.size));
+//         console.log("file path: " + JSON.stringify(files.fileUploaded.path));
+//         console.log("file name: " + JSON.stringify(files.fileUploaded.name));
+//         console.log("file type: " + JSON.stringify(files.fileUploaded.type));
+//         console.log("astModifiedDate: " + JSON.stringify(files.fileUploaded.lastModifiedDate));
+//         //Formidable changes the name of the uploaded file
+//         //Rename the file to its original name
+//         fs.rename(files.fileUploaded.path, 'app/public/img/profile_images/' + files.fileUploaded.name, function(err) {
+//             if (err)
+//                 throw err;
+//             console.log('renamed complete');
+//         });
+
+//         cloudinary.uploader.upload(files.fileUploaded.name, function(result) { 
+//             console.log(result) 
+//         });
+//         //   res.end();
+//         // var profileUpdate = {
+//         //     photo: files.fileUploaded.name
+//         // };
+//         // db.user.update(profileUpdate, {
+//         //     where: {
+//         //         id: req.user.id
+//         //     }
+//         // }).then(function(data) {
+//         //     console.log("Data has successfully beeen updated!!", data);
+//         //     res.redirect("/profile");
+//         // }).catch(function(err) {
+//         //     console.log(err);
+//         //     // res.json("err");
+//         // });
+//     });
+// });
+
+
+router.get("*", function(req, res) {
+    res.sendFile(path.join(__dirname + "/../public/index.html"));
+});
 
 module.exports = router;
