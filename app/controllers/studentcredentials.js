@@ -17,6 +17,7 @@ var db = require("../models"),
 router.get("/event/data", function (req, res, next) {
     var group = []
 
+
     axios.get("https://api.meetup.com/find/groups?page=20&text=JavaScript&key=6b6f260644b44657a442955d383013&sig_id=197617558&sig=8742e95d91419cc26b093bd4070f2beba7415bf3")
         .then(function (data) {
             console.log(data);
@@ -41,6 +42,22 @@ cloudinary.config({
 });
 
 
+router.get("/bootcamps", function(req, res) {
+    db.bootcamp.findAll({}).then(function(bootcamps) {
+        res.json(bootcamps);
+    })
+})
+
+router.post("/cohorts", function(req, res) {
+    db.cohort.findAll({
+        where: {
+            bootcampId: req.body.bootcampId
+        }
+    }).then(function(cohorts) {
+        res.json(cohorts);
+    })
+})
+
 
 router.post("/sign-up", function(req, res) {
     console.log(req.body);
@@ -52,13 +69,16 @@ router.post("/sign-up", function(req, res) {
                 if (err) throw err;
 
                 db.user.create({
+                        firstname: req.body.firstname,
+                        lastname: req.body.lastname,
                         username: req.body.username,
-                        password: hash
+                        password: hash,
+                        bootcampId: req.body.bootcampId,
+                        cohortId: req.body.cohortId
                     })
                     .then(function(data) {
                         console.log(data);
-                        res.status(200).json({ status: 'ok' });
-
+                        res.status(200).send({ message: 'User added to database' });
                     })
                     .catch(function(err) {
                         console.log(err);
@@ -115,8 +135,9 @@ router.post("/sign-in", function(req, res) {
         });
 });
 
-router.post("/profile", function(req, res){
-    // console.log(req.body);
+
+router.post("/profile", function(req, res) {
+   // console.log(req.body);
     var info = {
         email:req.body.email,
         phoneNumber: req.body.phoneNumber,

@@ -3,32 +3,34 @@
  */
 import React from "react";
 
-import {Button, Checkbox, Form} from "semantic-ui-react";
+import { Button, Checkbox, Form } from "semantic-ui-react";
 
 import css from "../../public/css/login.scss";
 
 import fetch from "../utils/api";
 
-class Signin extends React.Component{
+import axios from "axios";
 
-   state = {
-       active:true
+class Signin extends React.Component {
 
-   };
+    state = {
+        active: true
+
+    };
 
 
-   signinView = () => {
-       this.setState({active: true});
-   };
+    signinView = () => {
+        this.setState({ active: true });
+    };
 
-   signupView = () => {
+    signupView = () => {
         this.setState({ active: false });
 
-   };
+    };
 
 
-    render(){
-        return(
+    render() {
+        return (
             <div className="sicontainer ui one column center aligned grid">
                 <div className="signin column six wide form-holder">
 
@@ -54,15 +56,15 @@ class Signin extends React.Component{
 
 // Signing user to the database
 // Component is being used in Profile
-class SignInView extends React.Component{
+class SignInView extends React.Component {
 
-    constructor(){
+    constructor() {
         super();
 
     }
 
 
-    getval = () =>{
+    getval = () => {
         event.preventDefault();
 
         var user = {
@@ -70,7 +72,7 @@ class SignInView extends React.Component{
         };
 
 
-        for(var field in this.refs){
+        for (var field in this.refs) {
 
             user[this.refs[field].id] = this.refs[field].value;
         }
@@ -78,22 +80,22 @@ class SignInView extends React.Component{
         console.log(user);
 
         fetch.signin(user)
-            .then(function (data) {
+            .then(function(data) {
 
                 localStorage.setItem("token", data.data.token);
-                if(data.data.status === "Ok"){
+                if (data.data.status === "Ok") {
                     //location.href = '/profile'
                 }
                 console.log(data);
             })
-            .catch(function (err) {
+            .catch(function(err) {
                 console.log(err);
             });
     }
 
 
-    render(){
-        return(
+    render() {
+        return (
             <div className="ui form">
                 <div className="field">
                     <input type="text" placeholder="Email..." ref='username' id="username" required/>
@@ -127,68 +129,196 @@ class SignInView extends React.Component{
 
 // Sign up the user
 // Component being used in profile
-class SignUpView extends React.Component{
+class SignUpView extends React.Component {
 
-    constructor(){
-        super();
-    }
+    constructor(props) {
+        super(props);
 
-    getVal = (event) => {
-        event.preventDefault();
-
-        var user = {
-
+        this.state = {
+            firstname: null,
+            lastname: null,
+            email: null,
+            password: null,
+            bootcamp: null,
+            cohort: null,
+            bootcamps: [],
+            cohorts: []
         };
 
+        this.getBootcamps = this.getBootcamps.bind(this);
+        this.getCohorts = this.getCohorts.bind(this);
+        this.setBootcampOptions = this.setBootcampOptions.bind(this);
+        this.setCohortOptions = this.setCohortOptions.bind(this);
 
-        for(var field in this.refs){
-            //console.log(this.refs[field]);
-
-            user[this.refs[field].id] = this.refs[field].value;
-        }
-
-        console.log(user);
-
-        fetch.signup(user)
-            .then(function (data) {
-                console.log(data);
-                //location.href = '/profile'
-
-            })
-            .catch(function (err) {
-                console.log(err);
-            });
-
+        //On-Change Event Handlers
+        this.handleFirstNameChange = this.handleFirstNameChange.bind(this);
+        this.handleLastNameChange = this.handleLastNameChange.bind(this);
+        this.handleEmailChange = this.handleEmailChange.bind(this);
+        this.handlePasswordChange = this.handlePasswordChange.bind(this);
+        this.handleBootcampChange = this.handleBootcampChange.bind(this);
+        this.handleCohortChange = this.handleCohortChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
 
     }
 
-    render(){
-        return(
+    //On-Change Event Handlers
+    handleFirstNameChange(event) {
+        this.setState({
+            firstname: event.target.value.trim()
+        });
+    }
+
+    handleLastNameChange(event) {
+        this.setState({
+            lastname: event.target.value.trim()
+        });
+    }
+
+    handleEmailChange(event) {
+        this.setState({
+            email: event.target.value.trim()
+        });
+    }
+
+    handlePasswordChange(event) {
+        this.setState({
+            password: event.target.value.trim()
+        });
+    }
+
+    handleBootcampChange(event) {
+        this.setState({
+            bootcamp: event.target.value
+        }, this.getCohorts);
+    }
+
+    handleCohortChange(event) {
+        this.setState({
+            cohort: event.target.value
+        })
+    }
+
+    handleSubmit(event) {
+        event.preventDefault();
+        var nullFields = 0;
+        var user = {
+            firstname: this.state.firstname,
+            lastname: this.state.lastname,
+            username: this.state.email,
+            password: this.state.password,
+            bootcampId: this.state.bootcamp,
+            cohortId: this.state.cohort
+        };
+        for (var prop in user) {
+            if (user[prop] === null) {
+                nullFields++;
+                console.log("%s field is null", prop);
+            }
+        }
+        if (nullFields === 0) {
+            fetch.signup(user).then(function(data) {
+                console.log(data);
+            }).catch(function(err) {
+                console.log(err);
+            })
+        } else {
+            console.log("All fields required");
+        }
+    }
+
+    //Axios Calls for retrieveing Bootcamp and Cohort information to populate dropdowns
+    getBootcamps() {
+        axios.get("/bootcamps").then((bcamps) => {
+            this.setState({
+                bootcamps: bcamps.data,
+                bootcamp: bcamps.data[0].id
+            }, this.getCohorts);
+        }).catch(function(err) {
+            console.log(err)
+        });
+    }
+
+    getCohorts() {
+        axios.post("/cohorts", {
+            bootcampId: this.state.bootcamp
+        }).then((cohorts) => {
+            this.setState({
+                cohorts: cohorts.data,
+                cohort: cohorts.data[0].id
+            });
+        }).catch(function(err) {
+            console.log(err);
+        })
+    }
+
+    //Functions to populate dropdown menus for bootcamp and cohort
+    setBootcampOptions() {
+        var bootcampOptions = this.state.bootcamps.map(function(b) {
+            return (
+                <option key={b.id} value={b.id}>{b.institution}</option>
+            )
+        });
+        return bootcampOptions;
+    }
+
+    setCohortOptions() {
+        var cohortOptions = this.state.cohorts.map(function(c) {
+            return (
+                <option key={c.id} value={c.id}>{c.cohort}</option>
+            )
+        });
+        return cohortOptions;
+    }
+
+    //Lifecycle Methods
+    componentDidMount() {
+        this.getBootcamps();
+    }
+
+    render() {
+
+        var bootcampOptions = this.setBootcampOptions();
+        var cohortOptions = this.setCohortOptions();
+
+        return (
             <div className="ui form">
                 <div className="field">
-                    <input type="text" placeholder="Firstname..." ref="firstname" id="firstname" required/>
+                    <input type="text" placeholder="Firstname..." onChange={this.handleFirstNameChange} id="firstname" required/>
                 </div>
 
                 <div className="field">
-                    <input type="text" placeholder="Lastname..." ref='lastname' id="username" required/>
+                    <input type="text" placeholder="Lastname..." onChange={this.handleLastNameChange} id="lastname" required/>
                 </div>
 
                 <div className="field">
-                    <input type="text" placeholder="Email..." ref='username' id="email" required/>
+                    <input type="text" placeholder="Email..." onChange={this.handleEmailChange} id="username" required/>
                 </div>
 
                 <div className="field">
-                    <input type="password" placeholder="Password..." ref='password' id="password" required/>
+                    <input type="password" placeholder="Password..." onChange={this.handlePasswordChange} id="password" required/>
+                </div>
+
+                <div className="field">
+                    <select className="ui dropdown" onChange={this.handleBootcampChange}>
+                        {bootcampOptions}
+                    </select>
+                </div>
+
+                <div className="field">
+                    <select className="ui dropdown" onChange={this.handleCohortChange}>
+                        {cohortOptions}
+                    </select>
                 </div>
                 <br/>
 
                 <div className="field">
-                    <input type="submit" value="Sign Up" className="ui button large fluid" onClick={this.getVal}/>
+                    <input type="submit" value="Sign Up" className="ui button large fluid" onClick={this.handleSubmit}/>
                 </div>
 
                 {/*<button className="ui primary button" >Sign Up</button>*/}
             </div>
         );
+
     }
 
 

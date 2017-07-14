@@ -44,7 +44,8 @@ footer.page-footer {
     color: #fff;
 }
 
-#indexCover, .view {
+#indexCover,
+.view {
     background: url("https://images.unsplash.com/photo-1487446929682-f62f73984006?dpr=2&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=&bg=")no-repeat center center fixed;
 }
 
@@ -56,7 +57,10 @@ footer.page-footer {
     background: url("https://images.unsplash.com/photo-1474010446775-db2bc33f1845?ixlib=rb-0.3.5&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;w=1080&amp;fit=max&amp;s=7b4cde73cc5f9e8b9eda609242fb54f0")no-repeat center center fixed;
 }
 
-#indexCover, #aboutCover, #dashboardCover, .view {
+#indexCover,
+#aboutCover,
+#dashboardCover,
+.view {
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -92,7 +96,9 @@ footer.page-footer {
     margin-top: 80px;
 }
 
+
 /*about section*/
+
 img {
     max-width: 100%;
     max-height: 250px;
@@ -102,6 +108,8 @@ img {
     color: white;
     text-decoration: none;
 }
+
+
 /* Edit Profile styles */
 
 #editform {
@@ -125,20 +133,19 @@ img {
     font-family: 'Audiowide', cursive;
 }
 
-#infoUpdated{
+#infoUpdated {
     text-align: center;
     background: green;
-    padding:10px;
-    color:#fff;
-    border:1px solid darkgreen;
-    margin:0 auto;
-    margin-top:60px;
-    width:70%;
-
+    padding: 10px;
+    color: #fff;
+    border: 1px solid darkgreen;
+    margin: 0 auto;
+    margin-top: 60px;
+    width: 70%;
 }
 
-#profModal{
-  color:white;
+#profModal {
+    color: white;
 }
 
 
@@ -214,9 +221,12 @@ input:checked + .slider:before {
     color: #b94a48;
 }
 
+
 /* Feature Section */
-#cardfeature, #cardcontact{
-  width: 100%;
+
+#cardfeature,
+#cardcontact {
+    width: 100%;
 }
 
 
