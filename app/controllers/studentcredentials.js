@@ -49,11 +49,13 @@ router.post("/sign-up", function(req, res) {
                         firstname: req.body.firstname,
                         lastname: req.body.lastname,
                         username: req.body.username,
-                        password: hash
+                        password: hash,
+                        bootcampId: req.body.bootcampId,
+                        cohortId: req.body.cohortId
                     })
                     .then(function(data) {
                         console.log(data);
-                        res.status(200).json({ status: 'ok' });
+                        res.status(200).send({ message: 'User added to database' });
                     })
                     .catch(function(err) {
                         console.log(err);
