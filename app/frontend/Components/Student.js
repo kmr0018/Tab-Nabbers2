@@ -3,32 +3,34 @@
  */
 import React from "react";
 
-import {Button, Checkbox, Form} from "semantic-ui-react";
+import { Button, Checkbox, Form } from "semantic-ui-react";
 
 import css from "../../public/css/login.scss";
 
 import fetch from "../utils/api";
 
-class Signin extends React.Component{
+import axios from "axios";
 
-   state = {
-       active:true
+class Signin extends React.Component {
 
-   };
+    state = {
+        active: true
+
+    };
 
 
-   signinView = () => {
-       this.setState({active: true});
-   };
+    signinView = () => {
+        this.setState({ active: true });
+    };
 
-   signupView = () => {
+    signupView = () => {
         this.setState({ active: false });
 
-   };
+    };
 
 
-    render(){
-        return(
+    render() {
+        return (
             <div className="sicontainer ui one column center aligned grid">
                 <div className="signin column six wide form-holder">
 
@@ -54,15 +56,15 @@ class Signin extends React.Component{
 
 // Signing user to the database
 // Component is being used in Profile
-class SignInView extends React.Component{
+class SignInView extends React.Component {
 
-    constructor(){
+    constructor() {
         super();
 
     }
 
 
-    getval = () =>{
+    getval = () => {
         event.preventDefault();
 
         var user = {
@@ -70,7 +72,7 @@ class SignInView extends React.Component{
         };
 
 
-        for(var field in this.refs){
+        for (var field in this.refs) {
 
             user[this.refs[field].id] = this.refs[field].value;
         }
@@ -78,22 +80,22 @@ class SignInView extends React.Component{
         console.log(user);
 
         fetch.signin(user)
-            .then(function (data) {
+            .then(function(data) {
 
                 localStorage.setItem("token", data.data.token);
-                if(data.data.status === "Ok"){
+                if (data.data.status === "Ok") {
                     //location.href = '/profile'
                 }
                 console.log(data);
             })
-            .catch(function (err) {
+            .catch(function(err) {
                 console.log(err);
             });
     }
 
 
-    render(){
-        return(
+    render() {
+        return (
             <div className="ui form">
                 <div className="field">
                     <input type="text" placeholder="Email..." ref='username' id="username" required/>
@@ -127,58 +129,132 @@ class SignInView extends React.Component{
 
 // Sign up the user
 // Component being used in profile
-class SignUpView extends React.Component{
+class SignUpView extends React.Component {
 
-    constructor(){
-        super();
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            bootcamps: [],
+            cohorts: [],
+            bootcampSelected: 1
+        };
+
+        this.getBootcamps = this.getBootcamps.bind(this);
+        this.getCohorts = this.getCohorts.bind(this);
+        this.setBootcampOptions = this.setBootcampOptions.bind(this);
+        this.setCohortOptions = this.setCohortOptions.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+
     }
 
     getVal = (event) => {
         event.preventDefault();
 
-        var user = {
-
-        };
+        var user = {};
 
 
-        for(var field in this.refs){
+        for (var field in this.refs) {
             //console.log(this.refs[field]);
 
             user[this.refs[field].id] = this.refs[field].value;
         }
 
-        console.log(user);
-
         fetch.signup(user)
-            .then(function (data) {
+            .then(function(data) {
                 console.log(data);
                 //location.href = '/profile'
 
             })
-            .catch(function (err) {
+            .catch(function(err) {
                 console.log(err);
             });
 
 
     }
 
-    render(){
-        return(
+    componentDidMount() {
+        this.getBootcamps();
+        this.getCohorts();
+    }
+
+    componentDidUpdate() {
+        this.getCohorts();
+    }
+
+    getBootcamps() {
+        axios.get("/bootcamps").then((bcamps) => {
+            this.setState({ bootcamps: bcamps.data });
+        }).catch(function(err) {
+            console.log(err)
+        });
+    }
+
+    setBootcampOptions() {
+        var bootcampOptions = this.state.bootcamps.map(function(b) {
+            return (
+                <option key={b.id} value={b.id}>{b.institution}</option>
+            )
+        });
+        return bootcampOptions;
+    }
+
+    getCohorts() {
+        axios.post("/cohorts", {
+            bootcampId: this.state.bootcampSelected
+        }).then((cohorts) => {
+            this.setState({ cohorts: cohorts.data });
+        }).catch(function(err) {
+            console.log(err);
+        })
+    }
+
+    setCohortOptions() {
+        var cohortOptions = this.state.cohorts.map(function(c) {
+            return (
+                <option key={c.id} value={c.id}>{c.cohort}</option>
+            )
+        });
+        return cohortOptions;
+    }
+
+    handleChange(e) {
+        this.setState({ bootcampSelected: e.target.value });
+    }
+
+    render() {
+
+        var bootcampOptions = this.setBootcampOptions();
+        var cohortOptions = this.setCohortOptions();
+
+        return (
             <div className="ui form">
                 <div className="field">
                     <input type="text" placeholder="Firstname..." ref="firstname" id="firstname" required/>
                 </div>
 
                 <div className="field">
-                    <input type="text" placeholder="Lastname..." ref='lastname' id="username" required/>
+                    <input type="text" placeholder="Lastname..." ref='lastname' id="lastname" required/>
                 </div>
 
                 <div className="field">
-                    <input type="text" placeholder="Email..." ref='username' id="email" required/>
+                    <input type="text" placeholder="Email..." ref='username' id="username" required/>
                 </div>
 
                 <div className="field">
                     <input type="password" placeholder="Password..." ref='password' id="password" required/>
+                </div>
+
+                <div className="field">
+                    <select className="ui dropdown" onChange={this.handleChange}>
+                        {bootcampOptions}
+                    </select>
+                </div>
+
+                <div className="field">
+                    <select className="ui dropdown">
+                        {cohortOptions}
+                    </select>
                 </div>
                 <br/>
 
@@ -189,6 +265,7 @@ class SignUpView extends React.Component{
                 {/*<button className="ui primary button" >Sign Up</button>*/}
             </div>
         );
+
     }
 
 

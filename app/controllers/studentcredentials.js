@@ -13,10 +13,28 @@ var db = require("../models"),
 
 
 
-router.get("*", function(req, res) {
-    res.sendFile(path.join(__dirname + "/../public/index.html"));
-});
+// router.get("*", function(req, res) {
+//     res.sendFile(path.join(__dirname + "/../public/index.html"));
+// });
 
+
+router.get("/bootcamps", function(req, res) {
+    db.bootcamp.findAll({}).then(function(bootcamps) {
+        res.json(bootcamps);
+    })
+})
+
+router.post("/cohorts", function(req, res) {
+    console.log("Attempting Cohort lookup");
+    db.cohort.findAll({
+        where: {
+            bootcampId: req.body.bootcampId
+        }
+    }).then(function(cohorts) {
+        console.log(cohorts);
+        res.json(cohorts);
+    })
+})
 
 router.post("/sign-up", function(req, res) {
     console.log(req.body);
@@ -28,13 +46,14 @@ router.post("/sign-up", function(req, res) {
                 if (err) throw err;
 
                 db.user.create({
+                        firstname: req.body.firstname,
+                        lastname: req.body.lastname,
                         username: req.body.username,
                         password: hash
                     })
                     .then(function(data) {
                         console.log(data);
                         res.status(200).json({ status: 'ok' });
-
                     })
                     .catch(function(err) {
                         console.log(err);
@@ -91,9 +110,9 @@ router.post("/sign-in", function(req, res) {
         });
 });
 
-router.post("/profile", function(req, res){
-  console.log(req.body);
-  res.json("ok");
+router.post("/profile", function(req, res) {
+    console.log(req.body);
+    res.json("ok");
 });
 
 // Profile page for Students
