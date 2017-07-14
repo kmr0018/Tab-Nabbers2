@@ -32,6 +32,12 @@ const fetch = {
 
     getCurrentUserData: function(data) {
         return axios.get("/api/profile");
+    },
+
+    event: function() {
+        return axios.get("/event/data", {
+            withCredentials: true
+        });
     }
 };
 

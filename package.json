@@ -8,6 +8,8 @@
     "bcrypt": "^1.0.2",
     "body-parser": "^1.17.1",
     "chai": "^3.5.0",
+    "cloudinary": "^1.9.0",
+    "cloudinary-react": "^1.0.4",
     "cookie-parser": "^1.4.3",
     "dotenv": "^4.0.0",
     "express": "^4.15.2",
@@ -20,6 +22,7 @@
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-router": "^3.0.0",
+    "request": "^2.81.0",
     "semantic-ui-react": "^0.70.0",
     "sequelize": "^3.30.4"
   },

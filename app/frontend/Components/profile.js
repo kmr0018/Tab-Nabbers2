@@ -4,6 +4,8 @@ import InlineEdit from 'react-edit-inline';
 import Footer from "./common/Footer";
 import fetch from "../utils/api";
 
+import {Image} from 'cloudinary-react';
+
 import css from "../../public/css/profile.scss";
 
 
@@ -21,13 +23,18 @@ class Profile extends React.Component{
         firstname:"Enter your first name",
         lastname:"Enter your last name",
         addr:'Enter your city and state',
-        phone: "Enter your phone number",
+        phoneNumber: "Enter your phone number",
 
         homeaddress:"Enter your home address",
         email:"Enter your email",
         site:"Enter your portfolio site",
         birthday: "Enter your date of birth",
-        gender: "Enter your gender"
+        gender: "Enter your gender",
+        github:'',
+        about:'',
+        last_login:'',
+        status:'',
+        photo:""
     };
 
     handleItemClick = (e, { name }) => this.setState({ activeItem: name });
@@ -52,18 +59,18 @@ class Profile extends React.Component{
     }
 
     componentDidMount() {
-  		this.getSaved();
+  		//this.getSaved();
   	}
 
-  	getSaved() {
-  		fetch.getCurrentUserData()
-      .then(function(res) {
-  			this.setState({ profile: res.data });
-  		})
-      .catch(function(err){
-        console.log(err);
-      });
-  	}
+  	// getSaved() {
+  	// 	fetch.getCurrentUserData()
+       //    .then(function(res) {
+       //          this.setState({ profile: res.data });
+       //      })
+       //    .catch(function(err){
+       //      console.log(err);
+       //    });
+  	// }
 
     render(){
 
@@ -90,7 +97,7 @@ class Profile extends React.Component{
 
                 <div className="profile__about">
 
-                    <img className="ui fluid image" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/454423/profile/profile-512.jpg" alt="Image that needs to be added"/>
+                    <Image cloudName="profile-images" publicId="sample" width="300" crop="scale"/>
                     <form method='post' action='upload' encType="multipart/form-data">
                         <div className="file-field">
                             <div className="btn btn-elegant btn-md">
@@ -199,7 +206,7 @@ class Profile extends React.Component{
 
                         <div>
                             {(this.state.activeItem === 'About') ? <About
-                              phone = {this.state.phone }
+                              phone = {this.state.phoneNumber }
                               homeaddress = {this.state.homeaddress}
                               email = {this.state.email}
                               site = {this.state.site}
