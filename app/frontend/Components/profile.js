@@ -4,6 +4,8 @@ import InlineEdit from 'react-edit-inline';
 import Footer from "./common/Footer";
 import fetch from "../utils/api";
 
+import {Image} from 'cloudinary-react';
+
 import css from "../../public/css/profile.scss";
 
 
@@ -90,7 +92,7 @@ class Profile extends React.Component{
 
                 <div className="profile__about">
 
-                    <img className="ui fluid image" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/454423/profile/profile-512.jpg" alt="Image that needs to be added"/>
+                    <Image cloudName="profile-images" publicId="sample" width="300" crop="scale"/>
                     <form method='post' action='upload' encType="multipart/form-data">
                         <div className="file-field">
                             <div className="btn btn-elegant btn-md">
