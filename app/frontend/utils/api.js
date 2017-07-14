@@ -32,18 +32,6 @@ const fetch = {
 
     getCurrentUserData: function(data) {
         return axios.get("/api/profile");
-    },
-
-    getBootcamps: function() {
-        axios.get("/bootcamps").then(function(bootcamps) {
-            return bootcamps.map(function(b) {
-                return (
-                    <option key={b.id} value={b.id}>{b.institution}</option>
-                )
-            });
-        }).catch(function(err) {
-            console.log(err)
-        });
     }
 };
 

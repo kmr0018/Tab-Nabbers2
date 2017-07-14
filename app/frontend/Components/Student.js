@@ -135,11 +135,11 @@ class SignUpView extends React.Component {
         super(props);
 
         this.state = {
-            firstname: "First Name",
-            lastname: "Last Name",
-            email: "E-mail Address",
-            password: "Password",
-            bootcamp: 1,
+            firstname: null,
+            lastname: null,
+            email: null,
+            password: null,
+            bootcamp: null,
             cohort: null,
             bootcamps: [],
             cohorts: []
@@ -200,6 +200,7 @@ class SignUpView extends React.Component {
 
     handleSubmit(event) {
         event.preventDefault();
+        var nullFields = 0;
         var user = {
             firstname: this.state.firstname,
             lastname: this.state.lastname,
@@ -208,17 +209,30 @@ class SignUpView extends React.Component {
             bootcampId: this.state.bootcamp,
             cohortId: this.state.cohort
         };
-        fetch.signup(user).then(function(data) {
-            console.log(data);
-        }).catch(function(err) {
-            console.log(err);
-        })
+        for (var prop in user) {
+            if (user[prop] === null) {
+                nullFields++;
+                console.log("%s field is null", prop);
+            }
+        }
+        if (nullFields === 0) {
+            fetch.signup(user).then(function(data) {
+                console.log(data);
+            }).catch(function(err) {
+                console.log(err);
+            })
+        } else {
+            console.log("All fields required");
+        }
     }
 
     //Axios Calls for retrieveing Bootcamp and Cohort information to populate dropdowns
     getBootcamps() {
         axios.get("/bootcamps").then((bcamps) => {
-            this.setState({ bootcamps: bcamps.data });
+            this.setState({
+                bootcamps: bcamps.data,
+                bootcamp: bcamps.data[0].id
+            }, this.getCohorts);
         }).catch(function(err) {
             console.log(err)
         });
@@ -228,7 +242,10 @@ class SignUpView extends React.Component {
         axios.post("/cohorts", {
             bootcampId: this.state.bootcamp
         }).then((cohorts) => {
-            this.setState({ cohorts: cohorts.data });
+            this.setState({
+                cohorts: cohorts.data,
+                cohort: cohorts.data[0].id
+            });
         }).catch(function(err) {
             console.log(err);
         })
@@ -256,7 +273,6 @@ class SignUpView extends React.Component {
     //Lifecycle Methods
     componentDidMount() {
         this.getBootcamps();
-        this.getCohorts();
     }
 
     render() {
@@ -267,19 +283,19 @@ class SignUpView extends React.Component {
         return (
             <div className="ui form">
                 <div className="field">
-                    <input type="text" placeholder="Firstname..." ref="firstname" onChange={this.handleFirstNameChange} id="firstname" required/>
+                    <input type="text" placeholder="Firstname..." onChange={this.handleFirstNameChange} id="firstname" required/>
                 </div>
 
                 <div className="field">
-                    <input type="text" placeholder="Lastname..." ref='lastname' onChange={this.handleLastNameChange} id="lastname" required/>
+                    <input type="text" placeholder="Lastname..." onChange={this.handleLastNameChange} id="lastname" required/>
                 </div>
 
                 <div className="field">
-                    <input type="text" placeholder="Email..." ref='username' onChange={this.handleEmailChange} id="username" required/>
+                    <input type="text" placeholder="Email..." onChange={this.handleEmailChange} id="username" required/>
                 </div>
 
                 <div className="field">
-                    <input type="password" placeholder="Password..." ref='password' onChange={this.handlePasswordChange} id="password" required/>
+                    <input type="password" placeholder="Password..." onChange={this.handlePasswordChange} id="password" required/>
                 </div>
 
                 <div className="field">

@@ -25,13 +25,11 @@ router.get("/bootcamps", function(req, res) {
 })
 
 router.post("/cohorts", function(req, res) {
-    console.log("Attempting Cohort lookup");
     db.cohort.findAll({
         where: {
             bootcampId: req.body.bootcampId
         }
     }).then(function(cohorts) {
-        console.log(cohorts);
         res.json(cohorts);
     })
 })
