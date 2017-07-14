@@ -5,71 +5,65 @@ module.exports = function(sequelize, Sequelize) {
 
             // firstname: {
             //     type: Sequelize.STRING,
-            //     allowNull: false,
-            //     validate: {
-            //         notEmpty: true
-            //     }
+            //     allowNull: false
             // },
             //
             // lastname: {
             //     type: Sequelize.STRING,
+            //     allowNull: false
+            // },
+            //
+            // username: {
+            //     type: Sequelize.STRING,
             //     allowNull: false,
+            //     unique:true,
             //     validate: {
-            //         notEmpty: true
+            //         len:[6, 20]
             //     }
             // },
+            //
+            // password: {
+            //     type: Sequelize.STRING,
+            //     allowNull: false
+            // },
 
-            username: {
-                type: Sequelize.STRING,
-                allowNull: false,
-                unique:true,
-                validate: {
-                    len:[6, 20]
-                }
-            },
-
-            password: {
+            email: {
                 type: Sequelize.STRING,
                 allowNull: false
-            }
+                // validate: {
+                //     isEmail: true
+                // }
+            },
 
-            // email: {
-            //     type: Sequelize.STRING,
-            //     allowNull: false,
-            //     validate: {
-            //         isEmail: true
-            //     }
-            // },
-            //
-            // phoneNumber: {
-            //     type: Sequelize.STRING,
-            //     allowNull: true
-            //         // validate: {
-            //         //     notEmpty: true,
-            //         //     len: [10]
-            //         // }
-            // },
-            //
-            // photo: {
-            //     type: Sequelize.STRING
-            // },
-            //
-            // github: {
-            //     type: Sequelize.STRING
-            // },
-            //
-            // about: {
-            //     type: Sequelize.TEXT
-            // },
-            //
+            phoneNumber: {
+                type: Sequelize.STRING,
+                allowNull: true
+                    // validate: {
+                    //     notEmpty: true,
+                    //     len: [10]
+                    // }
+            },
+
+            photo: {
+                type: Sequelize.STRING
+            },
+
+            github: {
+                type: Sequelize.STRING
+            },
+
+            about: {
+                type: Sequelize.TEXT
+            },
+
             // last_login: {
             //     type: Sequelize.DATE
             // },
-            //
-            // status: {
-            //     type: Sequelize.ENUM('active', 'inactive'),
-            //     defaultValue: 'active'
-            // },
+
+            status: {
+                type: Sequelize.ENUM('active', 'inactive'),
+                defaultValue: 'active'
+            }
         //
         //     //Skills
         //     HTML: {

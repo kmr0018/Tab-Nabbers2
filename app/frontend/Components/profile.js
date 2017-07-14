@@ -23,13 +23,18 @@ class Profile extends React.Component{
         firstname:"Enter your first name",
         lastname:"Enter your last name",
         addr:'Enter your city and state',
-        phone: "Enter your phone number",
+        phoneNumber: "Enter your phone number",
 
         homeaddress:"Enter your home address",
         email:"Enter your email",
         site:"Enter your portfolio site",
         birthday: "Enter your date of birth",
-        gender: "Enter your gender"
+        gender: "Enter your gender",
+        github:'',
+        about:'',
+        last_login:'',
+        status:'',
+        photo:""
     };
 
     handleItemClick = (e, { name }) => this.setState({ activeItem: name });
@@ -54,18 +59,18 @@ class Profile extends React.Component{
     }
 
     componentDidMount() {
-  		this.getSaved();
+  		//this.getSaved();
   	}
 
-  	getSaved() {
-  		fetch.getCurrentUserData()
-      .then(function(res) {
-  			this.setState({ profile: res.data });
-  		})
-      .catch(function(err){
-        console.log(err);
-      });
-  	}
+  	// getSaved() {
+  	// 	fetch.getCurrentUserData()
+       //    .then(function(res) {
+       //          this.setState({ profile: res.data });
+       //      })
+       //    .catch(function(err){
+       //      console.log(err);
+       //    });
+  	// }
 
     render(){
 
@@ -201,7 +206,7 @@ class Profile extends React.Component{
 
                         <div>
                             {(this.state.activeItem === 'About') ? <About
-                              phone = {this.state.phone }
+                              phone = {this.state.phoneNumber }
                               homeaddress = {this.state.homeaddress}
                               email = {this.state.email}
                               site = {this.state.site}
