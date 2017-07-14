@@ -25,10 +25,10 @@ router.post("/sign-up", function(req, res) {
             bcrypt.hash(req.body.password, salt, function(err, hash) {
                 if (err) throw err;
 
-                db.user.create({
-                        username: req.body.username,
-                        password: hash
-                    })
+                db.recruiter.create({
+                    username: req.body.username,
+                    password: hash
+                })
                     .then(function(data) {
                         console.log(data);
                         res.status(200).json({ status: 'ok' });
@@ -47,9 +47,9 @@ router.post("/sign-up", function(req, res) {
 router.post("/sign-in", function(req, res) {
 
 
-    db.user.findOne({
-            username: req.body.username
-        })
+    db.recruiter.findOne({
+        username: req.body.username
+    })
         .then(function(user) {
             if (!user) {
                 res.json("No user found!!");
@@ -90,8 +90,8 @@ router.post("/sign-in", function(req, res) {
 });
 
 router.post("/profile", function(req, res){
-  console.log(req.body);
-  res.json("ok");
+    console.log(req.body);
+    res.json("ok");
 });
 
 // Profile page for Students

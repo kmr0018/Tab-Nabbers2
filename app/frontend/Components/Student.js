@@ -82,7 +82,7 @@ class SignInView extends React.Component{
 
                 localStorage.setItem("token", data.data.token);
                 if(data.data.status === "Ok"){
-                    location.href = '/profile'
+                    //location.href = '/profile'
                 }
                 console.log(data);
             })
@@ -152,7 +152,7 @@ class SignUpView extends React.Component{
         fetch.signup(user)
             .then(function (data) {
                 console.log(data);
-                location.href = '/profile'
+                //location.href = '/profile'
 
             })
             .catch(function (err) {

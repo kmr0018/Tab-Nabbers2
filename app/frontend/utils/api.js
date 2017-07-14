@@ -11,6 +11,14 @@ const fetch = {
     signin:function (user) {
         return axios.post("/sign-in", user);
     },
+
+
+    recruitersignup: function (user) {
+        return axios.post("/recruiter/sign-up", user);
+    },
+    recruitersignin:function (user) {
+        return axios.post("/recruiter/sign-in", user);
+    },
     getData:function () {
         return axios.get("/api/users", {
             params: {

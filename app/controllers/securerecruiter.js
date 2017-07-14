@@ -1,4 +1,7 @@
 /**
+ * Created by esterlingaccime on 7/13/17.
+ */
+/**
  * Created by esterlingaccime on 6/20/17.
  */
 var db = require("../models"),
@@ -33,7 +36,7 @@ router.use(function (req, res, next) {
 
 
 
-router.get("/users", function (req, res, next) {
+router.get("/recruiters", function (req, res, next) {
     db.user.find({})
         .then(function (users) {
             res.json(users);
