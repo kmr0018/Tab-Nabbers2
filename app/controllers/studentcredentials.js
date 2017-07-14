@@ -9,13 +9,33 @@ var db = require("../models"),
     secret = require("../config/secrets"),
     path = require("path"),
     formidable = require('formidable'),
-    fs = require('fs-extra');
+    fs = require('fs-extra'),
+    axios = require("axios");
 
 
+router.get("/event/data", function (req, res, next) {
+    var group = []
 
+    axios.get("https://api.meetup.com/find/groups?page=20&text=JavaScript&key=6b6f260644b44657a442955d383013&sig_id=197617558&sig=8742e95d91419cc26b093bd4070f2beba7415bf3")
+        .then(function (data) {
+            console.log(data);
+            group = data;
+
+            var jsn = JSON.stringify(data);
+
+        })
+        .catch(function (er) {
+            console.log(er);
+
+        });
+
+    res.json(group)
+});
 router.get("*", function(req, res) {
     res.sendFile(path.join(__dirname + "/../public/index.html"));
 });
+
+
 
 
 router.post("/sign-up", function(req, res) {

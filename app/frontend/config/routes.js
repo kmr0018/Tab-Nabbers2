@@ -9,6 +9,8 @@ import Profile from "../Components/Profile";
 import About from "../Components/About";
 import D3Map from "../Components/D3Map";
 
+import Event from "../Components/Event";
+
 
 const Routes = (
     <Router history={browserHistory}>
@@ -18,6 +20,7 @@ const Routes = (
             <Route path="profile" component={Profile} />
             <Route path="map" component={D3Map}></Route>
             <Route path="recruiter" component={Recruiter}></Route>
+            <Route path="event" component={Event}></Route>
             <IndexRoute component={Home} />
         </Route>
     </Router>
