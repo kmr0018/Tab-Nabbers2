@@ -34,19 +34,9 @@ const fetch = {
         return axios.get("/api/profile");
     },
 
-    getBootcamps: function() {
-        axios.get("/bootcamps").then(function(bootcamps) {
-            return bootcamps.map(function(b) {
-                return (
-                    <option key={b.id} value={b.id}>{b.institution}</option>
-                )
-            });
-        }).catch(function(err) {
-            console.log(err)
-
-    event:function () {
+    event: function() {
         return axios.get("/event/data", {
-            withCredentials:true
+            withCredentials: true
         });
     }
 };

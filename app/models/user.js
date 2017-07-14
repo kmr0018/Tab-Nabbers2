@@ -18,93 +18,42 @@ module.exports = function(sequelize, Sequelize) {
                     notEmpty: true
                 }
             },
-            // firstname: {
-            //     type: Sequelize.STRING,
-            //     allowNull: false
-            // },
-            //
-            // lastname: {
-            //     type: Sequelize.STRING,
-            //     allowNull: false
-            // },
-            //
-            // username: {
-            //     type: Sequelize.STRING,
-            //     allowNull: false,
-            //     unique:true,
-            //     validate: {
-            //         len:[6, 20]
-            //     }
-            // },
-            //
-            // password: {
-            //     type: Sequelize.STRING,
-            //     allowNull: false
-            // },
-
-            email: {
+            username: {
                 type: Sequelize.STRING,
                 allowNull: false,
-                unique: true,
-                validate: {
-                    len: [6, 20]
-                }
-                allowNull: false
-                // validate: {
-                //     isEmail: true
-                // }
-            },
-
-            phoneNumber: {
-                type: Sequelize.STRING,
-                allowNull: false
-            }
-        },
-
-        // email: {
-        //     type: Sequelize.STRING,
-        //     allowNull: false,
-        //     validate: {
-        //         isEmail: true
-        //     }
-        // },
-        //
-        // phoneNumber: {
-        //     type: Sequelize.STRING,
-        //     allowNull: true
-        //         // validate: {
-        //         //     notEmpty: true,
-        //         //     len: [10]
-        //         // }
-        // },
-        //
-        // photo: {
-        //     type: Sequelize.STRING
-        // },
-        //
-        // github: {
-        //     type: Sequelize.STRING
-        // },
-        //
-        // about: {
-        //     type: Sequelize.TEXT
-        // },
-        //
-        // last_login: {
-        //     type: Sequelize.DATE
-        // },
-        //
-        // status: {
-        //     type: Sequelize.ENUM('active', 'inactive'),
-        //     defaultValue: 'active'
-        // },
-                allowNull: true
+                unique: true
                     // validate: {
-                    //     notEmpty: true,
-                    //     len: [10]
+                    //     len: [6, 20]
                     // }
             },
 
+            password: {
+                type: Sequelize.STRING,
+                allowNull: false
+            },
+
+            // email: {
+            //     type: Sequelize.STRING,
+            //     allowNull: false,
+            //     unique: true,
+            //     validate: {
+            //         len: [6, 20]
+            //     },
+            //     allowNull: false
+            //         // validate: {
+            //         //     isEmail: true
+            //         // }
+            // },
+            //
+            // phoneNumber: {
+            //     type: Sequelize.STRING,
+            //     allowNull: true
+            //         // validate: {
+            //         //     notEmpty: true,
+            //         //     len: [10]
+            //         // }
+            // },
+            //
             photo: {
                 type: Sequelize.STRING
             },
@@ -121,10 +70,12 @@ module.exports = function(sequelize, Sequelize) {
             //     type: Sequelize.DATE
             // },
 
-            status: {
-                type: Sequelize.ENUM('active', 'inactive'),
-                defaultValue: 'active'
-            }
+            // status: {
+        //     type: Sequelize.ENUM('active', 'inactive'),
+        //     defaultValue: 'active'
+        // }
+
+        },
         //
         //     //Skills
         //     HTML: {
