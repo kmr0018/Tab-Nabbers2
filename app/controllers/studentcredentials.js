@@ -11,9 +11,27 @@ var db = require("../models"),
     formidable = require('formidable'),
     fs = require('fs-extra'),
     cloudinary = require('cloudinary');
+    axios = require("axios");
 
 
+router.get("/event/data", function (req, res, next) {
+    var group = []
 
+    axios.get("https://api.meetup.com/find/groups?page=20&text=JavaScript&key=6b6f260644b44657a442955d383013&sig_id=197617558&sig=8742e95d91419cc26b093bd4070f2beba7415bf3")
+        .then(function (data) {
+            console.log(data);
+            group = data;
+
+            var jsn = JSON.stringify(data);
+
+        })
+        .catch(function (er) {
+            console.log(er);
+
+        });
+
+    res.json(group)
+});
 router.get("*", function(req, res) {
     res.sendFile(path.join(__dirname + "/../public/index.html"));
 });
@@ -23,6 +41,8 @@ cloudinary.config({
   api_key: '958681958972474', 
   api_secret: 'dDX2LC1yjF9dp-6E9fYgVTSITbw' 
 });
+
+
 
 router.post("/sign-up", function(req, res) {
     console.log(req.body);
