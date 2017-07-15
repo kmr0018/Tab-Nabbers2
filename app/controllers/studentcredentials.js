@@ -117,11 +117,12 @@ router.post("/sign-in", function(req, res) {
 
 //--------------------VERIFY WEBTOKEN FOR ALL SUBSEQUENT ROUTES-------------------
 
-router.use("/", function(req, res, next) {
-    jwt.verify(req.body.token, secret, function(err, decoded) {
-        console.log("JWT-Verify: %s", decoded);
-    });
-});
+// router.use("/", function(req, res, next) {
+            //     jwt.verify(req.body.token, secret, function(err, decoded) {
+            //         console.log("JWT-Verify: %s", decoded);
+            //     });
+            // });
+
 
 router.post("/profile", function(req, res) {
 

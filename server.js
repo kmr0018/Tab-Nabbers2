@@ -19,8 +19,6 @@ app.use(bodyParser.json());
 //Models
 var db = require("./app/models");
 
-
-
 // Routes for students and secure routes for students
 var authenticateStudent = require("./app/controllers/securestudent");
 app.use("/api", authenticateStudent);
@@ -38,7 +36,7 @@ app.use("/recruiter", recruiter);
 var server;
 //Sync Database
 
-db.sequelize.sync({force: true}).then(function() {
+db.sequelize.sync({}).then(function() {
 
     console.log('Nice! Database looks fine');
 
