@@ -34,8 +34,8 @@ class Profile extends React.Component{
         about:'',
         last_login:'',
         status:'',
+        photo:"upload_62825eb8e9f50b0c79604ebfae19c924_jfilmp",
         id:"",
-        photo:"upload_eee2ec308d0e403be66334b6f8d7adfd_vb5nvs"
     };
 
     handleItemClick = (e, { name }) => this.setState({ activeItem: name });
@@ -104,7 +104,11 @@ class Profile extends React.Component{
 
                 <div className="profile__about">
 
-                    <Image cloudName="profile-images" publicId={this.state.photo} crop="scale"/>
+                    <div className="ui fluid image">
+                        <div className="img">
+                            <Image cloudName="profile-images" publicId={this.state.photo}/>
+                        </div>
+                    </div>
                     <form method='post' action='upload' encType="multipart/form-data">
                         <div className="file-field">
                             <div className="btn btn-elegant btn-md">
@@ -189,8 +193,6 @@ class Profile extends React.Component{
                             <p className="right bookmark"><i className="bookmark icon"> </i>Bookmark</p>
 
                         </div>
-
-
                     </div>
 
                     <div className="profile__content--ranking">
