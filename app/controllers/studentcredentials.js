@@ -389,6 +389,7 @@ router.get("/map", function(req, res) {
                 console.log(err);
             } else {
                 json = JSON.stringify(atlanta); //convert it back to json
+                console.log(json);
                 fs.writeFile('./app/public/atlanta.json', json, 'utf8'); // write it back
                 res.sendFile(path.join(__dirname + "/../public/index.html"));
 

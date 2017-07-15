@@ -97,6 +97,7 @@ class SignInView extends React.Component {
         if (nullFields === 0) {
             fetch.signin(user)
                 .then(function(data) {
+                    location.href = '/profile'
                     localStorage.setItem("userID", data.data.id);
                     localStorage.setItem("token", data.data.token);
                     if (data.data.token) {
