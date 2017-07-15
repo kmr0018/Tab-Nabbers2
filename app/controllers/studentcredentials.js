@@ -253,11 +253,11 @@ router.post('/upload', function(req, res, next) {
             //console.log(result);
             var profileUpdate = {
                 photo: result.public_id,
-                photoUrl: result.photoUrl,
+                photoUrl: result.url,
             };
 
             //console.log(req.body);
-            db.user.update({photo: profileUpdate.photo}, {
+            db.user.update({photo: profileUpdate.photo, photoUrl:profileUpdate.photoUrl}, {
                 where:{
                     id: user.userID
                 }
