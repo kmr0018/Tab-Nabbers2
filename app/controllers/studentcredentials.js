@@ -253,6 +253,7 @@ router.post('/upload', function(req, res, next) {
             //console.log(result);
             var profileUpdate = {
                 photo: result.public_id,
+                photoUrl: result.photoUrl,
             };
 
             //console.log(req.body);
@@ -301,7 +302,7 @@ router.get("/map", function(req, res) {
             var obj = {
                 name: el.firstname,
                 id: "'" + el.id + "'",
-                // img: "./img/profile_images/" + el.photo,
+                img: el.photoUrl,
                 size: 40000,
                 email: el.email,
                 phone: el.phoneNumber,

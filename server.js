@@ -2,13 +2,14 @@ var express = require('express'),
     session = require('express-session'),
     bodyParser = require('body-parser'),
     env = require('dotenv').load(),
-    secret = require("./app/config/secrets");
+    secret = require("./app/config/secrets"),
+    path = require("path");
 
 var app = express(),
     PORT = process.env.PORT || 8080;
 
 // Static directory
-app.use(express.static("./app/public"));
+app.use(express.static(path.join(__dirname + "/app/public")));
 
 //For BodyParser
 app.use(bodyParser({ defer: true }));
@@ -35,7 +36,7 @@ app.use("/recruiter", recruiter);
 var server;
 
 //Sync Database
-db.sequelize.sync({ }).then(function() {
+db.sequelize.sync({ force: true }).then(function() {
     console.log('Nice! Database looks fine');
 
     server = app.listen(PORT, function(err) {
@@ -51,4 +52,4 @@ db.sequelize.sync({ }).then(function() {
 });
 
 
-module.exports = server;
+module.exports =  server;
