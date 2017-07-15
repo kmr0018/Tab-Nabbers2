@@ -69,6 +69,11 @@ class Profile extends React.Component{
   		//this.getSaved();
   	}
 
+  	getIn = (event) => {
+        console.log(event.target);
+        console.log(event.target);
+
+    }
   	// getSaved() {
   	// 	fetch.getCurrentUserData()
        //    .then(function(res) {
@@ -146,7 +151,7 @@ class Profile extends React.Component{
                     <hr/>
 
                     <div className="profile__about--skills">
-                      <Dropdown placeholder='Skills' fluid multiple selection options={options} />
+                      <Dropdown placeholder='Skills' fluid multiple selection options={options} onChange={this.getIn} />
                     </div>
 
                 </div>
