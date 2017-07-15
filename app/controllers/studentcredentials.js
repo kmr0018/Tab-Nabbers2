@@ -14,24 +14,26 @@ var db = require("../models"),
     axios = require("axios");
 
 
-router.get("/event/data", function(req, res, next) {
-    var group = []
-    axios.get("https://api.meetup.com/find/groups?page=20&text=JavaScript&key=6b6f260644b44657a442955d383013&sig_id=197617558&sig=8742e95d91419cc26b093bd4070f2beba7415bf3")
-        .then(function(data) {
-            console.log(data);
-            group = data;
-            var jsn = JSON.stringify(data);
-        })
-        .catch(function(er) {
-            console.log(er);
-        });
-    res.json(group)
-});
+// router.get("/event/data", function (req, res, next) {
+//     var group = []
+//
+//
+//     axios.get("https://api.meetup.com/find/groups?page=20&text=JavaScript&key=6b6f260644b44657a442955d383013&sig_id=197617558&sig=8742e95d91419cc26b093bd4070f2beba7415bf3")
+//         .then(function (response) {
+//             response.JSON();
+//         })
+//         .catch(function (er) {
+//             console.log(er);
+//
+//         });
+//
+//     res.json(group)
+// });
 
 cloudinary.config({
-    cloud_name: 'profile-images',
-    api_key: '958681958972474',
-    api_secret: 'dDX2LC1yjF9dp-6E9fYgVTSITbw'
+  cloud_name: 'profile-images',
+  api_key: '958681958972474',
+  api_secret: 'dDX2LC1yjF9dp-6E9fYgVTSITbw'
 });
 
 router.get("/bootcamps", function(req, res) {
@@ -186,9 +188,9 @@ router.post('/upload', function(req, res, next) {
                 eager: {
                     width: 250, height: 300, crop: "thumb", gravity: "face",
                 }
-            }, 
+            },
         function(error, result) {
-            console.log(result); 
+            console.log(result);
             var profileUpdate = {
                 photo: result.public_id,
             };
@@ -206,7 +208,7 @@ router.post('/upload', function(req, res, next) {
             // });
         }).then(function(data) {
             location.href = '/profile'
-        }); 
+        });
     });
 });
 
