@@ -34,7 +34,7 @@ class Profile extends React.Component{
         about:'',
         last_login:'',
         status:'',
-        photo:"upload_eee2ec308d0e403be66334b6f8d7adfd_vb5nvs"
+        photo:"upload_62825eb8e9f50b0c79604ebfae19c924_jfilmp"
     };
 
     handleItemClick = (e, { name }) => this.setState({ activeItem: name });
@@ -97,7 +97,11 @@ class Profile extends React.Component{
 
                 <div className="profile__about">
 
-                    <Image cloudName="profile-images" publicId={this.state.photo} crop="scale"/>
+                    <div className="ui fluid image">
+                        <div className="img">
+                            <Image cloudName="profile-images" publicId={this.state.photo}/>
+                        </div>
+                    </div>
                     <form method='post' action='upload' encType="multipart/form-data">
                         <div className="file-field">
                             <div className="btn btn-elegant btn-md">
@@ -151,23 +155,25 @@ class Profile extends React.Component{
 
                     <div className="profile__content--about">
                        <div>
-                           <h4> <InlineEdit
-                               activeClassName="firstname"
-                               text={this.state.firstname}
-                               paramName="firstname"
-                               change={this.dataChanged}/></h4>
-                           <h4> <InlineEdit
-                                activeClassName="lastname"
-                               text={this.state.lastname}
-                               paramName="lastname"
-                               change={this.dataChanged}/></h4>
-                           <p> <i className="marker icon"> </i> <InlineEdit
-                               activeClassName="addr"
-                               text={this.state.addr}
-                               paramName="addr"
-                               change={this.dataChanged}/></p>
+                            <h4> <InlineEdit
+                                activeClassName="firstname"
+                                text={this.state.firstname}
+                                paramName="firstname"
+                                change={this.dataChanged}/></h4>
+                            <p> <i className="marker icon"> </i> <InlineEdit
+                                activeClassName="addr"
+                                text={this.state.addr}
+                                paramName="addr"
+                                change={this.dataChanged}/></p>
+                                <br/>
                        </div>
-                        <p className="right bookmark"><i className="bookmark icon"> </i>Bookmark</p>
+                       <h4> <InlineEdit
+                                activeClassName="lastname"
+                                text={this.state.lastname}
+                                paramName="lastname"
+                                change={this.dataChanged}/></h4>
+                                <br/>
+                        
                         <p className="clear"> <InlineEdit
                             activeClassName="job"
                             text={this.state.job}

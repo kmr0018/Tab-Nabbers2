@@ -178,10 +178,10 @@ router.post('/upload', function(req, res, next) {
             files.fileUploaded.path, {
                 use_filename: true,
                 transformation: {
-                    width: 250, height: 300, crop: "thumb",
+                    width: 250, height: 300, crop: "thumb", radius: 20,
                 },
                 eager: {
-                    width: 250, height: 300, crop: "thumb", gravity: "face"
+                    width: 250, height: 300, crop: "thumb", gravity: "face",
                 }
             }, 
         function(error, result) {
@@ -190,17 +190,17 @@ router.post('/upload', function(req, res, next) {
                 photo: result.public_id,
             };
 
-            db.user.update(profileUpdate, {
-                where: {
-                    id: req.user.id
-                }
-            }).then(function(data) {
-                console.log("Data has successfully beeen updated!!", data);
-                res.redirect("/profile");
-            }).catch(function(err) {
-                console.log(err);
-                res.json("err");
-            });
+            // db.user.update(profileUpdate, {
+            //     where: {
+            //         id: currentUser.id
+            //     }
+            // }).then(function(data) {
+            //     console.log("Data has successfully beeen updated!!", data);
+            //     res.redirect("/profile");
+            // }).catch(function(err) {
+            //     console.log(err);
+            //     res.json("err");
+            // });
         }).then(function(data) {
             location.href = '/profile'
         }); 
