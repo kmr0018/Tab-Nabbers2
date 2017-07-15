@@ -46,13 +46,17 @@ class Profile extends React.Component{
         this.setState({...data});
         console.log({...data});
 
-        fetch.userUpdate({...data})
-            .then(function(data) {
-                console.log(data);
-            })
-            .catch(function(err){
-                console.log(err);
-            });
+        if(!data.activeItem){
+
+            fetch.userUpdate({...data})
+                .then(function(data) {
+                    console.log(data);
+                })
+                .catch(function(err){
+                    console.log(err);
+                });
+        }
+
     }
 
     componentWillUpdate(nextProps, nextState){
@@ -153,29 +157,40 @@ class Profile extends React.Component{
                 <div className="profile__content">
 
                     <div className="profile__content--about">
-                       <div>
-                           <h4> <InlineEdit
+                       <div className="header">
+                           <h4 className="left"> <InlineEdit
                                activeClassName="firstname"
                                text={this.state.firstname}
                                paramName="firstname"
                                change={this.dataChanged}/></h4>
-                           <h4> <InlineEdit
+
+
+                           <h4 className=""> <InlineEdit
                                 activeClassName="lastname"
                                text={this.state.lastname}
                                paramName="lastname"
                                change={this.dataChanged}/></h4>
-                           <p> <i className="marker icon"> </i> <InlineEdit
-                               activeClassName="addr"
-                               text={this.state.addr}
-                               paramName="addr"
-                               change={this.dataChanged}/></p>
+
                        </div>
-                        <p className="right bookmark"><i className="bookmark icon"> </i>Bookmark</p>
-                        <p className="clear"> <InlineEdit
-                            activeClassName="job"
-                            text={this.state.job}
-                            paramName="job"
-                            change={this.dataChanged}/></p>
+
+                        <div className="bookmarksection">
+                            <p className="left"> <InlineEdit
+                                activeClassName="job"
+                                text={this.state.job}
+                                paramName="job"
+                                change={this.dataChanged}/></p>
+
+                            <p className="left"> <i className="marker icon"> </i> <InlineEdit
+                                activeClassName="addr"
+                                text={this.state.addr}
+                                paramName="addr"
+                                change={this.dataChanged}/></p>
+
+                            <p className="right bookmark"><i className="bookmark icon"> </i>Bookmark</p>
+
+                        </div>
+
+
                     </div>
 
                     <div className="profile__content--ranking">

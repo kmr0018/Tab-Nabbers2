@@ -147,6 +147,8 @@ router.post("/profile", function(req, res) {
         // status:req.body.status
     };
 
+    res.json(req.body);
+
     //console.log(info);
 
     // db.user.create(info)
