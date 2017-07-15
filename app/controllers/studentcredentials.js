@@ -212,7 +212,8 @@ router.post("/api/profile", function(req, res) {
                  addr: data.addr,
                  address: data.address,
                  homeaddress: data.homeaddress,
-                 github: data.github
+                 github: data.github,
+                 photo: data.photo
              }
 
              res.json(info);
