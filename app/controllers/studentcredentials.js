@@ -50,6 +50,8 @@ var iyBootcamp = atlanta.children[2].children,
 //     res.json(group)
 // });
 
+var user ;
+
 cloudinary.config({
   cloud_name: 'profile-images',
   api_key: '958681958972474',
@@ -180,7 +182,8 @@ router.post("/profile", function(req, res) {
 // If user not logged in, they're not able to see it
 router.post("/api/profile", function(req, res) {
     //console.log(req.params);
-    console.log(req.body);
+    user = req.body;
+
      db.user.findOne({
          where:{
              id:req.body.userID
@@ -215,6 +218,8 @@ router.post("/api/profile", function(req, res) {
 });
 
 router.post('/upload', function(req, res, next) {
+    console.log(user);
+
     var form = new formidable.IncomingForm();
     form.keepExtensions = true;
     form.parse(req, function(err, fields, files) {
@@ -229,25 +234,24 @@ router.post('/upload', function(req, res, next) {
                 }
             },
         function(error, result) {
-            console.log(result);
+            //console.log(result);
             var profileUpdate = {
                 photo: result.public_id,
             };
 
-            // db.user.update(profileUpdate, {
-            //     where: {
-            //         id: currentUser.id
-            //     }
-            // }).then(function(data) {
-            //     console.log("Data has successfully beeen updated!!", data);
-            //     res.redirect("/profile");
-            // }).catch(function(err) {
-            //     console.log(err);
-            //     res.json("err");
-            // });
-        }).then(function(data) {
-            location.href = '/profile'
-        });
+            //console.log(req.body);
+            db.user.update({photo: profileUpdate.photo}, {
+                where:{
+                    id: user.userID
+                }
+            })
+                .then(function (data) {
+                    res.json(data);
+                })
+                .catch(function (err) {
+                    res.json(err);
+                })
+        })
     });
 });
 

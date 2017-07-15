@@ -71,13 +71,7 @@ class Profile extends React.Component{
             });
 
 
-        fetch.userUpdate({...data, userID: localStorage.getItem("userID")})
-            .then(function(data) {
-                console.log(data);
-            })
-            .catch(function(err){
-                console.log(err);
-            });
+
   	}
 
 
@@ -87,6 +81,22 @@ class Profile extends React.Component{
         console.log(event.target);
 
     }
+
+
+    sendUpload = (event) => {
+        console.log("Hello World!!");
+        fetch.uploadImage()
+
+    }
+  	// getSaved() {
+  	// 	fetch.getCurrentUserData()
+       //    .then(function(res) {
+       //          this.setState({ profile: res.data });
+       //      })
+       //    .catch(function(err){
+       //      console.log(err);
+       //    });
+  	// }
 
 
     render(){
@@ -118,12 +128,16 @@ class Profile extends React.Component{
                             <Image cloudName="profile-images" publicId={this.state.photo}/>
                         </div>
                     </div>
-                    <form method='post' action='upload' encType="multipart/form-data">
+                    <form method='post' action='/upload' encType="multipart/form-data">
                         <div className="file-field">
                             <div className="btn btn-elegant btn-md">
                                 <span>Upload your profile photo</span>
+                                <label htmlFor="fileUploaded"></label>
                                 <input type='file' name='fileUploaded'/>
-                                <input id="imageSubmit" type='submit' className="ui primary button"/>
+
+                                <label htmlFor={localStorage.getItem("userID")}></label>
+                                <input type="hidden" name={localStorage.getItem("userID")}/>
+                                <input id="imageSubmit" type='submit' className="ui primary button" onClick={this.sendUpload}/>
                             </div>
                         </div>
                     </form>
