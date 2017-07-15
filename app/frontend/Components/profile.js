@@ -34,7 +34,12 @@ class Profile extends React.Component{
         about:'',
         last_login:'',
         status:'',
+<<<<<<< HEAD
         photo:"upload_62825eb8e9f50b0c79604ebfae19c924_jfilmp"
+=======
+        id:"",
+        photo:"upload_eee2ec308d0e403be66334b6f8d7adfd_vb5nvs"
+>>>>>>> 4faceda46b8ede3ff5f357c285c4745b8e3e1dc7
     };
 
     handleItemClick = (e, { name }) => this.setState({ activeItem: name });
@@ -43,19 +48,25 @@ class Profile extends React.Component{
         console.log(data);
 
         this.setState({...data});
-        console.log(this.state);
+        console.log({...data});
+
+        if(!data.activeItem){
+
+            fetch.userUpdate({...data})
+                .then(function(data) {
+                    console.log(data);
+                })
+                .catch(function(err){
+                    console.log(err);
+                });
+        }
+
     }
 
     componentWillUpdate(nextProps, nextState){
-      console.log(nextState);
-      fetch.userUpdate(nextState)
-        .then(function(data) {
-          console.log(data);
-        })
-        .catch(function(err){
-          console.log(err);
-        });
-      console.log("it works!");
+      // console.log(nextState);
+      //
+      // console.log("it works!");
     }
 
     componentDidMount() {
@@ -154,31 +165,41 @@ class Profile extends React.Component{
                 <div className="profile__content">
 
                     <div className="profile__content--about">
-                       <div>
-                            <h4> <InlineEdit
-                                activeClassName="firstname"
-                                text={this.state.firstname}
-                                paramName="firstname"
-                                change={this.dataChanged}/></h4>
-                            <p> <i className="marker icon"> </i> <InlineEdit
+                       <div className="header">
+                           <h4 className="left"> <InlineEdit
+                               activeClassName="firstname"
+                               text={this.state.firstname}
+                               paramName="firstname"
+                               change={this.dataChanged}/></h4>
+
+
+                           <h4 className=""> <InlineEdit
+                                activeClassName="lastname"
+                               text={this.state.lastname}
+                               paramName="lastname"
+                               change={this.dataChanged}/></h4>
+
+                       </div>
+
+                        <div className="bookmarksection">
+                            <p className="left"> <InlineEdit
+                                activeClassName="job"
+                                text={this.state.job}
+                                paramName="job"
+                                change={this.dataChanged}/></p>
+
+                            <p className="left"> <i className="marker icon"> </i> <InlineEdit
                                 activeClassName="addr"
                                 text={this.state.addr}
                                 paramName="addr"
                                 change={this.dataChanged}/></p>
-                                <br/>
-                       </div>
-                       <h4> <InlineEdit
-                                activeClassName="lastname"
-                                text={this.state.lastname}
-                                paramName="lastname"
-                                change={this.dataChanged}/></h4>
-                                <br/>
-                        
-                        <p className="clear"> <InlineEdit
-                            activeClassName="job"
-                            text={this.state.job}
-                            paramName="job"
-                            change={this.dataChanged}/></p>
+
+                            <p className="right bookmark"><i className="bookmark icon"> </i>Bookmark</p>
+
+                        </div>
+
+
+>>>>>>> 4faceda46b8ede3ff5f357c285c4745b8e3e1dc7
                     </div>
 
                     <div className="profile__content--ranking">

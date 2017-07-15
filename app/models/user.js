@@ -21,6 +21,7 @@ module.exports = function(sequelize, Sequelize) {
             email: {
                 type: Sequelize.STRING,
                 allowNull: false,
+
                 unique: true,
                 validate: {
                     isEmail: true
@@ -31,6 +32,7 @@ module.exports = function(sequelize, Sequelize) {
                 type: Sequelize.STRING,
                 allowNull: false
             },
+
 
             phoneNumber: {
                 type: Sequelize.STRING,
@@ -103,6 +105,7 @@ module.exports = function(sequelize, Sequelize) {
                 type: Sequelize.BOOLEAN,
                 defaultValue: false
             },
+
 
             Ruby: {
                 type: Sequelize.BOOLEAN,

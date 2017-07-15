@@ -123,6 +123,7 @@ router.post("/sign-in", function(req, res) {
 
 
 router.post("/profile", function(req, res) {
+
     // console.log(req.body);
     var info = {
         email: req.body.email,
@@ -133,18 +134,20 @@ router.post("/profile", function(req, res) {
             // status:req.body.status
     };
 
-    console.log(info);
+    res.json(req.body);
 
-    db.user.create(info)
-        .then(function(data) {
-            console.log(data);
-            res.status(200).json({ status: 'ok' });
+    //console.log(info);
 
-        })
-        .catch(function(err) {
-            console.log(err);
-            res.json({ message: "Something went wrong, either the user already created with that username" });
-        });
+    // db.user.create(info)
+    //     .then(function(data) {
+    //         console.log(data);
+    //         res.status(200).json({ status: 'ok' });
+    //
+    //     })
+    //     .catch(function(err) {
+    //         console.log(err);
+    //         res.json({ message: "Something went wrong, either the user already created with that username" });
+    //     });
 });
 
 // Profile page for Students
