@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
-import { Grid, Menu, Segment, Dropdown } from 'semantic-ui-react';
+import { Grid, Menu, Segment, Dropdown, Rating } from 'semantic-ui-react';
 import InlineEdit from 'react-edit-inline';
 import Footer from "./common/Footer";
+import Event from "./Event";
 import fetch from "../utils/api";
 
 import {Image} from 'cloudinary-react';
 
 import css from "../../public/css/profile.scss";
-
-
 
 
 
@@ -90,7 +89,6 @@ class Profile extends React.Component{
           { key: 'ui', text: 'UI Design', value: 'ui' },
           { key: 'ux', text: 'User Experience', value: 'ux' },
         ];
-
 
         return(
             <section className="profile">
@@ -178,13 +176,8 @@ class Profile extends React.Component{
                     <div className="profile__content--ranking">
                         <h3>Rankings</h3>
                        <div>
-                           <h5>8,6</h5>
-                           <i className="empty star icon"> </i>
-                           <i className="empty star icon"> </i>
-                           <i className="empty star icon"> </i>
-                           <i className="empty star icon"> </i>
-                           <i className="empty star icon"> </i>
-                       </div>
+                           <Rating maxRating={5} clearable />
+                      </div>
                     </div>
 
                     <div className="profile__content--contact">
@@ -199,7 +192,7 @@ class Profile extends React.Component{
                         {/*<p> <i className="user icon"> </i>About</p>*/}
 
                         <Menu pointing secondary>
-                            <Menu.Item name='Timeline' active={activeItem === 'Timeline'} onClick={this.handleItemClick}/>
+                            <Menu.Item name='Meetup Events' active={activeItem === 'Timeline'} onClick={this.handleItemClick}/>
                             <Menu.Item name='About' active={activeItem === 'About'} onClick={this.handleItemClick} />
 
                         </Menu>
@@ -214,7 +207,7 @@ class Profile extends React.Component{
                               gender = {this.state.gender}
                               dataChanged = {this.dataChanged}
 
-                            /> :  <p>Hello World!!</p>}
+                            /> :  <Event />}
                         </div>
 
                         {/*<About />*/}

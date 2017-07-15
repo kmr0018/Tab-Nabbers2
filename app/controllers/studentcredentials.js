@@ -14,31 +14,26 @@ var db = require("../models"),
     axios = require("axios");
 
 
-router.get("/event/data", function (req, res, next) {
-    var group = []
+// router.get("/event/data", function (req, res, next) {
+//     var group = []
+//
+// 
+//     axios.get("https://api.meetup.com/find/groups?page=20&text=JavaScript&key=6b6f260644b44657a442955d383013&sig_id=197617558&sig=8742e95d91419cc26b093bd4070f2beba7415bf3")
+//         .then(function (response) {
+//             response.JSON();
+//         })
+//         .catch(function (er) {
+//             console.log(er);
+//
+//         });
+//
+//     res.json(group)
+// });
 
-
-    axios.get("https://api.meetup.com/find/groups?page=20&text=JavaScript&key=6b6f260644b44657a442955d383013&sig_id=197617558&sig=8742e95d91419cc26b093bd4070f2beba7415bf3")
-        .then(function (data) {
-            console.log(data);
-            group = data;
-
-            var jsn = JSON.stringify(data);
-
-        })
-        .catch(function (er) {
-            console.log(er);
-
-        });
-
-    res.json(group)
-});
-
-
-cloudinary.config({ 
-  cloud_name: 'profile-images', 
-  api_key: '958681958972474', 
-  api_secret: 'dDX2LC1yjF9dp-6E9fYgVTSITbw' 
+cloudinary.config({
+  cloud_name: 'profile-images',
+  api_key: '958681958972474',
+  api_secret: 'dDX2LC1yjF9dp-6E9fYgVTSITbw'
 });
 
 
@@ -188,8 +183,8 @@ router.post('/upload', function(req, res, next) {
     var form = new formidable.IncomingForm();
     form.keepExtensions = true;
     form.parse(req, function(err, fields, files) {
-        cloudinary.uploader.upload(files.fileUploaded.path, files.fileUploaded.name, function(result) { 
-            console.log(result) 
+        cloudinary.uploader.upload(files.fileUploaded.path, files.fileUploaded.name, function(result) {
+            console.log(result)
         });
         // var profileUpdate = {
         //     photo: files.fileUploaded.name
@@ -206,7 +201,7 @@ router.post('/upload', function(req, res, next) {
         //         console.log(err);
         //         res.json("err");
         // });
-        
+
     });
 });
 
@@ -238,8 +233,8 @@ router.post('/upload', function(req, res, next) {
 //             console.log('renamed complete');
 //         });
 
-//         cloudinary.uploader.upload(files.fileUploaded.name, function(result) { 
-//             console.log(result) 
+//         cloudinary.uploader.upload(files.fileUploaded.name, function(result) {
+//             console.log(result)
 //         });
 //         //   res.end();
 //         // var profileUpdate = {
