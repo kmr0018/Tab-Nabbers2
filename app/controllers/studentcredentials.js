@@ -100,9 +100,9 @@ router.post("/sign-in", function(req, res) {
                             }
                         }, secret);
                         // res.cookie('jwtauthtoken', token, {
-            //     secure: process.env.NODE_ENV === 'production',
-            //     signed: true
-            // });
+                        //     secure: process.env.NODE_ENV === 'production',
+                        //     signed: true
+                        // });
 
 
                         res.json({
@@ -174,8 +174,26 @@ router.post('/upload', function(req, res, next) {
     var form = new formidable.IncomingForm();
     form.keepExtensions = true;
     form.parse(req, function(err, fields, files) {
-        cloudinary.uploader.upload(files.fileUploaded.path, files.fileUploaded.name, function(result) {
-            console.log(result)
+        cloudinary.v2.uploader.upload(
+            files.fileUploaded.path, {
+                use_filename: true,
+                transformation: {
+                    width: 250,
+                    height: 300,
+                    crop: "thumb",
+                },
+                eager: {
+                    width: 250,
+                    height: 300,
+                    crop: "thumb",
+                    gravity: "face"
+                }
+            },
+            function(result) {
+
+                console.log(result);
+            }).then(function(data) {
+            res.redirect("/profile");
         });
         // var profileUpdate = {
         //     photo: files.fileUploaded.name
@@ -186,7 +204,7 @@ router.post('/upload', function(req, res, next) {
         //             id: req.user.id
         //         }
         //     }).then(function(data) {
-        //         console.log("Data has successfully beeen updated!!", data);
+        //         conso le.log("Data has successfully beeen updated!!", data);
         //         res.redirect("/profile");
         //     }).catch(function(err) {
         //         console.log(err);
@@ -195,56 +213,6 @@ router.post('/upload', function(req, res, next) {
 
     });
 });
-
-
-
-// router.post('/upload', function(req, res, next) {
-
-//     var form = new formidable.IncomingForm();
-//     //Formidable uploads to operating systems tmp dir by default
-//     form.uploadDir = "app/public/img/profile_images"; //set upload directory
-//     form.keepExtensions = true; //keep file extension
-
-//     console.log(form.uploadDir);
-//     form.parse(req, function(err, fields, files) {
-//         // res.writeHead(200, {'content-type': 'text/plain'});
-//         // res.write('received upload:\n\n');
-//         console.log("form.bytesReceived");
-//         //TESTING
-//         console.log("file size: " + JSON.stringify(files.fileUploaded.size));
-//         console.log("file path: " + JSON.stringify(files.fileUploaded.path));
-//         console.log("file name: " + JSON.stringify(files.fileUploaded.name));
-//         console.log("file type: " + JSON.stringify(files.fileUploaded.type));
-//         console.log("astModifiedDate: " + JSON.stringify(files.fileUploaded.lastModifiedDate));
-//         //Formidable changes the name of the uploaded file
-//         //Rename the file to its original name
-//         fs.rename(files.fileUploaded.path, 'app/public/img/profile_images/' + files.fileUploaded.name, function(err) {
-//             if (err)
-//                 throw err;
-//             console.log('renamed complete');
-//         });
-
-//         cloudinary.uploader.upload(files.fileUploaded.name, function(result) { 
-//             console.log(result) 
-//         });
-//         //   res.end();
-//         // var profileUpdate = {
-//         //     photo: files.fileUploaded.name
-//         // };
-//         // db.user.update(profileUpdate, {
-//         //     where: {
-//         //         id: req.user.id
-//         //     }
-//         // }).then(function(data) {
-//         //     console.log("Data has successfully beeen updated!!", data);
-//         //     res.redirect("/profile");
-//         // }).catch(function(err) {
-//         //     console.log(err);
-//         //     // res.json("err");
-//         // });
-//     });
-// });
-
 
 router.get("*", function(req, res) {
     res.sendFile(path.join(__dirname + "/../public/index.html"));
