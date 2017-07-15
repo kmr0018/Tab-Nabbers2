@@ -27,10 +27,9 @@ class Profile extends React.Component{
         homeaddress:"Enter your home address",
         email:"Enter your email",
         site:"Enter your portfolio site",
-        birthday: "Enter your date of birth",
+        birthday: "Enter your date of birthday",
         gender: "Enter your gender",
         github:'',
-        about:'',
         last_login:'',
         status:'',
         photo:"upload_62825eb8e9f50b0c79604ebfae19c924_jfilmp",
@@ -58,11 +57,6 @@ class Profile extends React.Component{
 
     }
 
-    componentWillUpdate(nextProps, nextState){
-      // console.log(nextState);
-      //
-      // console.log("it works!");
-    }
 
     componentDidMount() {
   		fetch.getData()
@@ -75,22 +69,25 @@ class Profile extends React.Component{
             .catch(function (err) {
                 console.log(err);
             });
+
+
+        fetch.userUpdate({...data, userID: localStorage.getItem("userID")})
+            .then(function(data) {
+                console.log(data);
+            })
+            .catch(function(err){
+                console.log(err);
+            });
   	}
 
+
+  	// Do NOT touch this code
   	getIn = (event) => {
         console.log(event.target);
         console.log(event.target);
 
     }
-  	// getSaved() {
-  	// 	fetch.getCurrentUserData()
-       //    .then(function(res) {
-       //          this.setState({ profile: res.data });
-       //      })
-       //    .catch(function(err){
-       //      console.log(err);
-       //    });
-  	// }
+
 
     render(){
 
@@ -233,7 +230,7 @@ class Profile extends React.Component{
 
                         <div>
                             {(this.state.activeItem === 'About') ? <About
-                              phone = {this.state.phoneNumber }
+                                phoneNumber = {this.state.phoneNumber }
                               homeaddress = {this.state.homeaddress}
                               email = {this.state.email}
                               site = {this.state.site}
@@ -271,9 +268,9 @@ class About extends React.Component {
                     <div>
                         <h4 className="">Phone: </h4>
                         <p className=""><InlineEdit
-                            activeClassName="phone"
-                            text={this.props.phone}
-                            paramName="phone"
+                            activeClassName="phoneNumber"
+                            text={this.props.phoneNumber}
+                            paramName="phoneNumber"
                             change={this.props.dataChanged}/></p>
                     </div>
 

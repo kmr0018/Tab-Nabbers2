@@ -14,6 +14,26 @@ var db = require("../models"),
     axios = require("axios");
 
 
+var path = require('path'), //used for file path
+    fs = require('fs-extra'),
+    atlanta = require('../public/atlanta.json');
+
+var gtBootcamp = atlanta.children[0].children,
+    gtCohort1 = gtBootcamp[0].children,
+    gtCohort2 = gtBootcamp[1].children,
+    gtCohort3 = gtBootcamp[2].children;
+
+var gaBootcamp = atlanta.children[1].children,
+    gaCohort1 = gaBootcamp[0].children,
+    gaCohort2 = gaBootcamp[1].children,
+    gaCohort3 = gaBootcamp[2].children;
+
+var iyBootcamp = atlanta.children[2].children,
+    iyCohort1 = iyBootcamp[0].children,
+    iyCohort2 = iyBootcamp[1].children,
+    iyCohort3 = iyBootcamp[2].children;
+
+
 // router.get("/event/data", function (req, res, next) {
 //     var group = []
 //
@@ -173,7 +193,15 @@ router.post("/api/profile", function(req, res) {
                  lastname: data.lastname,
                  job: data.job,
                  email: data.email,
-                 phoneNumber: data.phoneNumber
+                 phoneNumber: data.phoneNumber,
+                 site: data.site,
+                 gender: data.gender,
+                 birthday: data.birthday,
+                 street: data.street,
+                 addr: data.addr,
+                 address: data.address,
+                 homeaddress: data.homeaddress,
+                 github: data.github
              }
 
              res.json(info);
@@ -222,6 +250,134 @@ router.post('/upload', function(req, res, next) {
         });
     });
 });
+
+
+
+
+// Dashboard included the map that recruiters see
+// If user not logged in, they're not able to see it
+router.get("/map", function(req, res) {
+    // Reset Georgia Tech Coding BootCamp
+    gtBootcamp[0].children = [];
+    gtBootcamp[1].children = [];
+    gtBootcamp[2].children = [];
+
+    // Reset Iron Yard Coding BootCamp
+    iyBootcamp[0].children = [];
+    iyBootcamp[1].children = [];
+    iyBootcamp[2].children = [];
+
+    // Reset General Assembly Coding Bootcamp
+    gaBootcamp[0].children = [];
+    gaBootcamp[1].children = [];
+    gaBootcamp[2].children = [];
+
+
+    db.user.findAll({raw : true }).then(function (data) {
+
+        data.map(function (el) {
+            // console.log(el.photo);
+            // console.log(data);
+
+            var obj = {
+                name: el.firstname,
+                id: "'" + el.id + "'",
+                // img: "./img/profile_images/" + el.photo,
+                size: 40000,
+                email: el.email,
+                phone: el.phoneNumber,
+                github: el.github,
+                lastname: el.lastname
+            };
+
+            if(el.photo === null){
+                obj.img = "./img/avatar-default.png";
+            } if(el.phone === undefined){
+                obj.phone = "";
+
+            } if(el.github === null){
+                obj.github = "";
+
+            }
+
+            var gaTech = function () {
+                if(el.cohortId === 1){
+                    var currentIds = [];
+                    for (var i = 0; i < gtCohort1.length; i++) {
+                        currentIds.push(gtCohort1[i].id);
+                        console.log(currentIds);
+                    }
+
+                    console.log(obj.id);
+                    gtBootcamp[0].children.push(obj);
+                }
+                if(el.cohortId === 2){
+                    gtBootcamp[1].children.push(obj);
+                }
+                if(el.cohortId === 3){
+                    gtBootcamp[2].children.push(obj);
+                }
+            };
+
+            var ironYard = function () {
+                if(el.cohortId === 4){
+                    iyBootcamp[0].children.push(obj);
+                }
+
+                if(el.cohortId === 5){
+                    iyBootcamp[1].children.push(obj);
+                }
+
+                if(el.cohortId === 6){
+                    iyBootcamp[2].children.push(obj);
+
+                }
+            };
+
+            var gAssembly = function () {
+                if(el.cohortId === 7){
+                    gaBootcamp[0].children.push(obj);
+                }
+
+                if(el.cohortId === 8){
+                    gaBootcamp[1].children.push(obj);
+                }
+
+                if(el.cohortId === 9){
+                    gaBootcamp[2].children.push(obj);
+
+                }
+            };
+
+            switch(el.bootcampId){
+                case 1:
+                    gaTech();
+                    break;
+                case 2:
+                    ironYard();
+                    break;
+                case 3:
+                    gAssembly();
+                    break;
+                default:
+                    console.log("User not found");
+            }
+        });
+
+        fs.readFile('./app/public/atlanta.json', 'utf8', function readFileCallback(err, data) {
+            if (err) {
+                console.log(err);
+            } else {
+                json = JSON.stringify(atlanta); //convert it back to json
+                fs.writeFile('./app/public/atlanta.json', json, 'utf8'); // write it back
+                res.sendFile(path.join(__dirname + "/../public/index.html"));
+
+            }
+        });
+    });
+});
+
+
 
 router.get("*", function(req, res) {
     res.sendFile(path.join(__dirname + "/../public/index.html"));

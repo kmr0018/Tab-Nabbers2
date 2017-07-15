@@ -55,14 +55,35 @@ module.exports = function(sequelize, Sequelize) {
                 defaultValue: "Enter your github link"
             },
 
+
+            street: {
+                type: Sequelize.STRING,
+                defaultValue: "Enter your street"
+            },
+
             job: {
                 type: Sequelize.STRING,
                 defaultValue: "Enter your job status"
             },
 
+            address: {
+                type: Sequelize.STRING,
+                defaultValue: "Enter your address"
+            },
+
             gender: {
                 type: Sequelize.STRING,
                 defaultValue: "Enter your gender"
+            },
+
+            homeaddress: {
+                type: Sequelize.STRING,
+                defaultValue: "Enter your homeaddress"
+            },
+
+            birthday: {
+                type: Sequelize.STRING,
+                defaultValue: "Enter your birthday"
             },
 
             site: {
@@ -76,10 +97,11 @@ module.exports = function(sequelize, Sequelize) {
                 defaultValue: "Enter your title"
             },
 
-            about: {
+            addr: {
                 type: Sequelize.STRING,
-                defaultValue: "Enter your bio"
+                defaultValue: "Enter your city and state"
             },
+
             //Skills
             HTML: {
                 type: Sequelize.BOOLEAN,

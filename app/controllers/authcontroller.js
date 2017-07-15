@@ -2,8 +2,6 @@
  * Created by esterlingaccime on 5/10/17.
  */
 var express = require("express"),
-    passport = require("passport"),
-    formidable = require('formidable'),
     path = require('path'), //used for file path
     fs = require('fs-extra'),
     atlanta = require('../public/atlanta.json');
