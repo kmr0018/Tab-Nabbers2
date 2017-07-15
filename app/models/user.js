@@ -7,7 +7,8 @@ module.exports = function(sequelize, Sequelize) {
                 allowNull: false,
                 validate: {
                     notEmpty: true
-                }
+                },
+                defaultValue: "Enter your first name"
             },
 
             lastname: {
@@ -15,7 +16,8 @@ module.exports = function(sequelize, Sequelize) {
                 allowNull: false,
                 validate: {
                     notEmpty: true
-                }
+                },
+                defaultValue: "Enter your lastname"
             },
 
             email: {
@@ -40,7 +42,8 @@ module.exports = function(sequelize, Sequelize) {
                 validate: {
                     notEmpty: true,
                     len: [10]
-                }
+                },
+                defaultValue: "Enter your phone number"
             },
 
             photo: {
@@ -48,11 +51,34 @@ module.exports = function(sequelize, Sequelize) {
             },
 
             github: {
-                type: Sequelize.STRING
+                type: Sequelize.STRING,
+                defaultValue: "Enter your github link"
+            },
+
+            job: {
+                type: Sequelize.STRING,
+                defaultValue: "Enter your job status"
+            },
+
+            gender: {
+                type: Sequelize.STRING,
+                defaultValue: "Enter your gender"
+            },
+
+            site: {
+                type: Sequelize.STRING,
+                defaultValue: "Enter your site"
+            },
+
+
+            title: {
+                type: Sequelize.STRING,
+                defaultValue: "Enter your title"
             },
 
             about: {
-                type: Sequelize.TEXT
+                type: Sequelize.STRING,
+                defaultValue: "Enter your bio"
             },
             //Skills
             HTML: {

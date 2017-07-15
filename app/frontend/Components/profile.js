@@ -48,7 +48,7 @@ class Profile extends React.Component{
 
         if(!data.activeItem){
 
-            fetch.userUpdate({...data})
+            fetch.userUpdate({...data, userID: localStorage.getItem("userID")})
                 .then(function(data) {
                     console.log(data);
                 })
@@ -66,7 +66,16 @@ class Profile extends React.Component{
     }
 
     componentDidMount() {
-  		//this.getSaved();
+  		fetch.getData()
+            .then(function (user) {
+                this.setState({...user.data});
+
+                console.log(user);
+
+            }.bind(this))
+            .catch(function (err) {
+                console.log(err);
+            });
   	}
 
   	getIn = (event) => {
@@ -119,7 +128,7 @@ class Profile extends React.Component{
                             <div className="btn btn-elegant btn-md">
                                 <span>Upload your profile photo</span>
                                 <input type='file' name='fileUploaded'/>
-                                <input id="imageSubmit" type='submit'/>
+                                <input id="imageSubmit" type='submit' className="ui primary button"/>
                             </div>
                         </div>
                     </form>
