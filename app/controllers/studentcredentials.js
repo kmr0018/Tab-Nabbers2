@@ -59,19 +59,19 @@ router.post("/sign-up", function(req, res) {
                 if (err) throw err;
 
                 db.user.create({
-                        firstname: req.body.firstname,
-                        lastname: req.body.lastname,
-                        email: req.body.email,
-                        password: hash,
-                        bootcampId: req.body.bootcampId,
-                        cohortId: req.body.cohortId
-                    })
-                    .then(function(data) {
-                        res.status(200).send({ message: 'User added to database' });
-                    })
-                    .catch(function(err) {
-                        res.status(400).send({ message: 'Error adding user to database. Entry not created' });
-                    });
+                    firstname: req.body.firstname,
+                    lastname: req.body.lastname,
+                    email: req.body.email,
+                    password: hash,
+                    bootcampId: req.body.bootcampId,
+                    cohortId: req.body.cohortId
+                })
+                .then(function(data) {
+                    res.status(200).send({ message: 'User added to database' });
+                })
+                .catch(function(err) {
+                    res.status(400).send({ message: 'Error adding user to database. Entry not created' });
+                });
             });
         }
     })
@@ -178,39 +178,32 @@ router.post('/upload', function(req, res, next) {
             files.fileUploaded.path, {
                 use_filename: true,
                 transformation: {
-                    width: 250,
-                    height: 300,
-                    crop: "thumb",
+                    width: 250, height: 300, crop: "thumb",
                 },
                 eager: {
-                    width: 250,
-                    height: 300,
-                    crop: "thumb",
-                    gravity: "face"
+                    width: 250, height: 300, crop: "thumb", gravity: "face"
                 }
-            },
-            function(result) {
+            }, 
+        function(error, result) {
+            console.log(result); 
+            var profileUpdate = {
+                photo: result.public_id,
+            };
 
-                console.log(result);
+            db.user.update(profileUpdate, {
+                where: {
+                    id: req.user.id
+                }
             }).then(function(data) {
-            res.redirect("/profile");
-        });
-        // var profileUpdate = {
-        //     photo: files.fileUploaded.name
-        // };
-
-        // db.user.update(profileUpdate, {
-        //             where: {
-        //             id: req.user.id
-        //         }
-        //     }).then(function(data) {
-        //         conso le.log("Data has successfully beeen updated!!", data);
-        //         res.redirect("/profile");
-        //     }).catch(function(err) {
-        //         console.log(err);
-        //         res.json("err");
-        // });
-
+                console.log("Data has successfully beeen updated!!", data);
+                res.redirect("/profile");
+            }).catch(function(err) {
+                console.log(err);
+                res.json("err");
+            });
+        }).then(function(data) {
+            location.href = '/profile'
+        }); 
     });
 });
 
