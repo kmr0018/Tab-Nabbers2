@@ -126,7 +126,6 @@ class SignInView extends React.Component {
                     <input type="submit" value="Sign In" className="ui button large fluid" onClick={this.handleSubmit}/>
                 </div>
 
-
                 <div className="inline field">
                     <div className="ui checkbox">
                         <input type="checkbox"/>
@@ -228,7 +227,9 @@ class SignUpView extends React.Component {
         }
         if (nullFields === 0) {
             fetch.signup(user).then(function(data) {
-                console.log(data);
+                localStorage.setItem("userID", data.data.id);
+                localStorage.setItem("token", data.data.token);
+                location.href = "/profile";
             }).catch(function(err) {
                 console.log(err);
             })

@@ -2,9 +2,7 @@ var express = require('express'),
     session = require('express-session'),
     bodyParser = require('body-parser'),
     env = require('dotenv').load(),
-    exphbs = require("express-handlebars"),
-    secret = require("./app/config/secrets"),
-    cookieParser = require("cookie-parser");
+    secret = require("./app/config/secrets");
 
 var app = express(),
     PORT = process.env.PORT || 8080;
@@ -17,12 +15,8 @@ app.use(bodyParser({ defer: true }));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-app.use(cookieParser(secret));
-
 //Models
 var db = require("./app/models");
-
-
 
 // Routes for students and secure routes for students
 var authenticateStudent = require("./app/controllers/securestudent");
@@ -30,8 +24,6 @@ app.use("/api", authenticateStudent);
 
 var student = require("./app/controllers/studentcredentials");
 app.use("/", student);
-
-
 
 // Routes for Recruiters and secure routes
 var authenticateRecruiter = require("./app/controllers/securerecruiter");
@@ -41,10 +33,9 @@ var recruiter = require("./app/controllers/recruitercredentials");
 app.use("/recruiter", recruiter);
 
 var server;
+
 //Sync Database
-
-db.sequelize.sync({ }).then(function() {
-
+db.sequelize.sync({}).then(function() {
     console.log('Nice! Database looks fine');
 
     server = app.listen(PORT, function(err) {

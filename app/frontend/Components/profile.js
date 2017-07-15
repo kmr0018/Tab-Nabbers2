@@ -27,10 +27,9 @@ class Profile extends React.Component{
         homeaddress:"Enter your home address",
         email:"Enter your email",
         site:"Enter your portfolio site",
-        birthday: "Enter your date of birth",
+        birthday: "Enter your date of birthday",
         gender: "Enter your gender",
         github:'',
-        about:'',
         last_login:'',
         status:'',
         photo:"upload_62825eb8e9f50b0c79604ebfae19c924_jfilmp",
@@ -58,11 +57,6 @@ class Profile extends React.Component{
 
     }
 
-    componentWillUpdate(nextProps, nextState){
-      // console.log(nextState);
-      //
-      // console.log("it works!");
-    }
 
     componentDidMount() {
   		fetch.getData()
@@ -75,11 +69,23 @@ class Profile extends React.Component{
             .catch(function (err) {
                 console.log(err);
             });
+
+
+
   	}
 
+
+  	// Do NOT touch this code
   	getIn = (event) => {
         console.log(event.target);
         console.log(event.target);
+
+    }
+
+
+    sendUpload = (event) => {
+        console.log("Hello World!!");
+        fetch.uploadImage()
 
     }
   	// getSaved() {
@@ -91,6 +97,7 @@ class Profile extends React.Component{
        //      console.log(err);
        //    });
   	// }
+
 
     render(){
 
@@ -121,12 +128,16 @@ class Profile extends React.Component{
                             <Image cloudName="profile-images" publicId={this.state.photo}/>
                         </div>
                     </div>
-                    <form method='post' action='upload' encType="multipart/form-data">
+                    <form method='post' action='/upload' encType="multipart/form-data">
                         <div className="file-field">
                             <div className="btn btn-elegant btn-md">
                                 <span>Upload your profile photo</span>
+                                <label htmlFor="fileUploaded"></label>
                                 <input type='file' name='fileUploaded'/>
-                                <input id="imageSubmit" type='submit' className="ui primary button"/>
+
+                                <label htmlFor={localStorage.getItem("userID")}></label>
+                                <input type="hidden" name={localStorage.getItem("userID")}/>
+                                <input id="imageSubmit" type='submit' className="ui primary button" onClick={this.sendUpload}/>
                             </div>
                         </div>
                     </form>
@@ -233,7 +244,7 @@ class Profile extends React.Component{
 
                         <div>
                             {(this.state.activeItem === 'About') ? <About
-                              phone = {this.state.phoneNumber }
+                                phoneNumber = {this.state.phoneNumber }
                               homeaddress = {this.state.homeaddress}
                               email = {this.state.email}
                               site = {this.state.site}
@@ -271,9 +282,9 @@ class About extends React.Component {
                     <div>
                         <h4 className="">Phone: </h4>
                         <p className=""><InlineEdit
-                            activeClassName="phone"
-                            text={this.props.phone}
-                            paramName="phone"
+                            activeClassName="phoneNumber"
+                            text={this.props.phoneNumber}
+                            paramName="phoneNumber"
                             change={this.props.dataChanged}/></p>
                     </div>
 

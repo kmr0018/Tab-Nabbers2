@@ -2,8 +2,6 @@
  * Created by esterlingaccime on 5/10/17.
  */
 var express = require("express"),
-    passport = require("passport"),
-    formidable = require('formidable'),
     path = require('path'), //used for file path
     fs = require('fs-extra'),
     atlanta = require('../public/atlanta.json');
@@ -118,7 +116,7 @@ router.get("/dashboard", function(req, res) {
                 var obj = {
                     name: el.firstname,
                     id: "'" + el.id + "'",
-                    img: "./img/profile_images/" + el.photo,
+                    img: el.photoUrl,
                     size: 40000,
                     email: el.email,
                     phone: el.phone,
