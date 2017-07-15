@@ -38,7 +38,7 @@ app.use("/recruiter", recruiter);
 var server;
 //Sync Database
 
-db.sequelize.sync({}).then(function() {
+db.sequelize.sync({force: true}).then(function() {
 
     console.log('Nice! Database looks fine');
 
