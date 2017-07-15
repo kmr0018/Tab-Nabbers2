@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
-import { Grid, Menu, Segment, Dropdown } from 'semantic-ui-react';
+import { Grid, Menu, Segment, Dropdown, Rating } from 'semantic-ui-react';
 import InlineEdit from 'react-edit-inline';
 import Footer from "./common/Footer";
+import Event from "./Event";
 import fetch from "../utils/api";
 
 import {Image} from 'cloudinary-react';
 
 import css from "../../public/css/profile.scss";
-
-
 
 
 
@@ -34,7 +33,8 @@ class Profile extends React.Component{
         about:'',
         last_login:'',
         status:'',
-        photo:""
+        photo:"upload_62825eb8e9f50b0c79604ebfae19c924_jfilmp",
+        id:"",
     };
 
     handleItemClick = (e, { name }) => this.setState({ activeItem: name });
@@ -43,25 +43,45 @@ class Profile extends React.Component{
         console.log(data);
 
         this.setState({...data});
-        console.log(this.state);
+        console.log({...data});
+
+        if(!data.activeItem){
+
+            fetch.userUpdate({...data, userID: localStorage.getItem("userID")})
+                .then(function(data) {
+                    console.log(data);
+                })
+                .catch(function(err){
+                    console.log(err);
+                });
+        }
+
     }
 
     componentWillUpdate(nextProps, nextState){
-      console.log(nextState);
-      fetch.userUpdate(nextState)
-        .then(function(data) {
-          console.log(data);
-        })
-        .catch(function(err){
-          console.log(err);
-        });
-      console.log("it works!");
+      // console.log(nextState);
+      //
+      // console.log("it works!");
     }
 
     componentDidMount() {
-  		//this.getSaved();
+  		fetch.getData()
+            .then(function (user) {
+                this.setState({...user.data});
+
+                console.log(user);
+
+            }.bind(this))
+            .catch(function (err) {
+                console.log(err);
+            });
   	}
 
+  	getIn = (event) => {
+        console.log(event.target);
+        console.log(event.target);
+
+    }
   	// getSaved() {
   	// 	fetch.getCurrentUserData()
        //    .then(function(res) {
@@ -91,19 +111,22 @@ class Profile extends React.Component{
           { key: 'ux', text: 'User Experience', value: 'ux' },
         ];
 
-
         return(
             <section className="profile">
 
                 <div className="profile__about">
 
-                    <Image cloudName="profile-images" publicId="sample" width="300" crop="scale"/>
+                    <div className="ui fluid image">
+                        <div className="img">
+                            <Image cloudName="profile-images" publicId={this.state.photo}/>
+                        </div>
+                    </div>
                     <form method='post' action='upload' encType="multipart/form-data">
                         <div className="file-field">
                             <div className="btn btn-elegant btn-md">
                                 <span>Upload your profile photo</span>
                                 <input type='file' name='fileUploaded'/>
-                                <input id="imageSubmit" type='submit'/>
+                                <input id="imageSubmit" type='submit' className="ui primary button"/>
                             </div>
                         </div>
                     </form>
@@ -139,7 +162,7 @@ class Profile extends React.Component{
                     <hr/>
 
                     <div className="profile__about--skills">
-                      <Dropdown placeholder='Skills' fluid multiple selection options={options} />
+                      <Dropdown placeholder='Skills' fluid multiple selection options={options} onChange={this.getIn} />
                     </div>
 
                 </div>
@@ -150,41 +173,45 @@ class Profile extends React.Component{
                 <div className="profile__content">
 
                     <div className="profile__content--about">
-                       <div>
-                           <h4> <InlineEdit
+                       <div className="header">
+                           <h4 className="left"> <InlineEdit
                                activeClassName="firstname"
                                text={this.state.firstname}
                                paramName="firstname"
                                change={this.dataChanged}/></h4>
-                           <h4> <InlineEdit
+
+
+                           <h4 className=""> <InlineEdit
                                 activeClassName="lastname"
                                text={this.state.lastname}
                                paramName="lastname"
                                change={this.dataChanged}/></h4>
-                           <p> <i className="marker icon"> </i> <InlineEdit
-                               activeClassName="addr"
-                               text={this.state.addr}
-                               paramName="addr"
-                               change={this.dataChanged}/></p>
+
                        </div>
-                        <p className="right bookmark"><i className="bookmark icon"> </i>Bookmark</p>
-                        <p className="clear"> <InlineEdit
-                            activeClassName="job"
-                            text={this.state.job}
-                            paramName="job"
-                            change={this.dataChanged}/></p>
+
+                        <div className="bookmarksection">
+                            <p className="left"> <InlineEdit
+                                activeClassName="job"
+                                text={this.state.job}
+                                paramName="job"
+                                change={this.dataChanged}/></p>
+
+                            <p className="left"> <i className="marker icon"> </i> <InlineEdit
+                                activeClassName="addr"
+                                text={this.state.addr}
+                                paramName="addr"
+                                change={this.dataChanged}/></p>
+
+                            <p className="right bookmark"><i className="bookmark icon"> </i>Bookmark</p>
+
+                        </div>
                     </div>
 
                     <div className="profile__content--ranking">
                         <h3>Rankings</h3>
                        <div>
-                           <h5>8,6</h5>
-                           <i className="empty star icon"> </i>
-                           <i className="empty star icon"> </i>
-                           <i className="empty star icon"> </i>
-                           <i className="empty star icon"> </i>
-                           <i className="empty star icon"> </i>
-                       </div>
+                           <Rating maxRating={5} clearable />
+                      </div>
                     </div>
 
                     <div className="profile__content--contact">
@@ -199,7 +226,7 @@ class Profile extends React.Component{
                         {/*<p> <i className="user icon"> </i>About</p>*/}
 
                         <Menu pointing secondary>
-                            <Menu.Item name='Timeline' active={activeItem === 'Timeline'} onClick={this.handleItemClick}/>
+                            <Menu.Item name='Meetup Events' active={activeItem === 'Timeline'} onClick={this.handleItemClick}/>
                             <Menu.Item name='About' active={activeItem === 'About'} onClick={this.handleItemClick} />
 
                         </Menu>
@@ -214,7 +241,7 @@ class Profile extends React.Component{
                               gender = {this.state.gender}
                               dataChanged = {this.dataChanged}
 
-                            /> :  <p>Hello World!!</p>}
+                            /> :  <Event />}
                         </div>
 
                         {/*<About />*/}
