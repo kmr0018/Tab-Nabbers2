@@ -227,7 +227,9 @@ class SignUpView extends React.Component {
         }
         if (nullFields === 0) {
             fetch.signup(user).then(function(data) {
-                console.log(data);
+                localStorage.setItem("userID", data.data.id);
+                localStorage.setItem("token", data.data.token);
+                location.href = "/profile";
             }).catch(function(err) {
                 console.log(err);
             })

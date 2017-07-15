@@ -24,14 +24,15 @@ const fetch = {
             userID: localStorage.getItem("userID")
         });
     },
+    uploadImage: function() {
+        return axios.post("/upload",  {
+            token: localStorage.getItem("token"),
+            userID: localStorage.getItem("userID")
+        });
+    },
     userUpdate: function(text) {
         return axios.post("/profile", text);
     },
-
-    getCurrentUserData: function(data) {
-        return axios.get("/api/profile");
-    },
-
     event: function() {
         return axios.get("/event/data", {
             withCredentials: true
