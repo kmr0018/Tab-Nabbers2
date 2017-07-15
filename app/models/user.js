@@ -22,9 +22,9 @@ module.exports = function(sequelize, Sequelize) {
                 type: Sequelize.STRING,
                 allowNull: false,
                 unique: true
-                    // validate: {
-                    //     len: [6, 20]
-                    // }
+                // validate: {
+                //     len: [6, 20]
+                // }
             },
 
             password: {
@@ -32,28 +32,25 @@ module.exports = function(sequelize, Sequelize) {
                 allowNull: false
             },
 
-            // email: {
-            //     type: Sequelize.STRING,
-            //     allowNull: false,
-            //     unique: true,
-            //     validate: {
-            //         len: [6, 20]
-            //     },
-            //     allowNull: false
-            //         // validate: {
-            //         //     isEmail: true
-            //         // }
-            // },
-            //
-            // phoneNumber: {
-            //     type: Sequelize.STRING,
-            //     allowNull: true
-            //         // validate: {
-            //         //     notEmpty: true,
-            //         //     len: [10]
-            //         // }
-            // },
-            //
+            email: {
+                type: Sequelize.STRING,
+                allowNull: true,
+                unique: true,
+                validate: {
+                    isEmail: true
+                }
+            },
+
+
+            phoneNumber: {
+                type: Sequelize.STRING,
+                allowNull: true,
+                validate: {
+                    notEmpty: true,
+                    len: [10]
+                }
+            },
+
             photo: {
                 type: Sequelize.STRING
             },
@@ -71,9 +68,9 @@ module.exports = function(sequelize, Sequelize) {
             // },
 
             // status: {
-        //     type: Sequelize.ENUM('active', 'inactive'),
-        //     defaultValue: 'active'
-        // }
+            //     type: Sequelize.ENUM('active', 'inactive'),
+            //     defaultValue: 'active'
+            // }
 
         },
         //

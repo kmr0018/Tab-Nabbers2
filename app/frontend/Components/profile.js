@@ -34,7 +34,8 @@ class Profile extends React.Component{
         about:'',
         last_login:'',
         status:'',
-        photo:""
+        photo:"",
+        id:""
     };
 
     handleItemClick = (e, { name }) => this.setState({ activeItem: name });
@@ -43,19 +44,21 @@ class Profile extends React.Component{
         console.log(data);
 
         this.setState({...data});
-        console.log(this.state);
+        console.log({...data});
+
+        fetch.userUpdate({...data})
+            .then(function(data) {
+                console.log(data);
+            })
+            .catch(function(err){
+                console.log(err);
+            });
     }
 
     componentWillUpdate(nextProps, nextState){
-      console.log(nextState);
-      fetch.userUpdate(nextState)
-        .then(function(data) {
-          console.log(data);
-        })
-        .catch(function(err){
-          console.log(err);
-        });
-      console.log("it works!");
+      // console.log(nextState);
+      //
+      // console.log("it works!");
     }
 
     componentDidMount() {
