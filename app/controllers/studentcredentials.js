@@ -250,13 +250,14 @@ router.post('/upload', function(req, res, next) {
                 }
             },
         function(error, result) {
-            //console.log(result);
+            console.log(result);
             var profileUpdate = {
                 photo: result.public_id,
+                photoUrl: result.secure_url,
             };
 
             //console.log(req.body);
-            db.user.update({photo: profileUpdate.photo}, {
+            db.user.update({photo: profileUpdate.photo, photoUrl: profileUpdate.photoUrl}, {
                 where:{
                     id: user.userID
                 }
@@ -301,7 +302,7 @@ router.get("/map", function(req, res) {
             var obj = {
                 name: el.firstname,
                 id: "'" + el.id + "'",
-                // img: "./img/profile_images/" + el.photo,
+                img: el.photoUrl,
                 size: 40000,
                 email: el.email,
                 phone: el.phoneNumber,
