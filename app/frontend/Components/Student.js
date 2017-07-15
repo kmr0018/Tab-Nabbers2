@@ -15,9 +15,7 @@ class Signin extends React.Component {
 
     state = {
         active: true
-
     };
-
 
     signinView = () => {
         this.setState({ active: true });
@@ -54,59 +52,78 @@ class Signin extends React.Component {
 }
 
 
-// Signing user to the database
-// Component is being used in Profile
+//Sign In User
 class SignInView extends React.Component {
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
 
-    }
-
-
-    getval = () => {
-        event.preventDefault();
-
-        var user = {
-
-        };
-
-
-        for (var field in this.refs) {
-
-            user[this.refs[field].id] = this.refs[field].value;
+        this.state = {
+            email: null,
+            password: null
         }
 
-        console.log(user);
+        this.handleEmailChange = this.handleEmailChange.bind(this);
+        this.handlePasswordChange = this.handlePasswordChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
 
-        fetch.signin(user)
-            .then(function(data) {
-
-                localStorage.setItem("token", data.data.token);
-                if (data.data.status === "Ok") {
-                    //location.href = '/profile'
-                }
-                console.log(data);
-            })
-            .catch(function(err) {
-                console.log(err);
-            });
     }
 
+    handleEmailChange(event) {
+        this.setState({
+            email: event.target.value.trim()
+        });
+    }
+
+    handlePasswordChange(event) {
+        this.setState({
+            password: event.target.value.trim()
+        });
+    }
+
+    handleSubmit(event) {
+        event.preventDefault();
+        var user = {
+            email: this.state.email,
+            password: this.state.password
+        };
+        var nullFields = 0;
+        for (var prop in user) {
+            if (user[prop] === null) {
+                nullFields++;
+                console.log("%s field is null", prop);
+            }
+        }
+        if (nullFields === 0) {
+            fetch.signin(user)
+                .then(function(data) {
+                    localStorage.setItem("userID", data.data.id);
+                    localStorage.setItem("token", data.data.token);
+                    if (data.data.token) {
+                        location.href = '/profile'
+                    }
+                })
+                .catch(function(err) {
+                    console.log(err);
+                });
+        } else {
+            console.log("All fields required");
+        }
+    }
 
     render() {
         return (
             <div className="ui form">
                 <div className="field">
-                    <input type="text" placeholder="Email..." ref='username' id="username" required/>
+                    <input type="text" placeholder="Email..." onChange={this.handleEmailChange} id="username" required/>
                 </div>
 
                 <div className="field">
-                    <input type="password" placeholder="Password..." ref='password' id="password" required/>
+                    <input type="password" placeholder="Password..." onChange={this.handlePasswordChange} id="password" required/>
                 </div>
 
                 <div className="field">
-                    <input type="submit" value="Sign In" className="ui button large fluid" onClick={this.getval}/>
+                    <input type="submit" value="Sign In" className="ui button large fluid" onClick={this.handleSubmit}/>
                 </div>
 
 
@@ -122,13 +139,7 @@ class SignInView extends React.Component {
     }
 }
 
-
-
-
-
-
-// Sign up the user
-// Component being used in profile
+//User Sign Up Component
 class SignUpView extends React.Component {
 
     constructor(props) {
@@ -204,7 +215,7 @@ class SignUpView extends React.Component {
         var user = {
             firstname: this.state.firstname,
             lastname: this.state.lastname,
-            username: this.state.email,
+            email: this.state.email,
             password: this.state.password,
             bootcampId: this.state.bootcamp,
             cohortId: this.state.cohort
@@ -291,7 +302,7 @@ class SignUpView extends React.Component {
                 </div>
 
                 <div className="field">
-                    <input type="text" placeholder="Email..." onChange={this.handleEmailChange} id="username" required/>
+                    <input type="text" placeholder="Email..." onChange={this.handleEmailChange} id="email" required/>
                 </div>
 
                 <div className="field">
@@ -314,14 +325,9 @@ class SignUpView extends React.Component {
                 <div className="field">
                     <input type="submit" value="Sign Up" className="ui button large fluid" onClick={this.handleSubmit}/>
                 </div>
-
-                {/*<button className="ui primary button" >Sign Up</button>*/}
             </div>
         );
-
     }
-
-
 };
 
 

@@ -12,7 +12,6 @@ const fetch = {
         return axios.post("/sign-in", user);
     },
 
-
     recruitersignup: function(user) {
         return axios.post("/recruiter/sign-up", user);
     },
