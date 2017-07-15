@@ -96,15 +96,9 @@ router.post("/sign-in", function(req, res) {
                         var token = jwt.sign({
                             exp: Math.floor(Date.now() / 1000) + (60 * 60),
                             data: {
-                                username: user.username
+                                id: user.id
                             }
                         }, secret);
-                        // res.cookie('jwtauthtoken', token, {
-                        //     secure: process.env.NODE_ENV === 'production',
-                        //     signed: true
-                        // });
-
-
                         res.json({
                             id: user.id,
                             token: token
@@ -121,6 +115,13 @@ router.post("/sign-in", function(req, res) {
         });
 });
 
+//--------------------VERIFY WEBTOKEN FOR ALL SUBSEQUENT ROUTES-------------------
+
+router.use("/", function(req, res, next) {
+    jwt.verify(req.body.token, secret, function(err, decoded) {
+        console.log("JWT-Verify: %s", decoded);
+    });
+});
 
 router.post("/profile", function(req, res) {
     // console.log(req.body);

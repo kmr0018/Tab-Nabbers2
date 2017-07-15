@@ -126,7 +126,6 @@ class SignInView extends React.Component {
                     <input type="submit" value="Sign In" className="ui button large fluid" onClick={this.handleSubmit}/>
                 </div>
 
-
                 <div className="inline field">
                     <div className="ui checkbox">
                         <input type="checkbox"/>

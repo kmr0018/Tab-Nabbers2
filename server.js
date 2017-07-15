@@ -3,8 +3,7 @@ var express = require('express'),
     bodyParser = require('body-parser'),
     env = require('dotenv').load(),
     exphbs = require("express-handlebars"),
-    secret = require("./app/config/secrets"),
-    cookieParser = require("cookie-parser");
+    secret = require("./app/config/secrets");
 
 var app = express(),
     PORT = process.env.PORT || 8080;
@@ -17,8 +16,6 @@ app.use(bodyParser({ defer: true }));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-app.use(cookieParser(secret));
-
 //Models
 var db = require("./app/models");
 
@@ -30,8 +27,6 @@ app.use("/api", authenticateStudent);
 
 var student = require("./app/controllers/studentcredentials");
 app.use("/", student);
-
-
 
 // Routes for Recruiters and secure routes
 var authenticateRecruiter = require("./app/controllers/securerecruiter");
