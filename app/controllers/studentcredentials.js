@@ -206,17 +206,17 @@ router.post('/upload', function(req, res, next) {
                 photo: result.public_id,
             };
 
-            // db.user.update(profileUpdate, {
-            //     where: {
-            //         id: currentUser.id
-            //     }
-            // }).then(function(data) {
-            //     console.log("Data has successfully beeen updated!!", data);
-            //     res.redirect("/profile");
-            // }).catch(function(err) {
-            //     console.log(err);
-            //     res.json("err");
-            // });
+            db.user.update(profileUpdate, {
+                where: {
+                    id: req.body.userID,
+                }
+            }).then(function(data) {
+                console.log("Data has successfully beeen updated!!", data);
+                res.redirect("/profile");
+            }).catch(function(err) {
+                console.log(err);
+                res.json("err");
+            });
         }).then(function(data) {
             location.href = '/profile'
         });

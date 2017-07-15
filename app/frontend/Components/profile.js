@@ -82,6 +82,11 @@ class Profile extends React.Component{
         console.log(event.target);
 
     }
+
+    sendUpload = (event) => {
+        event.preventDefault();
+
+    }
   	// getSaved() {
   	// 	fetch.getCurrentUserData()
        //    .then(function(res) {
@@ -126,7 +131,7 @@ class Profile extends React.Component{
                             <div className="btn btn-elegant btn-md">
                                 <span>Upload your profile photo</span>
                                 <input type='file' name='fileUploaded'/>
-                                <input id="imageSubmit" type='submit' className="ui primary button"/>
+                                <input id="imageSubmit" type='submit' className="ui primary button" name={localStorage.getItem("userID")}/>
                             </div>
                         </div>
                     </form>
