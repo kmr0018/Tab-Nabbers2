@@ -34,8 +34,8 @@ class Profile extends React.Component{
         about:'',
         last_login:'',
         status:'',
-        photo:"",
-        id:""
+        id:"",
+        photo:"upload_eee2ec308d0e403be66334b6f8d7adfd_vb5nvs"
     };
 
     handleItemClick = (e, { name }) => this.setState({ activeItem: name });
@@ -100,7 +100,7 @@ class Profile extends React.Component{
 
                 <div className="profile__about">
 
-                    <Image cloudName="profile-images" publicId="sample" width="300" crop="scale"/>
+                    <Image cloudName="profile-images" publicId={this.state.photo} crop="scale"/>
                     <form method='post' action='upload' encType="multipart/form-data">
                         <div className="file-field">
                             <div className="btn btn-elegant btn-md">
