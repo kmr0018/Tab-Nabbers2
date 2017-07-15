@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
-import { Grid, Menu, Segment, Dropdown } from 'semantic-ui-react';
+import { Grid, Menu, Segment, Dropdown, Rating } from 'semantic-ui-react';
 import InlineEdit from 'react-edit-inline';
 import Footer from "./common/Footer";
+import Event from "./Event";
 import fetch from "../utils/api";
 
 import {Image} from 'cloudinary-react';
 
 import css from "../../public/css/profile.scss";
-
-
 
 
 
@@ -48,7 +47,7 @@ class Profile extends React.Component{
 
         if(!data.activeItem){
 
-            fetch.userUpdate({...data})
+            fetch.userUpdate({...data, userID: localStorage.getItem("userID")})
                 .then(function(data) {
                     console.log(data);
                 })
@@ -66,9 +65,23 @@ class Profile extends React.Component{
     }
 
     componentDidMount() {
-  		//this.getSaved();
+  		fetch.getData()
+            .then(function (user) {
+                this.setState({...user.data});
+
+                console.log(user);
+
+            }.bind(this))
+            .catch(function (err) {
+                console.log(err);
+            });
   	}
 
+  	getIn = (event) => {
+        console.log(event.target);
+        console.log(event.target);
+
+    }
   	// getSaved() {
   	// 	fetch.getCurrentUserData()
        //    .then(function(res) {
@@ -98,7 +111,6 @@ class Profile extends React.Component{
           { key: 'ux', text: 'User Experience', value: 'ux' },
         ];
 
-
         return(
             <section className="profile">
 
@@ -114,7 +126,7 @@ class Profile extends React.Component{
                             <div className="btn btn-elegant btn-md">
                                 <span>Upload your profile photo</span>
                                 <input type='file' name='fileUploaded'/>
-                                <input id="imageSubmit" type='submit'/>
+                                <input id="imageSubmit" type='submit' className="ui primary button"/>
                             </div>
                         </div>
                     </form>
@@ -150,7 +162,7 @@ class Profile extends React.Component{
                     <hr/>
 
                     <div className="profile__about--skills">
-                      <Dropdown placeholder='Skills' fluid multiple selection options={options} />
+                      <Dropdown placeholder='Skills' fluid multiple selection options={options} onChange={this.getIn} />
                     </div>
 
                 </div>
@@ -198,13 +210,8 @@ class Profile extends React.Component{
                     <div className="profile__content--ranking">
                         <h3>Rankings</h3>
                        <div>
-                           <h5>8,6</h5>
-                           <i className="empty star icon"> </i>
-                           <i className="empty star icon"> </i>
-                           <i className="empty star icon"> </i>
-                           <i className="empty star icon"> </i>
-                           <i className="empty star icon"> </i>
-                       </div>
+                           <Rating maxRating={5} clearable />
+                      </div>
                     </div>
 
                     <div className="profile__content--contact">
@@ -219,7 +226,7 @@ class Profile extends React.Component{
                         {/*<p> <i className="user icon"> </i>About</p>*/}
 
                         <Menu pointing secondary>
-                            <Menu.Item name='Timeline' active={activeItem === 'Timeline'} onClick={this.handleItemClick}/>
+                            <Menu.Item name='Meetup Events' active={activeItem === 'Timeline'} onClick={this.handleItemClick}/>
                             <Menu.Item name='About' active={activeItem === 'About'} onClick={this.handleItemClick} />
 
                         </Menu>
@@ -234,7 +241,7 @@ class Profile extends React.Component{
                               gender = {this.state.gender}
                               dataChanged = {this.dataChanged}
 
-                            /> :  <p>Hello World!!</p>}
+                            /> :  <Event />}
                         </div>
 
                         {/*<About />*/}

@@ -19,10 +19,9 @@ const fetch = {
         return axios.post("/recruiter/sign-in", user);
     },
     getData: function() {
-        return axios.get("/api/users", {
-            params: {
-                token: localStorage.getItem("token")
-            }
+        return axios.post("/api/profile",  {
+            token: localStorage.getItem("token"),
+            userID: localStorage.getItem("userID")
         });
     },
     userUpdate: function(text) {

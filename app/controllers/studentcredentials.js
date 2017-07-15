@@ -14,24 +14,26 @@ var db = require("../models"),
     axios = require("axios");
 
 
-router.get("/event/data", function(req, res, next) {
-    var group = []
-    axios.get("https://api.meetup.com/find/groups?page=20&text=JavaScript&key=6b6f260644b44657a442955d383013&sig_id=197617558&sig=8742e95d91419cc26b093bd4070f2beba7415bf3")
-        .then(function(data) {
-            console.log(data);
-            group = data;
-            var jsn = JSON.stringify(data);
-        })
-        .catch(function(er) {
-            console.log(er);
-        });
-    res.json(group)
-});
+// router.get("/event/data", function (req, res, next) {
+//     var group = []
+//
+//
+//     axios.get("https://api.meetup.com/find/groups?page=20&text=JavaScript&key=6b6f260644b44657a442955d383013&sig_id=197617558&sig=8742e95d91419cc26b093bd4070f2beba7415bf3")
+//         .then(function (response) {
+//             response.JSON();
+//         })
+//         .catch(function (er) {
+//             console.log(er);
+//
+//         });
+//
+//     res.json(group)
+// });
 
 cloudinary.config({
-    cloud_name: 'profile-images',
-    api_key: '958681958972474',
-    api_secret: 'dDX2LC1yjF9dp-6E9fYgVTSITbw'
+  cloud_name: 'profile-images',
+  api_key: '958681958972474',
+  api_secret: 'dDX2LC1yjF9dp-6E9fYgVTSITbw'
 });
 
 router.get("/bootcamps", function(req, res) {
@@ -126,7 +128,7 @@ router.post("/sign-in", function(req, res) {
 
 router.post("/profile", function(req, res) {
 
-    // console.log(req.body);
+    console.log(req.body);
     var info = {
         email: req.body.email,
         phoneNumber: req.body.phoneNumber,
@@ -136,42 +138,53 @@ router.post("/profile", function(req, res) {
             // status:req.body.status
     };
 
-    res.json(req.body);
+    // res.json(req.body);
 
     //console.log(info);
 
-    // db.user.create(info)
-    //     .then(function(data) {
-    //         console.log(data);
-    //         res.status(200).json({ status: 'ok' });
-    //
-    //     })
-    //     .catch(function(err) {
-    //         console.log(err);
-    //         res.json({ message: "Something went wrong, either the user already created with that username" });
-    //     });
+    db.user.update(req.body, {
+        where:{
+            id: req.body.userID
+        }
+    })
+        .then(function(data) {
+            console.log(data);
+            res.status(200).json({ status: 'ok' });
+
+        })
+        .catch(function(err) {
+            console.log(err);
+            res.json({ message: "Something went wrong, either the user already created with that username" });
+        });
 });
 
 // Profile page for Students
 // If user not logged in, they're not able to see it
-router.get("/api/profile", function(req, res) {
-    var currentUser = req.user;
-    user = currentUser;
-    console.log(user);
+router.post("/api/profile", function(req, res) {
+    //console.log(req.params);
+    console.log(req.body);
+     db.user.findOne({
+         where:{
+             id:req.body.userID
+         }
+     })
+         .then(function (data) {
+             var info = {
+                 title:data.title,
+                 firstname: data.firstname,
+                 lastname: data.lastname,
+                 job: data.job,
+                 email: data.email,
+                 phoneNumber: data.phoneNumber
+             }
 
-    db.bootcamp.findOne({
-        where: {
-            id: currentUser.id
-        }
-    }).then(function(data) {
-        console.log(data);
-        // console.log(data.get());
-        // currentUser.institution = data.get().institution;
-        //console.log(currentUser);
-        console.log(currentUser);
-        // console.log(req.user);
-        res.render("profile", currentUser);
-    });
+             res.json(info);
+         })
+         .catch(function (err) {
+             console.log(err);
+
+             res.json("Nothing")
+         });
 
 });
 
@@ -188,9 +201,9 @@ router.post('/upload', function(req, res, next) {
                 eager: {
                     width: 250, height: 300, crop: "thumb", gravity: "face",
                 }
-            }, 
+            },
         function(error, result) {
-            console.log(result); 
+            console.log(result);
             var profileUpdate = {
                 photo: result.public_id,
             };
@@ -208,7 +221,7 @@ router.post('/upload', function(req, res, next) {
             // });
         }).then(function(data) {
             location.href = '/profile'
-        }); 
+        });
     });
 });
 
