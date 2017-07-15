@@ -7,6 +7,8 @@
 }
 
 
+
+
 .profile{
 
   margin-top:50px;
@@ -15,6 +17,7 @@
   &__about{
     float:left;
     width:27%;
+
 
     hr{
       margin-top:-10px;
@@ -41,6 +44,9 @@
 
     h4{
       float:left;
+
+
+
     }
     #address{
       float:right;
@@ -77,19 +83,44 @@
 
 
     &--about{
-      margin-bottom: 30px;
+      margin-bottom: 10px;
 
-      div{
-        h4, p{
+      .header{
+
+        h4{
           float:left;
+          width:200px;
+          margin:0;
         }
 
-        p{
-          margin-left:20px;
-        }
+        //.right{
+        //  float:right;
+        //  margin:0;
+        //}
 
 
       }
+
+      .bookmarksection{
+        clear:both;
+        margin-bottom:70px;
+
+        p{
+          float:left;
+          width:33%;
+          margin-top:35px;
+        }
+
+        .right{
+          float:right;
+          margin:0;
+          width:15%;
+          margin-top:35px;
+
+        }
+      }
+
+
 
       .right{
         float:right;

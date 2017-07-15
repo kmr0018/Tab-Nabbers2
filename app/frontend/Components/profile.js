@@ -33,7 +33,8 @@ class Profile extends React.Component{
         about:'',
         last_login:'',
         status:'',
-        photo:""
+        photo:"upload_62825eb8e9f50b0c79604ebfae19c924_jfilmp",
+        id:"",
     };
 
     handleItemClick = (e, { name }) => this.setState({ activeItem: name });
@@ -42,19 +43,25 @@ class Profile extends React.Component{
         console.log(data);
 
         this.setState({...data});
-        console.log(this.state);
+        console.log({...data});
+
+        if(!data.activeItem){
+
+            fetch.userUpdate({...data})
+                .then(function(data) {
+                    console.log(data);
+                })
+                .catch(function(err){
+                    console.log(err);
+                });
+        }
+
     }
 
     componentWillUpdate(nextProps, nextState){
-      console.log(nextState);
-      fetch.userUpdate(nextState)
-        .then(function(data) {
-          console.log(data);
-        })
-        .catch(function(err){
-          console.log(err);
-        });
-      console.log("it works!");
+      // console.log(nextState);
+      //
+      // console.log("it works!");
     }
 
     componentDidMount() {
@@ -95,7 +102,11 @@ class Profile extends React.Component{
 
                 <div className="profile__about">
 
-                    <Image cloudName="profile-images" publicId="sample" width="300" crop="scale"/>
+                    <div className="ui fluid image">
+                        <div className="img">
+                            <Image cloudName="profile-images" publicId={this.state.photo}/>
+                        </div>
+                    </div>
                     <form method='post' action='upload' encType="multipart/form-data">
                         <div className="file-field">
                             <div className="btn btn-elegant btn-md">
@@ -148,29 +159,38 @@ class Profile extends React.Component{
                 <div className="profile__content">
 
                     <div className="profile__content--about">
-                       <div>
-                           <h4> <InlineEdit
+                       <div className="header">
+                           <h4 className="left"> <InlineEdit
                                activeClassName="firstname"
                                text={this.state.firstname}
                                paramName="firstname"
                                change={this.dataChanged}/></h4>
-                           <h4> <InlineEdit
+
+
+                           <h4 className=""> <InlineEdit
                                 activeClassName="lastname"
                                text={this.state.lastname}
                                paramName="lastname"
                                change={this.dataChanged}/></h4>
-                           <p> <i className="marker icon"> </i> <InlineEdit
-                               activeClassName="addr"
-                               text={this.state.addr}
-                               paramName="addr"
-                               change={this.dataChanged}/></p>
+
                        </div>
-                        <p className="right bookmark"><i className="bookmark icon"> </i>Bookmark</p>
-                        <p className="clear"> <InlineEdit
-                            activeClassName="job"
-                            text={this.state.job}
-                            paramName="job"
-                            change={this.dataChanged}/></p>
+
+                        <div className="bookmarksection">
+                            <p className="left"> <InlineEdit
+                                activeClassName="job"
+                                text={this.state.job}
+                                paramName="job"
+                                change={this.dataChanged}/></p>
+
+                            <p className="left"> <i className="marker icon"> </i> <InlineEdit
+                                activeClassName="addr"
+                                text={this.state.addr}
+                                paramName="addr"
+                                change={this.dataChanged}/></p>
+
+                            <p className="right bookmark"><i className="bookmark icon"> </i>Bookmark</p>
+
+                        </div>
                     </div>
 
                     <div className="profile__content--ranking">
