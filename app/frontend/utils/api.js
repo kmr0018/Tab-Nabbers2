@@ -5,42 +5,41 @@ import axios from "axios";
 
 
 const fetch = {
-    signup: function (user) {
+    signup: function(user) {
         return axios.post("/sign-up", user);
     },
-    signin:function (user) {
+    signin: function(user) {
         return axios.post("/sign-in", user);
     },
 
 
-    recruitersignup: function (user) {
+    recruitersignup: function(user) {
         return axios.post("/recruiter/sign-up", user);
     },
-    recruitersignin:function (user) {
+    recruitersignin: function(user) {
         return axios.post("/recruiter/sign-in", user);
     },
-    getData:function () {
+    getData: function() {
         return axios.get("/api/users", {
             params: {
                 token: localStorage.getItem("token")
             }
         });
     },
-    userUpdate:function(text){
+    userUpdate: function(text) {
         return axios.post("/profile", text);
     },
 
-    getCurrentUserData:function(data){
+    getCurrentUserData: function(data) {
         return axios.get("/api/profile");
     },
 
-
-    event:function () {
+    event: function() {
         return axios.get("/event/data", {
-            withCredentials:true
+            withCredentials: true
         });
     }
-  };
+};
 
 
 export default fetch;
