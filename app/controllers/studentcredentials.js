@@ -246,7 +246,7 @@ router.post('/upload', function(req, res, next) {
                 }
             })
                 .then(function (data) {
-                    res.json(data);
+                    res.redirect("profile")
                 })
                 .catch(function (err) {
                     res.json(err);
