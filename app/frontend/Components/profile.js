@@ -32,7 +32,7 @@ class Profile extends React.Component{
         github:'',
         last_login:'',
         status:'',
-        photo:"upload_62825eb8e9f50b0c79604ebfae19c924_jfilmp",
+        photo:"",
         id:"",
     };
 
@@ -64,7 +64,7 @@ class Profile extends React.Component{
                 this.setState({...user.data});
 
                 console.log(user);
-
+                console.log(user.data.photo);
             }.bind(this))
             .catch(function (err) {
                 console.log(err);
@@ -137,7 +137,7 @@ class Profile extends React.Component{
 
                                 <label htmlFor={localStorage.getItem("userID")}></label>
                                 <input type="hidden" name={localStorage.getItem("userID")}/>
-                                <input id="imageSubmit" type='submit' className="ui primary button" onClick={this.sendUpload}/>
+                                <input id="imageSubmit" type='submit' className="ui primary button"/>
                             </div>
                         </div>
                     </form>
