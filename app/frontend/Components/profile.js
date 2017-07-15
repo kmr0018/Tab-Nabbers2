@@ -34,12 +34,8 @@ class Profile extends React.Component{
         about:'',
         last_login:'',
         status:'',
-<<<<<<< HEAD
-        photo:"upload_62825eb8e9f50b0c79604ebfae19c924_jfilmp"
-=======
+        photo:"upload_62825eb8e9f50b0c79604ebfae19c924_jfilmp",
         id:"",
-        photo:"upload_eee2ec308d0e403be66334b6f8d7adfd_vb5nvs"
->>>>>>> 4faceda46b8ede3ff5f357c285c4745b8e3e1dc7
     };
 
     handleItemClick = (e, { name }) => this.setState({ activeItem: name });
@@ -197,9 +193,6 @@ class Profile extends React.Component{
                             <p className="right bookmark"><i className="bookmark icon"> </i>Bookmark</p>
 
                         </div>
-
-
->>>>>>> 4faceda46b8ede3ff5f357c285c4745b8e3e1dc7
                     </div>
 
                     <div className="profile__content--ranking">
