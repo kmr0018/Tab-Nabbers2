@@ -2,7 +2,6 @@ module.exports = function(sequelize, Sequelize) {
 
     var User = sequelize.define('user', {
 
-
             firstname: {
                 type: Sequelize.STRING,
                 allowNull: false,
@@ -18,13 +17,14 @@ module.exports = function(sequelize, Sequelize) {
                     notEmpty: true
                 }
             },
-            username: {
+
+            email: {
                 type: Sequelize.STRING,
                 allowNull: false,
-                unique: true
-                    // validate: {
-                    //     len: [6, 20]
-                    // }
+                unique: true,
+                validate: {
+                    isEmail: true
+                }
             },
 
             password: {
@@ -32,28 +32,15 @@ module.exports = function(sequelize, Sequelize) {
                 allowNull: false
             },
 
-            // email: {
-            //     type: Sequelize.STRING,
-            //     allowNull: false,
-            //     unique: true,
-            //     validate: {
-            //         len: [6, 20]
-            //     },
-            //     allowNull: false
-            //         // validate: {
-            //         //     isEmail: true
-            //         // }
-            // },
-            //
-            // phoneNumber: {
-            //     type: Sequelize.STRING,
-            //     allowNull: true
-            //         // validate: {
-            //         //     notEmpty: true,
-            //         //     len: [10]
-            //         // }
-            // },
-            //
+            phoneNumber: {
+                type: Sequelize.STRING,
+                allowNull: true,
+                validate: {
+                    notEmpty: true,
+                    len: [10]
+                }
+            },
+
             photo: {
                 type: Sequelize.STRING
             },
@@ -65,91 +52,80 @@ module.exports = function(sequelize, Sequelize) {
             about: {
                 type: Sequelize.TEXT
             },
+            //Skills
+            HTML: {
+                type: Sequelize.BOOLEAN,
+                defaultValue: false
 
-            // last_login: {
-            //     type: Sequelize.DATE
-            // },
+            },
 
-            // status: {
-        //     type: Sequelize.ENUM('active', 'inactive'),
-        //     defaultValue: 'active'
-        // }
+            CSS: {
+                type: Sequelize.BOOLEAN,
+                defaultValue: false
+            },
+
+            JavaScript: {
+                type: Sequelize.BOOLEAN,
+                defaultValue: false
+            },
+
+            Nodejs: {
+                type: Sequelize.BOOLEAN,
+                defaultValue: false
+            },
+
+            mySQL: {
+                type: Sequelize.BOOLEAN,
+                defaultValue: false
+            },
+
+            Express: {
+                type: Sequelize.BOOLEAN,
+                defaultValue: false
+            },
+
+            Handlebars: {
+                type: Sequelize.BOOLEAN,
+                defaultValue: false
+            },
+
+            Bootstrap: {
+                type: Sequelize.BOOLEAN,
+                defaultValue: false
+            },
+
+            Python: {
+                type: Sequelize.BOOLEAN,
+                defaultValue: false
+            },
+
+            Angular: {
+                type: Sequelize.BOOLEAN,
+                defaultValue: false
+            },
+
+            Ruby: {
+                type: Sequelize.BOOLEAN,
+                defaultValue: false
+            },
+
+            Flask: {
+                type: Sequelize.BOOLEAN,
+                defaultValue: false
+            },
+
+            Java: {
+                type: Sequelize.BOOLEAN,
+                defaultValue: false
+            },
+
+            Cplusplus: {
+                type: Sequelize.BOOLEAN,
+                defaultValue: false
+            }
 
         },
-        //
-        //     //Skills
-        //     HTML: {
-        //         type: Sequelize.BOOLEAN,
-        //         defaultValue: false
-        //
-        //     },
-        //     CSS: {
-        //         type: Sequelize.BOOLEAN,
-        //         defaultValue: false
-        //     },
-        //
-        //     JavaScript: {
-        //         type: Sequelize.BOOLEAN,
-        //         defaultValue: false
-        //     },
-        //
-        //     Nodejs: {
-        //         type: Sequelize.BOOLEAN,
-        //         defaultValue: false
-        //     },
-        //
-        //     mySQL: {
-        //         type: Sequelize.BOOLEAN,
-        //         defaultValue: false
-        //     },
-        //
-        //     Express: {
-        //         type: Sequelize.BOOLEAN,
-        //         defaultValue: false
-        //     },
-        //
-        //     Handlebars: {
-        //         type: Sequelize.BOOLEAN,
-        //         defaultValue: false
-        //     },
-        //
-        //     Bootstrap: {
-        //         type: Sequelize.BOOLEAN,
-        //         defaultValue: false
-        //     },
-        //
-        //     Python: {
-        //         type: Sequelize.BOOLEAN,
-        //         defaultValue: false
-        //     },
-        //
-        //     Angular: {
-        //         type: Sequelize.BOOLEAN,
-        //         defaultValue: false
-        //     },
-        //
-        //     Ruby: {
-        //         type: Sequelize.BOOLEAN,
-        //         defaultValue: false
-        //     },
-        //
-        //     Flask: {
-        //         type: Sequelize.BOOLEAN,
-        //         defaultValue: false
-        //     },
-        //
-        //     Java: {
-        //         type: Sequelize.BOOLEAN,
-        //         defaultValue: false
-        //     },
-        //
-        //     Cplusplus: {
-        //         type: Sequelize.BOOLEAN,
-        //         defaultValue: false
-        //     }
-        //
-        // },
-        //
+
         //Associations
         {
             classMethods: {
