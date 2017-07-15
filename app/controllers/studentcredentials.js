@@ -69,21 +69,21 @@ router.post("/sign-up", function(req, res) {
                 if (err) throw err;
 
                 db.user.create({
-                        firstname: req.body.firstname,
-                        lastname: req.body.lastname,
-                        username: req.body.username,
-                        password: hash,
-                        bootcampId: req.body.bootcampId,
-                        cohortId: req.body.cohortId
-                    })
-                    .then(function(data) {
-                        console.log(data);
-                        res.status(200).send({ message: 'User added to database' });
-                    })
-                    .catch(function(err) {
-                        console.log(err);
-                        res.json({ message: "Something went wrong, either the user already created with that username" });
-                    });
+                    firstname: req.body.firstname,
+                    lastname: req.body.lastname,
+                    username: req.body.username,
+                    password: hash,
+                    bootcampId: req.body.bootcampId,
+                    cohortId: req.body.cohortId
+                })
+                .then(function(data) {
+                    console.log(data);
+                    res.status(200).send({ message: 'User added to database' });
+                })
+                .catch(function(err) {
+                    console.log(err);
+                    res.json({ message: "Something went wrong, either the user already created with that username" });
+                });
             });
         }
     })
@@ -194,33 +194,31 @@ router.post('/upload', function(req, res, next) {
                 use_filename: true,
                 transformation: {
                     width: 250, height: 300, crop: "thumb",
-            },
+                },
                 eager: {
                     width: 250, height: 300, crop: "thumb", gravity: "face"
-            }
+                }
             }, 
-        function(result) {
-
+        function(error, result) {
             console.log(result); 
-        }).then(function(data) {
-            res.redirect("/profile");
-        });
-        // var profileUpdate = {
-        //     photo: files.fileUploaded.name
-        // };
+            var profileUpdate = {
+                photo: result.public_id,
+            };
 
-        // db.user.update(profileUpdate, {
-        //             where: {
-        //             id: req.user.id
-        //         }
-        //     }).then(function(data) {
-        //         conso le.log("Data has successfully beeen updated!!", data);
-        //         res.redirect("/profile");
-        //     }).catch(function(err) {
-        //         console.log(err);
-        //         res.json("err");
-        // });
-        
+            db.user.update(profileUpdate, {
+                where: {
+                    id: req.user.id
+                }
+            }).then(function(data) {
+                console.log("Data has successfully beeen updated!!", data);
+                res.redirect("/profile");
+            }).catch(function(err) {
+                console.log(err);
+                res.json("err");
+            });
+        }).then(function(data) {
+            location.href = '/profile'
+        }); 
     });
 });
 
