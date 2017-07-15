@@ -2,7 +2,6 @@ var express = require('express'),
     session = require('express-session'),
     bodyParser = require('body-parser'),
     env = require('dotenv').load(),
-    exphbs = require("express-handlebars"),
     secret = require("./app/config/secrets");
 
 var app = express(),
