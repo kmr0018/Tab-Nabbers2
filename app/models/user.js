@@ -50,6 +50,10 @@ module.exports = function(sequelize, Sequelize) {
                 type: Sequelize.STRING
             },
 
+            photoUrl: {
+                type: Sequelize.STRING
+            },
+
             github: {
                 type: Sequelize.STRING,
                 defaultValue: "Enter your github link"

@@ -53,9 +53,9 @@ var iyBootcamp = atlanta.children[2].children,
 var user ;
 
 cloudinary.config({
-  cloud_name: 'profile-images',
-  api_key: '958681958972474',
-  api_secret: 'dDX2LC1yjF9dp-6E9fYgVTSITbw'
+    cloud_name: 'profile-images',
+    api_key: '958681958972474',
+    api_secret: 'dDX2LC1yjF9dp-6E9fYgVTSITbw'
 });
 
 router.get("/bootcamps", function(req, res) {
@@ -83,19 +83,29 @@ router.post("/sign-up", function(req, res) {
                 if (err) throw err;
 
                 db.user.create({
-                    firstname: req.body.firstname,
-                    lastname: req.body.lastname,
-                    email: req.body.email,
-                    password: hash,
-                    bootcampId: req.body.bootcampId,
-                    cohortId: req.body.cohortId
-                })
-                .then(function(data) {
-                    res.status(200).send({ message: 'User added to database' });
-                })
-                .catch(function(err) {
-                    res.status(400).send({ message: 'Error adding user to database. Entry not created' });
-                });
+                        firstname: req.body.firstname,
+                        lastname: req.body.lastname,
+                        email: req.body.email,
+                        password: hash,
+                        bootcampId: req.body.bootcampId,
+                        cohortId: req.body.cohortId
+                    })
+                    .then(function(user) {
+                        console.log("Return Object: %s", user);
+                        var token = jwt.sign({
+                            exp: Math.floor(Date.now() / 1000) + (60 * 60),
+                            data: {
+                                id: user.id
+                            }
+                        }, secret);
+                        res.json({
+                            id: user.id,
+                            token: token
+                        });
+                    })
+                    .catch(function(err) {
+                        res.status(400).json({ message: 'Error adding user to database. Entry not created' });
+                    });
             });
         }
     })
@@ -120,15 +130,9 @@ router.post("/sign-in", function(req, res) {
                         var token = jwt.sign({
                             exp: Math.floor(Date.now() / 1000) + (60 * 60),
                             data: {
-                                username: user.username
+                                id: user.id
                             }
                         }, secret);
-                        // res.cookie('jwtauthtoken', token, {
-                        //     secure: process.env.NODE_ENV === 'production',
-                        //     signed: true
-                        // });
-
-
                         res.json({
                             id: user.id,
                             token: token
@@ -145,6 +149,9 @@ router.post("/sign-in", function(req, res) {
         });
 });
 
+router.get("/signout", function(req, res) {
+    res.redirect("/");
+})
 
 router.post("/profile", function(req, res) {
 
@@ -163,10 +170,10 @@ router.post("/profile", function(req, res) {
     //console.log(info);
 
     db.user.update(req.body, {
-        where:{
-            id: req.body.userID
-        }
-    })
+            where: {
+                id: req.body.userID
+            }
+        })
         .then(function(data) {
             console.log(data);
             res.status(200).json({ status: 'ok' });
@@ -182,6 +189,7 @@ router.post("/profile", function(req, res) {
 // If user not logged in, they're not able to see it
 router.post("/api/profile", function(req, res) {
     //console.log(req.params);
+
     user = req.body;
 
      db.user.findOne({
@@ -215,6 +223,7 @@ router.post("/api/profile", function(req, res) {
              res.json("Nothing")
          });
 
+
 });
 
 router.post('/upload', function(req, res, next) {
@@ -227,10 +236,16 @@ router.post('/upload', function(req, res, next) {
             files.fileUploaded.path, {
                 use_filename: true,
                 transformation: {
-                    width: 250, height: 300, crop: "thumb", radius: 20,
+                    width: 250,
+                    height: 300,
+                    crop: "thumb",
+                    radius: 20,
                 },
                 eager: {
-                    width: 250, height: 300, crop: "thumb", gravity: "face",
+                    width: 250,
+                    height: 300,
+                    crop: "thumb",
+                    gravity: "face",
                 }
             },
         function(error, result) {
@@ -257,7 +272,6 @@ router.post('/upload', function(req, res, next) {
 
 
 
-
 // Dashboard included the map that recruiters see
 // If user not logged in, they're not able to see it
 router.get("/map", function(req, res) {
@@ -277,7 +291,7 @@ router.get("/map", function(req, res) {
     gaBootcamp[2].children = [];
 
 
-    db.user.findAll({raw : true }).then(function (data) {
+    db.user.findAll({raw: true}).then(function (data) {
 
         data.map(function (el) {
             // console.log(el.photo);
@@ -294,18 +308,20 @@ router.get("/map", function(req, res) {
                 lastname: el.lastname
             };
 
-            if(el.photo === null){
+            if (el.photo === null) {
                 obj.img = "./img/avatar-default.png";
-            } if(el.phone === undefined){
+            }
+            if (el.phone === undefined) {
                 obj.phone = "";
 
-            } if(el.github === null){
+            }
+            if (el.github === null) {
                 obj.github = "";
 
             }
 
             var gaTech = function () {
-                if(el.cohortId === 1){
+                if (el.cohortId === 1) {
                     var currentIds = [];
                     for (var i = 0; i < gtCohort1.length; i++) {
                         currentIds.push(gtCohort1[i].id);
@@ -315,45 +331,45 @@ router.get("/map", function(req, res) {
                     console.log(obj.id);
                     gtBootcamp[0].children.push(obj);
                 }
-                if(el.cohortId === 2){
+                if (el.cohortId === 2) {
                     gtBootcamp[1].children.push(obj);
                 }
-                if(el.cohortId === 3){
+                if (el.cohortId === 3) {
                     gtBootcamp[2].children.push(obj);
                 }
             };
 
             var ironYard = function () {
-                if(el.cohortId === 4){
+                if (el.cohortId === 4) {
                     iyBootcamp[0].children.push(obj);
                 }
 
-                if(el.cohortId === 5){
+                if (el.cohortId === 5) {
                     iyBootcamp[1].children.push(obj);
                 }
 
-                if(el.cohortId === 6){
+                if (el.cohortId === 6) {
                     iyBootcamp[2].children.push(obj);
 
                 }
             };
 
             var gAssembly = function () {
-                if(el.cohortId === 7){
+                if (el.cohortId === 7) {
                     gaBootcamp[0].children.push(obj);
                 }
 
-                if(el.cohortId === 8){
+                if (el.cohortId === 8) {
                     gaBootcamp[1].children.push(obj);
                 }
 
-                if(el.cohortId === 9){
+                if (el.cohortId === 9) {
                     gaBootcamp[2].children.push(obj);
 
                 }
             };
 
-            switch(el.bootcampId){
+            switch (el.bootcampId) {
                 case 1:
                     gaTech();
                     break;
@@ -379,8 +395,8 @@ router.get("/map", function(req, res) {
             }
         });
     });
-});
 
+});
 
 
 router.get("*", function(req, res) {
