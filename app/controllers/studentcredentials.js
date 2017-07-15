@@ -59,37 +59,19 @@ router.post("/sign-up", function(req, res) {
                 if (err) throw err;
 
                 db.user.create({
-<<<<<<< HEAD
                     firstname: req.body.firstname,
                     lastname: req.body.lastname,
-                    username: req.body.username,
+                    email: req.body.email,
                     password: hash,
                     bootcampId: req.body.bootcampId,
                     cohortId: req.body.cohortId
                 })
                 .then(function(data) {
-                    console.log(data);
                     res.status(200).send({ message: 'User added to database' });
                 })
                 .catch(function(err) {
-                    console.log(err);
-                    res.json({ message: "Something went wrong, either the user already created with that username" });
+                    res.status(400).send({ message: 'Error adding user to database. Entry not created' });
                 });
-=======
-                        firstname: req.body.firstname,
-                        lastname: req.body.lastname,
-                        email: req.body.email,
-                        password: hash,
-                        bootcampId: req.body.bootcampId,
-                        cohortId: req.body.cohortId
-                    })
-                    .then(function(data) {
-                        res.status(200).send({ message: 'User added to database' });
-                    })
-                    .catch(function(err) {
-                        res.status(400).send({ message: 'Error adding user to database. Entry not created' });
-                    });
->>>>>>> c0d9f9d4de12da684e731dda982215891d610174
             });
         }
     })
