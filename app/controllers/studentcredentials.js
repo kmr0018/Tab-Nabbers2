@@ -78,36 +78,40 @@ router.post("/sign-up", function(req, res) {
 });
 
 router.post("/sign-in", function(req, res) {
+    console.log("Attempting Sign-in");
     db.user.findOne({
             where: {
                 email: req.body.email
             }
         })
         .then(function(user) {
-            console.log(user);
             if (!user) {
                 res.json("No user found!!");
             } else {
                 bcrypt.compare(req.body.password, user.password, function(err, valid) {
                     if (err) {
-                        res.json("Username or Password is Incorrect");
-                    } else {
+                        throw err;
+                    }
+                    if (valid) {
                         var token = jwt.sign({
                             exp: Math.floor(Date.now() / 1000) + (60 * 60),
                             data: {
                                 username: user.username
                             }
                         }, secret);
-                        res.cookie('jwtauthtoken', token, {
-                            secure: process.env.NODE_ENV === 'production',
-                            signed: true
-                        });
+                        // res.cookie('jwtauthtoken', token, {
+            //     secure: process.env.NODE_ENV === 'production',
+            //     signed: true
+            // });
+
 
                         res.json({
-                            "status": "Ok",
+                            id: user.id,
                             token: token
                         });
                         // res.redirect("/profile");
+                    } else {
+                        res.status(401).send({ 'message': 'Unauthorized' });
                     }
                 });
             }

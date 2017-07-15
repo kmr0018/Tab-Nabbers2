@@ -15,9 +15,7 @@ class Signin extends React.Component {
 
     state = {
         active: true
-
     };
-
 
     signinView = () => {
         this.setState({ active: true });
@@ -54,8 +52,7 @@ class Signin extends React.Component {
 }
 
 
-// Signing user to the database
-// Component is being used in Profile
+//Sign In User
 class SignInView extends React.Component {
 
     constructor(props) {
@@ -71,35 +68,6 @@ class SignInView extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
 
     }
-
-    // getval = () => {
-    //     event.preventDefault();
-
-    //     var user = {
-
-    //     };
-
-
-    //     for (var field in this.refs) {
-
-    //         user[this.refs[field].id] = this.refs[field].value;
-    //     }
-
-    //     console.log(user);
-
-    //     fetch.signin(user)
-    //         .then(function(data) {
-
-    //             localStorage.setItem("token", data.data.token);
-    //             if (data.data.status === "Ok") {
-    //                 //location.href = '/profile'
-    //             }
-    //             console.log(data);
-    //         })
-    //         .catch(function(err) {
-    //             console.log(err);
-    //         });
-    // }
 
     handleEmailChange(event) {
         this.setState({
@@ -129,11 +97,11 @@ class SignInView extends React.Component {
         if (nullFields === 0) {
             fetch.signin(user)
                 .then(function(data) {
+                    localStorage.setItem("userID", data.data.id);
                     localStorage.setItem("token", data.data.token);
-                    if (data.data.status === "Ok") {
-                        //location.href = '/profile'
+                    if (data.data.token) {
+                        location.href = '/profile'
                     }
-                    console.log(data);
                 })
                 .catch(function(err) {
                     console.log(err);
@@ -171,13 +139,7 @@ class SignInView extends React.Component {
     }
 }
 
-
-
-
-
-
-// Sign up the user
-// Component being used in profile
+//User Sign Up Component
 class SignUpView extends React.Component {
 
     constructor(props) {
@@ -363,14 +325,9 @@ class SignUpView extends React.Component {
                 <div className="field">
                     <input type="submit" value="Sign Up" className="ui button large fluid" onClick={this.handleSubmit}/>
                 </div>
-
-                {/*<button className="ui primary button" >Sign Up</button>*/}
             </div>
         );
-
     }
-
-
 };
 
 
