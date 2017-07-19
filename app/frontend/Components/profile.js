@@ -88,15 +88,7 @@ class Profile extends React.Component{
         fetch.uploadImage()
 
     }
-  	// getSaved() {
-  	// 	fetch.getCurrentUserData()
-       //    .then(function(res) {
-       //          this.setState({ profile: res.data });
-       //      })
-       //    .catch(function(err){
-       //      console.log(err);
-       //    });
-  	// }
+
 
 
     render(){
@@ -345,10 +337,6 @@ class About extends React.Component {
     }
 
 };
-
-
-
-
 
 
 
