@@ -2,24 +2,28 @@
 
  ```
 Are you passionate about programming, and can not spend a day without coding. If so, then this is a great project to contribute to.
-Bootcruit is an app currently being developed to help make job hunts more easier. Instead of you are looking for the job, but
+Bootcruit is an app currently being developed to help make job hunts easier with one click solution. Instead of you are looking for the job, but
 for the job to look for you. This app is for the developer community being built by the community. If you would like to
 contribute to the community, well, this is a great way to.
 
 The team get together every Saturday at 8:00 PM Eastern Time, and go over tickets, and challenge we all faced over the week, and discussed them.
 
+If you need any other information or would like to join, email me at accimeesterlin@yahoo.com and will get you on board as soon as
+possible. Looking forward to see you on board.
+
 
 ### Benefits contributing
 
-```
+
 - Being to be a part of something great
 - Joining a network of full stack developers with different skill set
 - Newbies are assigned a mentor to help them contribute to the project.
 - Meeting other developers and extend your network
-
-```
+- Giving back to the community
 
  ```
+
+
 
 ### Getting Started
 
@@ -40,6 +44,8 @@ Navigate to the working directory and do the following in your terminal
 
 Before you proceed, make sure you fork the repo
 
+Note: If the below process doesn't work for you, no worries. We got you. A mentor will walk you through
+
 #### Step 1
 > npm install
 
@@ -58,6 +64,7 @@ hange, nodemon will automatically restart your node application.
 #### Step 3
 > Navigate in the config/config.json
 > Configure it to your own database connection
+
 
 
 
