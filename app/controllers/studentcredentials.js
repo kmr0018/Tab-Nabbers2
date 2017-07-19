@@ -250,14 +250,14 @@ router.post('/upload', function(req, res, next) {
                 }
             },
         function(error, result) {
-            //console.log(result);
+            console.log(result);
             var profileUpdate = {
                 photo: result.public_id,
-                photoUrl: result.url,
+                photoUrl: result.secure_url
             };
 
             //console.log(req.body);
-            db.user.update({photo: profileUpdate.photo, photoUrl:profileUpdate.photoUrl}, {
+            db.user.update({photo: profileUpdate.photo, photoUrl: profileUpdate.photoUrl}, {
                 where:{
                     id: user.userID
                 }
