@@ -149,6 +149,10 @@ router.post("/sign-in", function(req, res) {
         });
 });
 
+
+router.get("/", function (req, res) {
+    res.sendFile(path.join(__dirname + "/../public/index.html"));
+});
 router.get("/signout", function(req, res) {
     res.redirect("/");
 })
