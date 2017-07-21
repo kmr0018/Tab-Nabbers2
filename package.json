@@ -51,7 +51,7 @@
   "scripts": {
     "test": "mocha",
     "start": "webpack-dev-server --hot --inline",
-    "dev": "concurrently 'npm run webpack -w' 'npm run nodemon server.js'"
+    "dev": "webpack -w & nodemon server.js"
   },
   "repository": {
     "type": "git",
