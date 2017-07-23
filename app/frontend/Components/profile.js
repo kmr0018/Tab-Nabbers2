@@ -78,7 +78,6 @@ class Profile extends React.Component{
   	// Do NOT touch this code
   	getIn = (event) => {
         console.log(event.target);
-        console.log(event.target);
 
     }
 
