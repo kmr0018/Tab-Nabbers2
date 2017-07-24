@@ -19,3 +19,8 @@ const store = createStore(reducers);
 ReactDOM.render(<Routes store={store} />,
 
     document.getElementById("app"));
+
+
+if(module.hot){
+    module.hot.accept();
+}

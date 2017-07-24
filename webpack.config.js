@@ -9,18 +9,16 @@ module.exports = {
 
 
     // This is the entry point or start of our react applicaton
-    entry:"./app/components/index.js",
+    entry:[
+        "webpack-hot-middleware/client",
+        "./app/components/index.js"
+    ],
 
     // The plain compiled JavaScript will be output into this file
     output: {
-        path: path.join(__dirname, 'app/public'),
+        path: path.join(__dirname, 'app'),
         filename:'bundle.js',
-        publicPath: "/app/public"
-    },
-
-    devServer:{
-        contentBase: './app/public',
-        hot:true
+        publicPath: "/public/"
     },
 
 
@@ -34,7 +32,7 @@ module.exports = {
                 test: /\.jsx?$/,
                 // Webpack will only process files in our app folder. This avoids processing
                 // node modules and server files unnecessarily
-                include: /app/,
+                include: path.join(__dirname, 'app'),
                 loader:['react-hot-loader', 'babel-loader']
 
             },

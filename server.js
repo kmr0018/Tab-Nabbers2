@@ -14,16 +14,14 @@ var app = express(),
 var compiler = webpack(config);
 
 app.use(require('webpack-dev-middleware')(compiler, {
-    publicPath: "/app/public/bundle.js/",
-    lazy: false,
-    index:'/app/public/index.html'
+    publicPath:config.output.publicPath
 }));
 
 app.use(require('webpack-hot-middleware')(compiler));
 
 
-// Static directory
-app.use(express.static(path.join(__dirname + "/app/public")));
+// // Static directory
+// app.use(express.static(path.join(__dirname + "/app/public")));
 
 //For BodyParser
 app.use(bodyParser({ defer: true }));
