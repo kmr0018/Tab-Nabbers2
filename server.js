@@ -3,10 +3,24 @@ var express = require('express'),
     bodyParser = require('body-parser'),
     env = require('dotenv').load(),
     secret = require("./app/config/secrets"),
-    path = require("path");
+    path = require("path"),
+    webpack = require("webpack");
+
+var config = require("./webpack.config");
 
 var app = express(),
     PORT = process.env.PORT || 8080;
+
+var compiler = webpack(config);
+
+app.use(require('webpack-dev-middleware')(compiler, {
+    publicPath: "/app/public/bundle.js/",
+    lazy: false,
+    index:'/app/public/index.html'
+}));
+
+app.use(require('webpack-hot-middleware')(compiler));
+
 
 // Static directory
 app.use(express.static(path.join(__dirname + "/app/public")));

@@ -1,16 +1,33 @@
+var webpack = require('webpack');
+
+var path = require("path");
+
+
 module.exports = {
 
 
+
+
     // This is the entry point or start of our react applicaton
-    entry: "./app/components/index.js",
+    entry:"./app/components/index.js",
 
     // The plain compiled JavaScript will be output into this file
     output: {
-        filename: "app/public/bundle.js"
+        path: path.join(__dirname, 'app/public'),
+        filename:'bundle.js',
+        publicPath: "/app/public"
     },
+
+    devServer:{
+        contentBase: './app/public',
+        hot:true
+    },
+
 
     // This section desribes the transformations we will perform
     module: {
+
+
         loaders: [
             {
                 // Only working with files that in in a .js or .jsx extension
@@ -18,22 +35,33 @@ module.exports = {
                 // Webpack will only process files in our app folder. This avoids processing
                 // node modules and server files unnecessarily
                 include: /app/,
-                loaders: "babel-loader",
-                query: {
-                    // These are the specific transformations we'll be using.
-                    presets: ["react", "es2015"],
-                    plugins: ["transform-class-properties"]
-                }
+                loader:['react-hot-loader', 'babel-loader']
+
             },
 
             {
                 test: /\.scss$/,
                // loaders:'style-loader!css-loader!sass-loader'
                 loader:['style-loader', 'css-loader', 'sass-loader']
+
             }
         ]
     },
+
+    plugins: [
+        new webpack.optimize.UglifyJsPlugin({
+            // do something
+        }),
+        new webpack.HotModuleReplacementPlugin()
+    ],
+
+
     // This lets us qe our react code in chrome dev tools. Errors will have lines and file names
     // Without this the console says all errors are coming from just coming from bundle.js
     devtool: "eval-source-map"
 };
+// query: {
+//     // These are the specific transformations we'll be using.
+//     presets: ["react", "es2015"],
+//         plugins: ["transform-class-properties"]
+// }

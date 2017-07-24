@@ -46,12 +46,14 @@
     "sass-loader": "^6.0.6",
     "style-loader": "^0.18.2",
     "webpack": "^3.0.0",
-    "webpack-dev-server": "^1.16.5"
+    "webpack-dev-middleware": "^1.11.0",
+    "webpack-dev-server": "^1.16.5",
+    "webpack-hot-middleware": "^2.18.2"
   },
   "scripts": {
     "test": "mocha",
-    "start": "webpack-dev-server --hot --inline",
-    "dev": "webpack -w & nodemon server.js"
+    "start": "node serverUI.jss",
+    "dev": "nodemon server.js"
   },
   "repository": {
     "type": "git",
