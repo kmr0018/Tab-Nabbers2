@@ -11,12 +11,12 @@ module.exports = {
     // This is the entry point or start of our react applicaton
     entry:[
         "webpack-hot-middleware/client",
-        "./app/components/index.js"
+        "./front/index.js"
     ],
 
     // The plain compiled JavaScript will be output into this file
     output: {
-        path: path.join(__dirname, 'app'),
+        path: path.join(__dirname, 'front'),
         filename:'bundle.js',
         publicPath: "/public/"
     },
@@ -32,7 +32,7 @@ module.exports = {
                 test: /\.jsx?$/,
                 // Webpack will only process files in our app folder. This avoids processing
                 // node modules and server files unnecessarily
-                include: path.join(__dirname, 'app'),
+                include: path.join(__dirname, 'front'),
                 loader:['react-hot-loader', 'babel-loader']
 
             },
@@ -58,8 +58,3 @@ module.exports = {
     // Without this the console says all errors are coming from just coming from bundle.js
     devtool: "eval-source-map"
 };
-// query: {
-//     // These are the specific transformations we'll be using.
-//     presets: ["react", "es2015"],
-//         plugins: ["transform-class-properties"]
-// }

@@ -3,8 +3,8 @@ import { Route, IndexRoute, Router, browserHistory } from "react-router";
 
 import {Provider} from "react-redux";
 
-import Main from "../Components/Main";
-import Home from "../Components/Home";
+import Main from "../components/Main";
+import Home from "../components/Home";
 
 
 import PropTypes from 'prop-types'

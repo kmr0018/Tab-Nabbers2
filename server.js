@@ -2,7 +2,7 @@ var express = require('express'),
     session = require('express-session'),
     bodyParser = require('body-parser'),
     env = require('dotenv').load(),
-    secret = require("./app/config/secrets"),
+    secret = require("./back/config/secrets"),
     path = require("path"),
     webpack = require("webpack");
 
@@ -29,20 +29,20 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 //Models
-var db = require("./app/models");
+var db = require("./back/models");
 
 // Routes for students and secure routes for students
-var authenticateStudent = require("./app/controllers/securestudent");
+var authenticateStudent = require("./back/controllers/securestudent");
 app.use("/api", authenticateStudent);
 
-var student = require("./app/controllers/studentcredentials");
+var student = require("./back/controllers/studentcredentials");
 app.use("/", student);
 
 // Routes for Recruiters and secure routes
-var authenticateRecruiter = require("./app/controllers/securerecruiter");
+var authenticateRecruiter = require("./back/controllers/securerecruiter");
 app.use("/rsecure", authenticateRecruiter);
 
-var recruiter = require("./app/controllers/recruitercredentials");
+var recruiter = require("./back/controllers/recruitercredentials");
 app.use("/recruiter", recruiter);
 
 var server;

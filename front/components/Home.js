@@ -2,7 +2,7 @@ import React from "react";
 
 import { Link } from "react-router";
 
-import css from "../../public/css/signup.scss";
+import css from "../public/css/signup.scss";
 
 
 
