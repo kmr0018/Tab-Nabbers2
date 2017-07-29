@@ -4,4 +4,3 @@ node_modules
 config.json
 bundle.js
 key.js
-package-lock.json
